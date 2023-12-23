@@ -64,6 +64,20 @@
 	text-align: left;
 	font-weight: 400;
 }
+.home-text3 {
+	top: 433px;
+	left: 100px;
+	color: var(--dl-color-gray-black);
+	right: 0px;
+	width: 250px;
+	margin: auto;
+	position: absolute;
+	font-size: 10px;
+	color: red;
+	font-style: normal;
+	text-align: left;
+	font-weight: 400;
+}
 .home-navlink {
 	top: 511px;
 	left: 0px;

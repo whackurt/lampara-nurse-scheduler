@@ -1,8 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { IoHomeOutline } from 'react-icons/io5';
+import { Link, useNavigate } from 'react-router-dom';
 
 const AdminSideBar = () => {
+	const navigate = useNavigate();
+
+	const logout = async () => {
+		await localStorage.clear();
+		await navigate('/admin/login');
+	};
+
 	return (
 		<div className="dashboard-container3">
 			<div className="dashboard-container4">
@@ -29,7 +35,7 @@ const AdminSideBar = () => {
 				<Link to="/admin" className="dashboard-navlink">
 					<img
 						alt="image"
-						src="/src/LAMPARA/logo1-200h.png"
+						src="/public/LAMPARA/logo1-200h.png"
 						className="dashboard-image1"
 					/>
 				</Link>
@@ -57,9 +63,9 @@ const AdminSideBar = () => {
 				<Link to="/admin/my-account" className="dashboard-navlink7 button">
 					Account Settings
 				</Link>
-				<Link to="/" className="dashboard-navlink8 button">
+				<button onClick={() => logout()} className="dashboard-navlink8 button">
 					Log Out
-				</Link>
+				</button>
 				<svg viewBox="0 0 1024 1024" className="dashboard-icon24">
 					<path d="M768 640v-128h-320v-128h320v-128l192 192zM704 576v256h-320v192l-384-192v-832h704v320h-64v-256h-512l256 128v576h256v-192z"></path>
 				</svg>

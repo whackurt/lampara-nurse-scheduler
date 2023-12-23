@@ -1,13 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const NurseSideBar = () => {
+	const navigate = useNavigate();
+
+	const logout = async () => {
+		localStorage.clear();
+		navigate('/nurse/login');
+	};
 	return (
 		<>
 			<Link to="/nurse" className="account-nurses-navlink">
 				<img
 					alt="image"
-					src="/src/LAMPARA/logo1-200h.png"
+					src="/public/LAMPARA/logo1-200h.png"
 					className="account-nurses-image1"
 				/>
 			</Link>
@@ -26,9 +32,9 @@ const NurseSideBar = () => {
 			<Link to="/nurse/my-account" className="dashboard-nurses-navlink7 button">
 				Account Settings
 			</Link>
-			<Link to="/" className="dashboard-nurses-navlink8 button">
+			<button onClick={() => logout()} className="dashboard-navlink8 button">
 				Log Out
-			</Link>
+			</button>
 		</>
 	);
 };
