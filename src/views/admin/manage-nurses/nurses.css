@@ -1,0 +1,719 @@
+  .floating-window-content {
+    color: rgb(20, 12, 92); /* Default font color */
+    font-size: 16px; /* Default font size */
+  }
+
+  .nurses-container {
+    width: 100%;
+    display: flex;
+    overflow: auto;
+    min-height: 100vh;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    position: relative;
+  }
+
+  .nurses-container1 {
+    flex: 0 0 auto;
+    width: 100%;
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .nurses-image {
+    top: 30px;
+    right: 153px;
+    width: 42px;
+    height: 41px;
+    position: absolute;
+    object-fit: cover;
+    border-radius: var(--dl-radius-radius-round);
+  }
+
+  .nurses-icon {
+    fill: rgb(20, 12, 92);
+    top: 38px;
+    left: 305px;
+    width: 24px;
+    bottom: -63px;
+    height: 24px;
+    position: absolute;
+  }
+
+  .nurses-text {
+    top: 41.5px;
+    left: 344px;
+    color: rgb(20, 12, 92);
+    bottom: -62px;
+    position: absolute;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  .nurses-text01 {
+    color: rgb(20, 12, 92);
+    right: 23px;
+    bottom: -60px;
+    position: absolute;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  .nurses-container2 {
+    flex: 0 0 auto;
+    width: auto;
+    height: 1004px;
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .nurses-container3 {
+    top: 2px;
+    left: -3px;
+    width: 265px;
+    height: 99.7%;
+    display: flex;
+    position: absolute;
+    box-shadow: -3px 5px 10px 0px #d4d4d4;
+    align-items: center;
+    border-color: rgba(0, 0, 0, 0.43);
+    border-width: 0px;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
+    border-right-width: 0.5px;
+  }
+
+  .nurses-text02 {
+    top: 158px;
+    left: 96px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 17px;
+  }
+
+  .nurses-icon02 {
+    top: 212px;
+    fill: rgb(20, 12, 92);
+    left: 41px;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+  }
+
+  .nurses-icon04 {
+    top: 271px;
+    fill: rgb(20, 12, 92);
+    left: 41px;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+  }
+
+  .nurses-icon09 {
+    top: 331px;
+    fill: rgb(20, 12, 92);
+    left: 41px;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+  }
+
+  .nurses-icon11 {
+    top: 389px;
+    fill: rgb(20, 12, 92);
+    left: 40px;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+  }
+
+  .nurses-icon13 {
+    top: 557px;
+    fill: rgb(20, 12, 92);
+    left: 35px;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+  }
+
+  .nurses-navlink {
+    display: contents;
+  }
+
+  .nurses-image1 {
+    top: 23px;
+    left: 28px;
+    width: 64px;
+    height: 68px;
+    position: absolute;
+    object-fit: cover;
+    text-decoration: none;
+  }
+
+  .nurses-navlink1 {
+    display: contents;
+  }
+
+  .nurses-text03 {
+    top: 43px;
+    left: 95px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .nurses-navlink2 {
+    top: 66px;
+    left: 94px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 15px;
+    text-decoration: none;
+  }
+
+  .nurses-navlink3 {
+    top: 221px;
+  left: 87px;
+  color: rgb(20, 12, 92);
+  position: absolute;
+  font-size: 15px;
+  text-decoration: none;
+  }
+
+  .nurses-navlink4 {
+    top: 281px;
+  left: 87px;
+  color: rgb(20, 12, 92);
+  position: absolute;
+  font-size: 15px;
+  text-decoration: none;
+  }
+
+  .nurses-button {
+    top: 337px;
+    left: 81px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 15px;
+    text-decoration: none;
+  }
+
+  .nurses-navlink5 {
+    top: 396px;
+  left: 87px;
+  color: rgb(20, 12, 92);
+  position: absolute;
+  font-size: 15px;
+  text-decoration: none;
+  }
+
+  .nurses-navlink6 {
+    top: 564px;
+  left: 75px;
+  color: rgb(20, 12, 92);
+  position: absolute;
+  font-size: 15px;
+  text-decoration: none;
+  }
+  .nurses-navlink7 {
+    top: 634px;
+  left: 75px;
+  color: rgb(20, 12, 92);
+  position: absolute;
+  font-size: 15px;
+  text-decoration: none;
+  }
+
+  .nurses-container4 {
+    top: 96px;
+    flex: 0 0 auto;
+    left: 262px;
+    width: 933px;
+    height: 100px;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .nurses-text04 {
+    top: 6px;
+    color: var(--dl-color-gray-white);
+    right: -35px;
+    position: absolute;
+    font-size: 12px;
+    padding-top: var(--dl-space-space-halfunit);
+    padding-left: var(--dl-space-space-twounits);
+    border-radius: var(--dl-radius-radius-radius8);
+    padding-right: 45px;
+    padding-bottom: var(--dl-space-space-halfunit);
+    background-color: #140c5c;
+  }
+
+  .nurses-text05 {
+    top: 5px;
+    color: rgb(20, 12, 92);
+    right: 121px;
+    position: absolute;
+    font-size: 12px;
+    padding-top: var(--dl-space-space-halfunit);
+    padding-left: var(--dl-space-space-twounits);
+    border-radius: var(--dl-radius-radius-radius8);
+    padding-right: 45px;
+    padding-bottom: var(--dl-space-space-halfunit);
+    background-color: rgb(217, 217, 217);
+  }
+
+  .nurses-icon15 {
+    top: 12px;
+    fill: #140c5c;
+    left: 765px;
+    width: 16px;
+    height: 15px;
+    position: absolute;
+  }
+
+  .nurses-text06 {
+    top: 9px;
+    left: 153px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 12px;
+    padding-top: var(--dl-space-space-halfunit);
+    padding-left: var(--dl-space-space-twounits);
+    border-radius: var(--dl-radius-radius-radius8);
+    padding-right: 45px;
+    padding-bottom: var(--dl-space-space-halfunit);
+    background-color: rgb(217, 217, 217);
+  }
+
+  .nurses-text07 {
+    top: 9px;
+    left: 50px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 12px;
+    padding-top: var(--dl-space-space-halfunit);
+    padding-left: var(--dl-space-space-twounits);
+    border-radius: var(--dl-radius-radius-radius8);
+    padding-right: 40px;
+    padding-bottom: var(--dl-space-space-halfunit);
+    background-color: rgb(217, 217, 217);
+  }
+
+  .nurses-icon17 {
+    top: 17px;
+    fill: #140c5c;
+    left: 107px;
+    width: 13px;
+    height: 13px;
+    position: absolute;
+  }
+
+  .nurses-icon19 {
+    top: 15px;
+    fill: #140c5c;
+    left: 227px;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+  }
+
+  .nurses-textinput {
+    top: 6px;
+    left: 524px;
+    width: 160px;
+    height: 31px;
+    margin: auto;
+    position: absolute;
+    margin-right: auto;
+  }
+
+  .nurses-icon21 {
+    top: 13px;
+    fill: #140c5c;
+    left: 661px;
+    width: 16px;
+    height: 17px;
+    position: absolute;
+  }
+
+  .nurses-icon23 {
+    top: 11px;
+    fill: var(--dl-color-gray-white);
+    left: 928px;
+    width: 17px;
+    height: 17px;
+    position: absolute;
+  }
+  .nurses-icon24 {
+    top: 628px;
+    fill: rgb(20, 12, 92);
+    left: 39px;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+  }
+
+  .nurses-container5 {
+    top: 181px;
+    left: 310px;
+    width: 907px;
+    height: 678px;
+    margin: auto;
+    display: flex;
+    position: absolute;
+    align-items: flex-start;
+    border-radius: var(--dl-radius-radius-radius8);
+    margin-bottom: auto;
+    justify-content: flex-start;
+    background-color: var(--dl-color-gray-900);
+  }
+
+  .nurses-container6 {
+    top: 0px;
+    right: 0px;
+    width: 908px;
+    height: 61px;
+    display: flex;
+    position: absolute;
+    align-items: flex-start;
+    border-color: var(--dl-color-gray-black);
+    border-width: 1px;
+    border-radius: var(--dl-radius-radius-radius8);
+    flex-direction: column;
+  }
+
+  .nurses-text08 {
+    top: 23px;
+    left: 580px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 12px;
+    background-color: rgb(217, 217, 217);
+  }
+
+  .nurses-text09 {
+    top: 23px;
+    left: 403px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 12px;
+    background-color: rgb(217, 217, 217);
+  }
+
+  .nurses-text10 {
+    top: 23px;
+    left: 265px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 12px;
+    background-color: rgb(217, 217, 217);
+  }
+
+  .nurses-text11 {
+    top: 22px;
+    left: 115px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 12px;
+    background-color: rgb(217, 217, 217);
+  }
+
+  .nurses-input {
+    top: 88px;
+    left: 123px;
+    width: 134px;
+    height: 29px;
+    margin: auto;
+    padding: 0px;
+    position: absolute;
+    border-width: 0px;
+    margin-right: auto;
+    border-radius: var(--dl-radius-radius-radius8);
+    margin-bottom: auto;
+  }
+
+  .nurses-input1 {
+    top: 88px;
+    right: 97px;
+    width: 134px;
+    height: 32px;
+    margin: auto;
+    padding: 0px;
+    position: absolute;
+    border-width: 0px;
+    margin-right: auto;
+    border-radius: var(--dl-radius-radius-radius8);
+    margin-bottom: auto;
+  }
+
+  .nurses-checkbox {
+    top: 92px;
+    left: 30px;
+    width: var(--dl-size-size-xsmall);
+    height: var(--dl-size-size-xsmall);
+    position: absolute;
+  }
+
+  .nurses-checkbox1 {
+    top: 19px;
+    left: 30px;
+    width: var(--dl-size-size-xsmall);
+    height: var(--dl-size-size-xsmall);
+    position: absolute;
+  }
+
+  .nurses-text14 {
+    top: 87px;
+    left: 385px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 12px;
+    padding-top: var(--dl-space-space-halfunit);
+    padding-left: var(--dl-space-space-twounits);
+    border-radius: var(--dl-radius-radius-radius8);
+    padding-right: var(--dl-space-space-twounits);
+    padding-bottom: var(--dl-space-space-halfunit);
+    background-color: var(--dl-color-gray-white);
+  }
+
+  .nurses-text15 {
+    top: 87px;
+    left: 230px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 12px;
+    padding-top: var(--dl-space-space-halfunit);
+    padding-left: var(--dl-space-space-twounits);
+    border-radius: var(--dl-radius-radius-radius8);
+    padding-right: var(--dl-space-space-twounits);
+    padding-bottom: var(--dl-space-space-halfunit);
+    background-color: var(--dl-color-gray-white);
+  }
+  .nurses-text16 {
+    top: 87px;
+    left: 75px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 12px;
+    padding-top: var(--dl-space-space-halfunit);
+    padding-left: var(--dl-space-space-twounits);
+    border-radius: var(--dl-radius-radius-radius8);
+    padding-right: var(--dl-space-space-twounits);
+    padding-bottom: var(--dl-space-space-halfunit);
+    background-color: var(--dl-color-gray-white);
+  }
+
+  .nurses-text17 {
+    top: 87px;
+    left: 501px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 12px;
+    padding-top: var(--dl-space-space-halfunit);
+    padding-left: var(--dl-space-space-twounits);
+    border-radius: var(--dl-radius-radius-radius8);
+    padding-right: var(--dl-space-space-twounits);
+    padding-bottom: var(--dl-space-space-halfunit);
+    background-color: var(--dl-color-gray-white);
+  }
+  .nurses-text18 {
+    top: 23px;
+    left: 763px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 12px;
+    background-color: rgb(217, 217, 217);
+  }
+
+  .nurses-text19 {
+    top: 87px;
+    left: 733px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 12px;
+    padding-top: var(--dl-space-space-halfunit);
+    padding-left: var(--dl-space-space-twounits);
+    border-radius: var(--dl-radius-radius-radius8);
+    padding-right: var(--dl-space-space-twounits);
+    padding-bottom: var(--dl-space-space-halfunit);
+    background-color: var(--dl-color-gray-white);
+  }
+  .floating-window {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1000;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .floating-window label {
+    color: #333;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .floating-window input[type="text"],
+  .floating-window input[type="email"],
+  .floating-window input[type="password"] {
+    font-size: 14px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .exit-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .exit-icon {
+    width: 20px;
+    height: 20px;
+    fill: #333;
+  }
+
+  /* Scrollbar Styles */
+  .floating-window::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  .floating-window::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+  }
+
+  .floating-window::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
+
+  /* For Firefox */
+  .floating-window {
+    scrollbar-width: none;
+    scrollbar-color: #888 #f1f1f1;
+  }
+
+  .submit-button {
+    background-color: #140c5c;
+    width: 100px;
+    margin: 0 auto;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .submit-button:hover {
+    background-color: #1f1980;
+  }
+
+/* nurses.css */
+
+/* Style for the filter options floating window content */
+.filter-floating-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f8f8f8; /* Light background color */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Slightly increased box shadow */
+  width: 300px; /* Set a specific width */
+  z-index: 1000; /* Ensure the filter options window appears above other elements */
+}
+
+/* Title style */
+.filter-floating-window .floating-window-title {
+  color: #333;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+/* Style for each filter option label */
+.filter-floating-window label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* Style for the checkboxes */
+.filter-floating-window input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+/* Apply a subtle hover effect to the checkboxes */
+.filter-floating-window input[type="checkbox"]:hover {
+  cursor: pointer;
+}
+
+/* Style for the submit button */
+.filter-floating-window button {
+  background-color: #4caf50; /* Green color */
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px; /* Add margin at the top */
+}
+
+/* Hover effect for the submit button */
+.filter-floating-window button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+/* nurses.css */
+
+/* Add this style for horizontal alignment of checkboxes and labels */
+.floating-window label {
+  display: inline-block;
+  margin-right: 10px; /* Adjust the margin as needed */
+}
+
+/* Add this style to remove default checkbox styles */
+.floating-window input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 14px; /* Adjust the width as needed */
+  height: 14px; /* Adjust the height as needed */
+  border: 1px solid #000; /* Add a border if needed */
+  margin: 0; /* Remove default margin */
+  vertical-align: middle;
+  position: relative;
+  top: -1px; /* Adjust the vertical alignment as needed */
+}
+
+/* Add this style for custom checkbox appearance */
+.floating-window input[type="checkbox"]:checked {
+  background-color: #007bff; /* Change the background color when checked */
+}
+

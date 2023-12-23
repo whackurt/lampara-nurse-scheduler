@@ -1,0 +1,345 @@
+  .schedule-nurses-container {
+    width: 100%;
+    display: flex;
+    overflow: auto;
+    min-height: 100vh;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);;
+  }
+  .schedule-nurses-container1 {
+    flex: 0 0 auto;
+    width: auto;
+    height: 1004px;
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .schedule-nurses-container2 {
+    flex: 0 0 auto;
+    width: auto;
+    height: 1004px;
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .schedule-nurses-container3 {
+    top: 2px;
+    left: -3px;
+    width: 265px;
+    height: 99.7%;
+    display: flex;
+    position: absolute;
+    box-shadow: -3px 5px 10px 0px #d4d4d4;
+    align-items: flex-start;
+    border-color: rgba(0, 0, 0, 0.43);
+    border-width: 0px;
+    flex-direction: column;
+    border-right-width: 0..5px;
+  }
+  .schedule-nurses-text {
+    top: 158px;
+    left: 96px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 17px;
+  }
+  .schedule-nurses-icon {
+    top: 212px;
+    fill: rgb(20, 12, 92);
+    left: 41px;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+  }
+  .schedule-nurses-icon02 {
+    top: 271px;
+    fill: rgb(20, 12, 92);
+    left: 41px;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+  }
+  .schedule-nurses-icon07 {
+    top: 331px;
+    fill: rgb(20, 12, 92);
+    left: 41px;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+  }
+  .schedule-nurses-icon09 {
+    top: 389px;
+    fill: rgb(20, 12, 92);
+    left: 40px;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+  }
+  .schedule-nurses-icon11 {
+    top: 557px;
+    fill: rgb(20, 12, 92);
+    left: 35px;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+  }
+  .view-schedule-icon13 {
+    fill: rgb(20, 12, 92);
+    left: 307px;
+    width: 24px;
+    bottom: -59px;
+    height: 24px;
+    position: absolute;
+  }
+  .schedule-nurses-navlink {
+    display: contents;
+  }
+  .schedule-nurses-image {
+    top: 23px;
+    left: 28px;
+    width: 64px;
+    height: 68px;
+    position: absolute;
+    object-fit: cover;
+    text-decoration: none;
+  }
+  .schedule-nurses-navlink1 {
+    display: contents;
+  }
+  .schedule-nurses-text1 {
+    top: 43px;
+    left: 95px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .schedule-nurses-navlink2 {
+    top: 66px;
+    left: 94px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 15px;
+    text-decoration: none;
+  }
+  .schedule-nurses-navlink3 {
+    top: 216px;
+    left: 87px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 15px;
+    text-decoration: none;
+  }
+  .schedule-nurses-navlink4 {
+    top: 275px;
+    left: 90px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 15px;
+    text-decoration: none;
+  }
+  .schedule-nurses-navlink6 {
+    top: 335px;
+    left: 98px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 15px;
+    text-decoration: none;
+  }
+  .schedule-nurses-navlink7 {
+    top: 559px;
+    left: 72px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 15px;
+    text-decoration: none;
+  }
+  .schedule-nurses-image1 {
+    top: 17px;
+    right: -760px;
+    width: 57px;
+    height: 62px;
+    position: absolute;
+    object-fit: cover;
+    border-radius: var(--dl-radius-radius-round);
+  }
+  .schedule-nurses-container4 {
+    top: 203px;
+    left: 318px;
+    width: 887px;
+    height: 672px;
+    display: flex;
+    position: absolute;
+    align-items: flex-start;
+    border-radius: var(--dl-radius-radius-radius8);
+  }
+  .schedule-nurses-container5 {
+    top: -Infinitypx;
+    left: -Infinitypx;
+    width: 883px;
+    height: 674px;
+    position: absolute;
+    border-radius: var(--dl-radius-radius-radius8);
+  }
+  .schedule-nurses-container6 {
+    display: flex;
+    justify-content: center; /* Center the FullCalendar inside the container */
+  }
+  
+  #full-calendar {
+    left: 20px;
+    width: 100%; /* Make sure FullCalendar takes 100% width */
+  }
+  .schedule-nurses-container7 {
+    top: 0px;
+    flex: 0 0 auto;
+    left: 0px;
+    width: 100%;
+    display: flex;
+    position: absolute;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .schedule-nurses-text2 {
+    top: 41px;
+    left: 345px;
+    color: rgb(20, 12, 92);
+    bottom: -58px;
+    position: absolute;
+    font-size: 19px;
+    font-style: normal;
+    font-weight: 700;
+  }
+  .schedule-nurses-icon19 {
+    top: 40px;
+    fill: rgb(20, 12, 92);
+    left: 899px;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+  }
+  .schedule-nurses-image1 {
+    top: 38px;
+    left: 911px;
+    width: 13px;
+    height: 12px;
+    position: absolute;
+    object-fit: cover;
+  }
+  .schedule-nurses-icon24 {
+    top: 39px;
+    fill: rgb(20, 12, 92);
+    left: 942px;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+  }
+  .schedule-nurses-image2 {
+    top: 38px;
+    left: 954px;
+    width: 13px;
+    height: 12px;
+    position: absolute;
+    object-fit: cover;
+  }
+  .schedule-nurses-text3 {
+    color: rgb(20, 12, 92);
+  right: 23px;
+  bottom: -60px;
+  position: absolute;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 400;
+  }
+  .schedule-nurses-icon26 {
+    top: 38px;
+    fill: #140c5c;
+    left: 1165px;
+    right: 0px;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+  }
+  .schedule-nurses-container8 {
+    top: 85px;
+    left: 287px;
+    width: 944px;
+    height: 124px;
+    display: flex;
+    position: absolute;
+    align-items: flex-start;
+    border-radius: var(--dl-radius-radius-radius8);
+  }
+  .schedule-nurses-button5 {
+    top: 70px;
+    color: #140c5c;
+    right: 43px;
+    position: absolute;
+    padding-top: 5px;
+    padding-left: 15px;
+    border-radius: var(--dl-radius-radius-radius8);
+    padding-right: 15px;
+    padding-bottom: 5px;
+    background-color: rgba(217, 217, 217, 0);
+    border: 1px solid #140c5c;
+  }
+  .schedule-nurses-button6 {
+    top: 70px;
+    right: 200px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    padding-top: 5px;
+    padding-left: 15px;
+    border-radius: var(--dl-radius-radius-radius8);
+    padding-right: 15px;
+    padding-bottom: 5px;
+    background-color: #d9d9d900;
+    border: 1px solid #140c5c;
+  }
+  .schedule-nurses-buttons {
+    top: 750px;
+    left: 225px;
+    color: #ffffff;
+    position: absolute;
+    padding-top: 15px;
+    padding-left: 10px;
+    border-radius: var(--dl-radius-radius-radius8);
+    padding-right: 0px;
+    padding-bottom: 5px;
+    background-color: #140c5a;
+  }
+  .schedule-nurses-buttons02 {
+    top: 520px;
+    left: 194px;
+    color: #ffffff;
+    position: absolute;
+    padding-top: 5px;
+    padding-left: 50px;
+    border-radius: var(--dl-radius-radius-radius8);
+    padding-right: 0px;
+    padding-bottom: 20px;
+    background-color: #140c5a;
+  }
+  .schedule-nurses-text4 {
+    top: 15px;
+    left: 24px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+  }
+  .schedule-nurses-text5 {
+    top: 45px;
+    left: 26px;
+    color: rgb(20, 12, 92);
+    position: absolute;
+    font-size: 10px;
+  }
+  
