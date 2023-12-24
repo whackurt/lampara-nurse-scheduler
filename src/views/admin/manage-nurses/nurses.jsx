@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import './nurses.css';
-import AdminSideBar from '../../../components/AdminSideBar';
+import AdminSideBar from '../../../components/SideBar/AdminSideBar';
 
 const Nurses = (props) => {
 	const [isAddUserWindowVisible, setAddUserWindowVisible] = useState(false);

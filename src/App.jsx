@@ -1,6 +1,5 @@
 import './App.css';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-
 import ViewSchedule from './views/admin/manage-schedule/view-schedule';
 import Nurses from './views/admin/manage-nurses/nurses';
 import ForgotPassword from './views/auth/forgot-password/forgot-password';
@@ -13,11 +12,12 @@ import Account from './views/admin/account-settings/account';
 import NotFound from './views/not-found/not-found';
 import AccountNurses from './views/nurse/account-settings/account-nurses';
 import NurseLogin from './views/auth/nurse-login/nurse-login';
-import './style.css';
+// import './style.css';
 import AuthenticatedAdminPrivateRoute from './components/PrivateRoute/AuthenticatedAdminPrivateRoute';
 import AdminPrivateRoute from './components/PrivateRoute/AdminPrivateRoute';
 import AuthenticatedNursePrivateRoute from './components/PrivateRoute/AuthenticatedNursePrivateRoute';
 import NursePrivateRoute from './components/PrivateRoute/NursePrivateRoute';
+import AdminLayout from './components/Layouts/AdminLayout';
 
 const App = () => {
 	return (
@@ -50,7 +50,9 @@ const App = () => {
 					path="/admin"
 					element={
 						<AdminPrivateRoute user={'admin'} redirect={'/admin/login'}>
-							<Dashboard />
+							<AdminLayout location={'Dashboard'}>
+								<Dashboard />
+							</AdminLayout>
 						</AdminPrivateRoute>
 					}
 				/>

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import './account.css';
-import AdminSideBar from '../../../components/AdminSideBar';
+import AdminSideBar from '../../../components/SideBar/AdminSideBar';
 
 const Account = (props) => {
 	const [newPassword, setNew] = useState('');

@@ -6,7 +6,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { Helmet } from 'react-helmet';
 import './view-schedule.css';
-import AdminSideBar from '../../../components/AdminSideBar';
+import AdminSideBar from '../../../components/SideBar/AdminSideBar';
 
 const ViewSchedule = (props) => {
 	const calendarRef = useRef(null);

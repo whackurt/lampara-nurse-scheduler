@@ -6,7 +6,7 @@ import interactionPlugin from '@fullcalendar/interaction'; // Import the interac
 import { Helmet } from 'react-helmet';
 
 import './dashboard-nurses.css';
-import NurseSideBar from '../../../components/NurseSideBar';
+import NurseSideBar from '../../../components/SideBar/NurseSideBar';
 
 const DashboardNurses = (props) => {
 	const currentDate = new Date().toLocaleDateString('en-US', {

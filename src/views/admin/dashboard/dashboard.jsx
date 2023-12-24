@@ -6,7 +6,7 @@ import interactionPlugin from '@fullcalendar/interaction'; // Import the interac
 import { Helmet } from 'react-helmet';
 
 import './dashboard.css';
-import AdminSideBar from '../../../components/AdminSideBar';
+import AdminSideBar from '../../../components/SideBar/AdminSideBar';
 
 const Dashboard = (props) => {
 	const currentDate = new Date().toLocaleDateString('en-US', {

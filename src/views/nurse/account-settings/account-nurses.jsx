@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
 import './account-nurses.css';
-import NurseSideBar from '../../../components/NurseSideBar';
+import NurseSideBar from '../../../components/SideBar/NurseSideBar';
 
 const AccountNurses = (props) => {
 	const [fullName, setFullName] = useState('Jabez Joshua Vestidas');

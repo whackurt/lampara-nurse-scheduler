@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './messages-nurses.css';
-import NurseSideBar from '../../../components/NurseSideBar';
+import NurseSideBar from '../../../components/SideBar/NurseSideBar';
 
 const MessagesNurses = (props) => {
 	// State to control the visibility of the file upload pop-up
