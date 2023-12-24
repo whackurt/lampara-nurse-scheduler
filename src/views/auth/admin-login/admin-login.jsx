@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-
-import './admin-login.css';
 import { LoginAdmin } from '../../../services/auth.services';
+import AppIcon from '../../../assets/icon.png';
+import LamparaInputForm from '../../../components/Forms/LamparaInputForm';
+import LamparaButton from '../../../components/Button/LamparaButton';
 
 const AdminLogin = (props) => {
 	const [username, setUsername] = useState('');
@@ -19,7 +19,7 @@ const AdminLogin = (props) => {
 		setLoading(true);
 
 		const res = await LoginAdmin({ username: username, password: password });
-		console.log(res);
+
 		if (res.status == 200) {
 			localStorage.setItem('adminToken', res.data.token);
 			navigate('/admin');
@@ -30,46 +30,40 @@ const AdminLogin = (props) => {
 	};
 
 	return (
-		<div className="home-container">
+		<div className="flex text-primary bg-mainBgColor w-full h-screen justify-center items-center">
 			<Helmet>
-				<title>Lampara</title>
+				<title>Login - Lampara</title>
 				<meta property="og:title" content="Lampara" />
 			</Helmet>
-			<div className="home-container1"></div>
-			<h1 className="home-text">
-				LAMPARA
-				<br />
-				<p className="font-light">Admin</p>
-			</h1>
+			<div className="flex flex-col items-center justify-center">
+				<img src={AppIcon} width={100} alt="Lampara" />
 
-			<input
-				type="text"
-				name="Username"
-				required
-				placeholder="Enter your username"
-				onChange={(e) => setUsername(e.target.value)}
-				className="home-textinput input"
-			/>
-			<input
-				type="password"
-				name="Password"
-				required
-				placeholder="Enter your password"
-				onChange={(e) => setPassword(e.target.value)}
-				className="home-textinput1 input"
-			/>
-			<span className="home-text1">Username</span>
-			<Link to="/forgot-password" className="home-navlink">
-				Forgot Password?
-			</Link>
-			<span className="home-text2">Password</span>
-			<button onClick={() => login()} className="home-navlink1 button">
-				{loading ? 'Logging in... ' : 'Login'}
-			</button>
-			<p className="home-text3">
-				{error ? 'Invalid Username or Password' : ''}
-			</p>
-			<img alt="image" src="/LAMPARA/logo1-200h.png" className="home-image" />
+				<h1 className="font-bold text-2xl text-primary font-inter">LAMPARA</h1>
+				<p>Admin</p>
+				<div className="mt-4">
+					<LamparaInputForm
+						label="Username"
+						onChange={(e) => setUsername(e.target.value)}
+						placeholder="Enter your username"
+					/>
+					<LamparaInputForm
+						label="Password"
+						onChange={(e) => setPassword(e.target.value)}
+						placeholder="Enter your password"
+					/>
+				</div>
+
+				<p className="text-red-500 text-xs">
+					{error ? 'Invalid username or password' : ''}
+				</p>
+
+				<LamparaButton
+					label="Login"
+					loading={loading}
+					loadingText="Logging in..."
+					onClick={() => login()}
+				/>
+			</div>
 		</div>
 	);
 };
