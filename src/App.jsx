@@ -18,6 +18,11 @@ import AdminPrivateRoute from './components/PrivateRoute/AdminPrivateRoute';
 import AuthenticatedNursePrivateRoute from './components/PrivateRoute/AuthenticatedNursePrivateRoute';
 import NursePrivateRoute from './components/PrivateRoute/NursePrivateRoute';
 import AdminLayout from './components/Layouts/AdminLayout';
+import { IoIosHome, IoMdSettings } from 'react-icons/io';
+import { BiSolidMessageDetail } from 'react-icons/bi';
+import { FaUserNurse } from 'react-icons/fa';
+import { AiFillSchedule } from 'react-icons/ai';
+import { IoHomeSharp } from 'react-icons/io5';
 
 const App = () => {
 	return (
@@ -50,7 +55,10 @@ const App = () => {
 					path="/admin"
 					element={
 						<AdminPrivateRoute user={'admin'} redirect={'/admin/login'}>
-							<AdminLayout location={'Dashboard'}>
+							<AdminLayout
+								icon={<IoIosHome size={25} />}
+								location={'Dashboard'}
+							>
 								<Dashboard />
 							</AdminLayout>
 						</AdminPrivateRoute>
@@ -61,7 +69,12 @@ const App = () => {
 					path="/admin/manage-nurses"
 					element={
 						<AdminPrivateRoute user={'admin'} redirect={'/admin/login'}>
-							<Nurses />
+							<AdminLayout
+								icon={<FaUserNurse size={25} />}
+								location={'Manage Nurses'}
+							>
+								<Nurses />
+							</AdminLayout>
 						</AdminPrivateRoute>
 					}
 				/>
@@ -70,7 +83,12 @@ const App = () => {
 					path="/admin/messages"
 					element={
 						<AdminPrivateRoute user={'admin'} redirect={'/admin/login'}>
-							<Messages />
+							<AdminLayout
+								icon={<BiSolidMessageDetail size={25} />}
+								location={'Messages'}
+							>
+								<Messages />
+							</AdminLayout>
 						</AdminPrivateRoute>
 					}
 				/>
@@ -79,7 +97,12 @@ const App = () => {
 					path="/admin/manage-schedules"
 					element={
 						<AdminPrivateRoute user={'admin'} redirect={'/admin/login'}>
-							<ViewSchedule />
+							<AdminLayout
+								icon={<AiFillSchedule size={25} />}
+								location={'Manage Schedule'}
+							>
+								<ViewSchedule />
+							</AdminLayout>
 						</AdminPrivateRoute>
 					}
 				/>
@@ -88,7 +111,12 @@ const App = () => {
 					path="/admin/my-account"
 					element={
 						<AdminPrivateRoute user={'admin'} redirect={'/admin/login'}>
-							<Account />
+							<AdminLayout
+								icon={<IoMdSettings size={25} />}
+								location={'Account Settings'}
+							>
+								<Account />
+							</AdminLayout>
 						</AdminPrivateRoute>
 					}
 				/>

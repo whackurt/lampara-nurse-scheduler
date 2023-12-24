@@ -42,11 +42,13 @@ const AdminLogin = (props) => {
 				<p>Admin</p>
 				<div className="mt-4">
 					<LamparaInputForm
+						type="text"
 						label="Username"
 						onChange={(e) => setUsername(e.target.value)}
 						placeholder="Enter your username"
 					/>
 					<LamparaInputForm
+						type="password"
 						label="Password"
 						onChange={(e) => setPassword(e.target.value)}
 						placeholder="Enter your password"
