@@ -5,7 +5,7 @@ const NurseSideBar = () => {
 	const navigate = useNavigate();
 
 	const logout = async () => {
-		localStorage.clear();
+		localStorage.removeItem('nurseToken');
 		navigate('/nurse/login');
 	};
 	return (
@@ -13,7 +13,7 @@ const NurseSideBar = () => {
 			<Link to="/nurse" className="account-nurses-navlink">
 				<img
 					alt="image"
-					src="/public/LAMPARA/logo1-200h.png"
+					src="/LAMPARA/logo1-200h.png"
 					className="account-nurses-image1"
 				/>
 			</Link>

@@ -5,7 +5,7 @@ const AdminSideBar = () => {
 	const navigate = useNavigate();
 
 	const logout = async () => {
-		await localStorage.clear();
+		await localStorage.removeItem('adminToken');
 		await navigate('/admin/login');
 	};
 
@@ -35,7 +35,7 @@ const AdminSideBar = () => {
 				<Link to="/admin" className="dashboard-navlink">
 					<img
 						alt="image"
-						src="/public/LAMPARA/logo1-200h.png"
+						src="/LAMPARA/logo1-200h.png"
 						className="dashboard-image1"
 					/>
 				</Link>
