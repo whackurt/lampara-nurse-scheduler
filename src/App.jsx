@@ -18,6 +18,7 @@ import AdminPrivateRoute from './components/PrivateRoute/AdminPrivateRoute';
 import AuthenticatedNursePrivateRoute from './components/PrivateRoute/AuthenticatedNursePrivateRoute';
 import NursePrivateRoute from './components/PrivateRoute/NursePrivateRoute';
 import AdminLayout from './components/Layouts/AdminLayout';
+import NurseLayout from './components/Layouts/NurseLayout';
 import { IoIosHome, IoMdSettings } from 'react-icons/io';
 import { BiSolidMessageDetail } from 'react-icons/bi';
 import { FaUserNurse } from 'react-icons/fa';
@@ -127,7 +128,12 @@ const App = () => {
 					path="/nurse"
 					element={
 						<NursePrivateRoute user={'nurse'} redirect={'/nurse/login'}>
-							<DashboardNurses />
+							<NurseLayout
+								icon={<AiFillSchedule size={25} />}
+								location="My Schedule"
+							>
+								<DashboardNurses />
+							</NurseLayout>
 						</NursePrivateRoute>
 					}
 				/>
@@ -136,7 +142,12 @@ const App = () => {
 					path="/nurse/messages"
 					element={
 						<NursePrivateRoute user={'nurse'} redirect={'/nurse/login'}>
-							<MessagesNurses />
+							<NurseLayout
+								icon={<BiSolidMessageDetail size={25} />}
+								location="Messages"
+							>
+								<MessagesNurses />
+							</NurseLayout>
 						</NursePrivateRoute>
 					}
 				/>
@@ -145,7 +156,12 @@ const App = () => {
 					path="/nurse/my-account"
 					element={
 						<NursePrivateRoute user={'nurse'} redirect={'/nurse/login'}>
-							<AccountNurses />
+							<NurseLayout
+								icon={<IoMdSettings size={25} />}
+								location="Account Settings"
+							>
+								<AccountNurses />
+							</NurseLayout>
 						</NursePrivateRoute>
 					}
 				/>
