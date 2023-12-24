@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MdOutlineDashboard, MdOutlinePets } from 'react-icons/md';
 import Control from '../../../src/assets/control.png';
 import Logo from '../../../public/LAMPARA/logo1-200h.png';
-import Button from '../Button';
+import Button from '../Button/Button';
 import { Link, useNavigate } from 'react-router-dom';
 
 const AdminLayout = ({ children, location }) => {
@@ -79,7 +79,7 @@ const AdminLayout = ({ children, location }) => {
 					<p className="font-medium">
 						Admin {'>'} {location}
 					</p>
-					<Button
+					{/* <Button
 						onClick={() => {
 							localStorage.clear();
 							navigate('/admin/login');
@@ -87,7 +87,7 @@ const AdminLayout = ({ children, location }) => {
 						className="bg-primary hover:bg-secondary text-white px-2 py-1 rounded text-sm font-medium"
 					>
 						Log out
-					</Button>
+					</Button> */}
 				</div>
 				<div className="bg-white my-4 rounded-md p-4 text-gray-700">
 					{children}
