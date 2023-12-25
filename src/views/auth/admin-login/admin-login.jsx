@@ -22,6 +22,7 @@ const AdminLogin = (props) => {
 
 		if (res.status == 200) {
 			localStorage.setItem('adminToken', res.data.token);
+			localStorage.setItem('username', res.data.username);
 			navigate('/admin');
 		} else {
 			setError(true);
@@ -60,6 +61,7 @@ const AdminLogin = (props) => {
 				</p>
 
 				<LamparaButton
+					width={'w-full'}
 					label="Login"
 					loading={loading}
 					loadingText="Logging in..."

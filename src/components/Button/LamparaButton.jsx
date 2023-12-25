@@ -1,10 +1,17 @@
 import React from 'react';
 
-const LamparaButton = ({ label, loading, loadingText, onClick }) => {
+const LamparaButton = ({
+	label,
+	bgColor = 'bg-primary',
+	loading,
+	loadingText,
+	onClick,
+	width,
+}) => {
 	return (
 		<button
 			onClick={onClick}
-			className="text-sm w-full mt-6 rounded-sm px-8 py-1 bg-primary text-white"
+			className={`text-sm ${width} ${bgColor} mt-6 px-6 rounded-md py-1  text-white`}
 		>
 			{loading ? loadingText : label}
 		</button>

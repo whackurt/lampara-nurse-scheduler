@@ -23,6 +23,7 @@ const NurseLogin = (props) => {
 
 		if (res.status == 200) {
 			localStorage.setItem('nurseToken', res.data.token);
+			localStorage.setItem('nurseId', res.data.id);
 			navigate('/nurse');
 		} else {
 			setError(true);
@@ -48,6 +49,7 @@ const NurseLogin = (props) => {
 						placeholder="Enter your username"
 					/>
 					<LamparaInputForm
+						type={'password'}
 						label="Password"
 						onChange={(e) => setPassword(e.target.value)}
 						placeholder="Enter your password"
@@ -59,11 +61,15 @@ const NurseLogin = (props) => {
 				</p>
 
 				<LamparaButton
+					width={'w-full'}
 					label="Login"
 					loading={loading}
 					loadingText="Logging in..."
 					onClick={() => login()}
 				/>
+				<Link to={'/forgot-password'}>
+					<p className="text-xs text-slate-600">Forgot password?</p>
+				</Link>
 			</div>
 		</div>
 	);

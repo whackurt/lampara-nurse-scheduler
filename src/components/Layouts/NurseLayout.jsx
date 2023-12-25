@@ -7,6 +7,7 @@ import { BiSolidMessageDetail } from 'react-icons/bi';
 import { FaUserNurse } from 'react-icons/fa';
 import { AiFillSchedule } from 'react-icons/ai';
 import { IoLogOutSharp } from 'react-icons/io5';
+import { LiaUserNurseSolid } from 'react-icons/lia';
 
 const NurseLayout = ({ children, location, icon }) => {
 	const [open, setOpen] = useState(true);
@@ -35,7 +36,7 @@ const NurseLayout = ({ children, location, icon }) => {
 			<div
 				className={` ${
 					open ? 'w-72' : 'w-20 '
-				} bg-gray-100 h-screen p-5 shadow-md pt-8 fixed top-0 left duration-300 `}
+				} bg-white h-screen p-5 shadow-md pt-8 fixed top-0 left duration-300 `}
 			>
 				<img
 					src={Control}
@@ -72,7 +73,7 @@ const NurseLayout = ({ children, location, icon }) => {
 									key={index}
 									className={`flex ${
 										location === Menu.title ? 'text-primary' : 'text-slate-700'
-									} rounded-md p-2 cursor-pointer hover:bg-slate-100 text-primary text-md items-center gap-x-4 
+									} rounded-md p-2 cursor-pointer hover:bg-slate-100 text-primary text-sm items-center gap-x-4 
               ${Menu.gap ? 'mt-9' : 'mt-2'} ${
 										index === 0 && 'bg-light-white'
 									} `}
@@ -90,26 +91,29 @@ const NurseLayout = ({ children, location, icon }) => {
 						))}
 					</ul>
 
-					<div className="flex flex-col gap-y-6 mt-64">
-						<Link to={'/nurse/my-account'} className="flex gap-x-4 px-2">
+					<div className="flex flex-col mt-64">
+						<Link
+							to={'/nurse/my-account'}
+							className="flex items-center hover:bg-slate-100 h-12 rounded-md gap-x-4 px-2"
+						>
 							<IoMdSettings size={25} color="#24234d" />
 							<p
 								className={`${
 									!open && 'hidden'
-								} origin-left duration-200  font-normal`}
+								} origin-left duration-200 text-sm font-normal`}
 							>
 								Account Settings
 							</p>
 						</Link>
 						<div
 							onClick={() => logout()}
-							className="flex cursor-pointer gap-x-4 px-2"
+							className="flex items-center hover:bg-slate-100 h-12 rounded-md cursor-pointer gap-x-4 px-2"
 						>
-							<IoLogOutSharp size={25} color="#24234d" />
+							<IoLogOutSharp size={25} color="#b50d1e" />
 							<a
 								className={`${
 									!open && 'hidden'
-								} origin-left duration-200  font-normal`}
+								} origin-left text-sm text-red-500 duration-200  font-normal`}
 							>
 								Logout
 							</a>
@@ -123,21 +127,22 @@ const NurseLayout = ({ children, location, icon }) => {
 					open ? 'ml-72' : 'ml-20'
 				} duration-300 `}
 			>
-				<div className="flex justify-between gap-x-2 items-center w-full px-4 rounded-md bg-mainBgColor h-12">
+				<div className="flex justify-between gap-x-2 items-center w-full px-4 rounded-md bg-white h-12">
 					<div className="flex gap-x-2">
 						{icon}
 						<p className="font-bold text-primary">{location}</p>
 					</div>
 					<div className="flex items-center gap-x-3">
-						<img
+						{/* <img
 							width={30}
 							src="https://cdn4.iconfinder.com/data/icons/flat-medical/148/male-nurse-512.png"
 							alt="nurse-profile"
-						/>
+						/> */}
+						<LiaUserNurseSolid size={30} />
 						<p>Kurt Timajo</p>
 					</div>
 				</div>
-				<div className="bg-grey-100 my-4 rounded-md p-4 text-gray-700">
+				<div className="bg-white my-4 rounded-md p-4 text-gray-700">
 					{children}
 				</div>
 			</div>

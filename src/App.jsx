@@ -23,7 +23,13 @@ import { IoIosHome, IoMdSettings } from 'react-icons/io';
 import { BiSolidMessageDetail } from 'react-icons/bi';
 import { FaUserNurse } from 'react-icons/fa';
 import { AiFillSchedule } from 'react-icons/ai';
-import { IoHomeSharp } from 'react-icons/io5';
+import AdminDashboard from './views/admin/dashboard/AdminDashboard';
+import ManageSchedule from './views/admin/manage-schedule/ManageSchedule';
+import ManageNurses from './views/admin/manage-nurses/ManageNurses';
+// import AccountSettings from './views/admin/account-settings/AccountSettings';
+import AdminAccountSettings from './views/admin/account-settings/AdminAccountSettings';
+import NurseAccountSettings from './views/nurse/account-settings/NurseAccountSettings';
+import MySchedule from './views/nurse/dashboard/MySchedule';
 
 const App = () => {
 	return (
@@ -60,7 +66,7 @@ const App = () => {
 								icon={<IoIosHome size={25} />}
 								location={'Dashboard'}
 							>
-								<Dashboard />
+								<AdminDashboard />
 							</AdminLayout>
 						</AdminPrivateRoute>
 					}
@@ -74,7 +80,7 @@ const App = () => {
 								icon={<FaUserNurse size={25} />}
 								location={'Manage Nurses'}
 							>
-								<Nurses />
+								<ManageNurses />
 							</AdminLayout>
 						</AdminPrivateRoute>
 					}
@@ -102,7 +108,7 @@ const App = () => {
 								icon={<AiFillSchedule size={25} />}
 								location={'Manage Schedule'}
 							>
-								<ViewSchedule />
+								<ManageSchedule />
 							</AdminLayout>
 						</AdminPrivateRoute>
 					}
@@ -116,7 +122,7 @@ const App = () => {
 								icon={<IoMdSettings size={25} />}
 								location={'Account Settings'}
 							>
-								<Account />
+								<AdminAccountSettings />
 							</AdminLayout>
 						</AdminPrivateRoute>
 					}
@@ -132,7 +138,7 @@ const App = () => {
 								icon={<AiFillSchedule size={25} />}
 								location="My Schedule"
 							>
-								<DashboardNurses />
+								<MySchedule />
 							</NurseLayout>
 						</NursePrivateRoute>
 					}
@@ -160,7 +166,7 @@ const App = () => {
 								icon={<IoMdSettings size={25} />}
 								location="Account Settings"
 							>
-								<AccountNurses />
+								<NurseAccountSettings />
 							</NurseLayout>
 						</NursePrivateRoute>
 					}
