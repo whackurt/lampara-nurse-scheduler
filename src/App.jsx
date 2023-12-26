@@ -12,16 +12,16 @@ import AuthenticatedNursePrivateRoute from './components/PrivateRoute/Authentica
 import NursePrivateRoute from './components/PrivateRoute/NursePrivateRoute';
 import AdminLayout from './components/Layouts/AdminLayout';
 import NurseLayout from './components/Layouts/NurseLayout';
-import { IoIosHome, IoMdSettings } from 'react-icons/io';
-import { BiSolidMessageDetail } from 'react-icons/bi';
-import { FaUserNurse } from 'react-icons/fa';
-import { AiFillSchedule } from 'react-icons/ai';
 import AdminDashboard from './views/admin/dashboard/AdminDashboard';
 import ManageSchedule from './views/admin/manage-schedule/ManageSchedule';
 import ManageNurses from './views/admin/manage-nurses/ManageNurses';
 import AdminAccountSettings from './views/admin/account-settings/AdminAccountSettings';
 import NurseAccountSettings from './views/nurse/account-settings/NurseAccountSettings';
 import MySchedule from './views/nurse/dashboard/MySchedule';
+import { IoIosHome, IoMdSettings } from 'react-icons/io';
+import { BiSolidMessageDetail } from 'react-icons/bi';
+import { FaUserNurse } from 'react-icons/fa';
+import { AiFillSchedule } from 'react-icons/ai';
 
 const App = () => {
 	return (

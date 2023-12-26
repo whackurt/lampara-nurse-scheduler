@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import './nurse-login.css';
 import { LoginNurse } from '../../../services/auth.services';
 import AppIcon from '../../../assets/icon.png';
 import LamparaButton from '../../../components/Button/LamparaButton';
