@@ -35,9 +35,10 @@ const AdminLayout = ({ children, location, icon }) => {
 		},
 	];
 
-	const logout = async () => {
-		await localStorage.removeItem('adminToken');
-		await navigate('/admin/login');
+	const logout = () => {
+		localStorage.removeItem('adminToken');
+		localStorage.removeItem('adminId');
+		navigate('/admin/login');
 	};
 
 	return (

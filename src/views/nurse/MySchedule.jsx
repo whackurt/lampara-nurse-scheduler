@@ -1,10 +1,10 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import ScheduleCalendar from '../../../components/Calendar/ScheduleCalendar';
+import ScheduleCalendar from '../../components/Calendar/ScheduleCalendar';
 import { Helmet } from 'react-helmet';
-import NurseScheduleCalendar from '../../../components/Calendar/NurseScheduleCalendar';
-import { GetNurseById } from '../../../services/nurse.services';
-import { GetScheduleByNurseId } from '../../../services/schedule.services';
+import NurseScheduleCalendar from '../../components/Calendar/NurseScheduleCalendar';
+import { GetNurseById } from '../../services/nurse.services';
+import { GetScheduleByNurseId } from '../../services/schedule.services';
 
 const MySchedule = () => {
 	const [nurse, setNurse] = useState(null);
@@ -52,9 +52,7 @@ const MySchedule = () => {
 			</Helmet>
 
 			<div className="flex flex-col">
-				<h1 className="text-2xl font-semibold">
-					Hello, {nurse?.first_name} {nurse?.last_name}!
-				</h1>
+				<h1 className="text-2xl font-semibold">Hello, {nurse?.first_name}!</h1>
 				<p>{moment().format('dddd, MMMM D, YYYY')}</p>
 			</div>
 			<div className="lg:px-24 py-16">

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { LoginAdmin } from '../../../services/auth.services';
-import AppIcon from '../../../assets/icon.png';
-import LamparaInputForm from '../../../components/Forms/LamparaInputForm';
-import LamparaButton from '../../../components/Button/LamparaButton';
+import { LoginAdmin } from '../../services/auth.services';
+import AppIcon from '../../assets/icon.png';
+import LamparaInputForm from '../../components/Forms/LamparaInputForm';
+import LamparaButton from '../../components/Button/LamparaButton';
 
-const AdminLogin = (props) => {
+const AdminLogin = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [loading, setLoading] = useState(false);
@@ -22,6 +22,7 @@ const AdminLogin = (props) => {
 
 		if (res.status == 200) {
 			localStorage.setItem('adminToken', res.data.token);
+			localStorage.setItem('adminId', res.data.id);
 			localStorage.setItem('username', res.data.username);
 			navigate('/admin');
 		} else {

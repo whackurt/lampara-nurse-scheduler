@@ -3,17 +3,17 @@ import { FaEdit } from 'react-icons/fa';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
 import { IoMdSearch } from 'react-icons/io';
 import { Helmet } from 'react-helmet';
-import LamparaButton from '../../../components/Button/LamparaButton';
-import CustomModal from '../../../components/Modal/CustomModal';
-import LamparaInputForm from '../../../components/Forms/LamparaInputForm';
-import LamparaDropdown from '../../../components/Button/LamparaDropdown';
+import LamparaButton from '../../components/Button/LamparaButton';
+import CustomModal from '../../components/Modal/CustomModal';
+import LamparaInputForm from '../../components/Forms/LamparaInputForm';
+import LamparaDropdown from '../../components/Button/LamparaDropdown';
 import {
 	CreateNurse,
 	DeleteNurseById,
 	GetAllNurses,
 	UpdateNurseById,
-} from '../../../services/nurse.services';
-import { GetAllDepartments } from '../../../services/department.services';
+} from '../../services/nurse.services';
+import { GetAllDepartments } from '../../services/department.services';
 
 const ManageNurses = () => {
 	const [showAddModal, setShowAddModal] = useState(false);

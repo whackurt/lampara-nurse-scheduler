@@ -1,8 +1,8 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import ScheduleCalendar from '../../../components/Calendar/ScheduleCalendar';
+import ScheduleCalendar from '../../components/Calendar/ScheduleCalendar';
 import { Helmet } from 'react-helmet';
-import { GetAllSchedules } from '../../../services/schedule.services';
+import { GetAllSchedules } from '../../services/schedule.services';
 
 const AdminDashboard = () => {
 	const [schedules, setSchedules] = useState([]);

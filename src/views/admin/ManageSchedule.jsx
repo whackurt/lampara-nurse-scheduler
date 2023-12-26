@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import ScheduleCalendar from '../../../components/Calendar/ScheduleCalendar';
+import ScheduleCalendar from '../../components/Calendar/ScheduleCalendar';
 import moment from 'moment';
 import { Helmet } from 'react-helmet';
-import LamparaButton from '../../../components/Button/LamparaButton';
-import CustomModal from '../../../components/Modal/CustomModal';
-import LamparaDropdown from '../../../components/Button/LamparaDropdown';
+import LamparaButton from '../../components/Button/LamparaButton';
+import CustomModal from '../../components/Modal/CustomModal';
+import LamparaDropdown from '../../components/Button/LamparaDropdown';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { GetAllNurses } from '../../../services/nurse.services';
-import { GetAllShifts } from '../../../services/shift.services';
+import { GetAllNurses } from '../../services/nurse.services';
+import { GetAllShifts } from '../../services/shift.services';
 import {
 	CreateSchedule,
 	GetAllSchedules,
-} from '../../../services/schedule.services';
+} from '../../services/schedule.services';
 
 const ManageSchedule = () => {
 	const [showModal, setShowModal] = useState(false);
