@@ -6,7 +6,6 @@ import LamparaInputForm from '../../../components/Forms/LamparaInputForm';
 import { UpdateAdminPassword } from '../../../services/auth.services';
 
 const AdminAccountSettings = () => {
-	const [username, setUsername] = useState('adminlampara');
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [matched, setMatched] = useState(null);
