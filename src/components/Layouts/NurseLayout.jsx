@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Control from '../../../src/assets/control.png';
 import Logo from '../../../public/LAMPARA/logo1-200h.png';
 import { Link, useNavigate } from 'react-router-dom';
@@ -8,10 +8,12 @@ import { FaUserNurse } from 'react-icons/fa';
 import { AiFillSchedule } from 'react-icons/ai';
 import { IoLogOutSharp } from 'react-icons/io5';
 import { LiaUserNurseSolid } from 'react-icons/lia';
+import { GetNurseById } from '../../services/nurse.services.js';
 
 const NurseLayout = ({ children, location, icon }) => {
 	const [open, setOpen] = useState(true);
 	const navigate = useNavigate();
+	const [nurse, setNurse] = useState(null);
 
 	const Menus = [
 		{
@@ -30,6 +32,18 @@ const NurseLayout = ({ children, location, icon }) => {
 		await localStorage.removeItem('nurseToken');
 		await navigate('/nurse/login');
 	};
+
+	const getNurseDetails = async () => {
+		const res = await GetNurseById(localStorage.getItem('nurseId'));
+
+		if (res.success) {
+			setNurse(res.data);
+		}
+	};
+
+	useEffect(() => {
+		getNurseDetails();
+	}, []);
 
 	return (
 		<div className="flex font-poppins text-primary w-full overflow-x-auto">
@@ -133,13 +147,10 @@ const NurseLayout = ({ children, location, icon }) => {
 						<p className="font-bold text-primary">{location}</p>
 					</div>
 					<div className="flex items-center gap-x-3">
-						{/* <img
-							width={30}
-							src="https://cdn4.iconfinder.com/data/icons/flat-medical/148/male-nurse-512.png"
-							alt="nurse-profile"
-						/> */}
 						<LiaUserNurseSolid size={30} />
-						<p>Kurt Timajo</p>
+						<p className="font-semibold">
+							{nurse?.first_name} {nurse?.last_name}
+						</p>
 					</div>
 				</div>
 				<div className="bg-white my-4 rounded-md p-4 text-gray-700">

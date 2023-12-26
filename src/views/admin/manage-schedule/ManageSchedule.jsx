@@ -145,7 +145,12 @@ const ManageSchedule = () => {
 					}}
 				/>
 
-				<LamparaButton onClick={createSchedule} label={'Create'} />
+				<LamparaButton
+					loading={loading}
+					loadingText={'Creating...'}
+					onClick={createSchedule}
+					label={'Create'}
+				/>
 			</CustomModal>
 			<div className="flex flex-col">
 				<p className="text-2xl font-semibold">

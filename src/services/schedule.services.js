@@ -33,7 +33,7 @@ export const GetScheduleById = async (scheduleId) => {
 
 export const GetScheduleByNurseId = async (nurseId) => {
 	try {
-		const res = await api.get(`/schedule/${nurseId}`, { headers });
+		const res = await api.get(`/schedule/nurse/${nurseId}`, { headers });
 		return res.data;
 	} catch (error) {
 		return { error: error.message };

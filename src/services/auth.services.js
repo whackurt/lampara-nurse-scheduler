@@ -32,3 +32,14 @@ export const UpdateAdminPassword = async (creds) => {
 		return { error: error.message };
 	}
 };
+
+export const UpdateNursePassword = async (creds) => {
+	try {
+		const res = await api.put('/auth/nurse/update-password', creds, {
+			headers,
+		});
+		return res;
+	} catch (error) {
+		return { error: error.message };
+	}
+};

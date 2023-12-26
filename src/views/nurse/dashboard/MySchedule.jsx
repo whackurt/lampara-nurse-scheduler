@@ -1,32 +1,50 @@
 import moment from 'moment';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ScheduleCalendar from '../../../components/Calendar/ScheduleCalendar';
 import { Helmet } from 'react-helmet';
 import NurseScheduleCalendar from '../../../components/Calendar/NurseScheduleCalendar';
+import { GetNurseById } from '../../../services/nurse.services';
+import { GetScheduleByNurseId } from '../../../services/schedule.services';
 
 const MySchedule = () => {
-	const events = [
-		{
-			title: '01:00pm - 09:00pm',
-			dept: 'ER',
-			date: '2023-12-06',
-		},
-		{
-			title: '01:00pm - 09:00pm',
-			dept: 'ER',
-			date: '2023-12-07',
-		},
-		{
-			title: '01:00pm - 09:00pm',
-			dept: 'ER',
-			date: '2023-12-13',
-		},
-		{
-			title: '01:00pm - 09:00pm',
-			dept: 'ER',
-			date: '2023-12-15',
-		},
-	];
+	const [nurse, setNurse] = useState(null);
+	const [mySchedule, setMySchedule] = useState([]);
+
+	const getMySchedules = async () => {
+		const res = await GetScheduleByNurseId(localStorage.getItem('nurseId'));
+
+		if (res.success) {
+			var restructured = res.data?.schedule.map((sc) => {
+				return {
+					title: `${moment(
+						sc.shift_id?.start_time,
+						'YYYY-MM-DDThh:mm:ss.SSSZ'
+					).format('hh:mmA')} - ${moment(
+						sc.shift_id?.end_time,
+						'YYYY-MM-DDThh:mm:ss.SSSZ'
+					).format('hh:mmA')}`,
+					date: `${moment(sc.date).format('yyyy-MM-DD')}`,
+					dept: res.data?.department.name,
+				};
+			});
+			setMySchedule(restructured);
+		}
+		console.log(mySchedule);
+	};
+
+	const getNurseDetails = async () => {
+		const res = await GetNurseById(localStorage.getItem('nurseId'));
+
+		if (res.success) {
+			setNurse(res.data);
+		}
+	};
+
+	useEffect(() => {
+		getNurseDetails();
+		getMySchedules();
+	}, []);
+
 	return (
 		<div>
 			<Helmet>
@@ -35,11 +53,13 @@ const MySchedule = () => {
 			</Helmet>
 
 			<div className="flex flex-col">
-				<h1 className="text-2xl font-semibold">Hello, Kurt!</h1>
+				<h1 className="text-2xl font-semibold">
+					Hello, {nurse?.first_name} {nurse?.last_name}!
+				</h1>
 				<p>{moment().format('dddd, MMMM D, YYYY')}</p>
 			</div>
 			<div className="lg:px-24 py-16">
-				<NurseScheduleCalendar events={events} />
+				<NurseScheduleCalendar events={mySchedule} />
 			</div>
 		</div>
 	);
