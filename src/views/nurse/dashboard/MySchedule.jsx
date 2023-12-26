@@ -29,7 +29,6 @@ const MySchedule = () => {
 			});
 			setMySchedule(restructured);
 		}
-		console.log(mySchedule);
 	};
 
 	const getNurseDetails = async () => {
