@@ -38,6 +38,8 @@ const AdminLayout = ({ children, location, icon }) => {
 	const logout = () => {
 		localStorage.removeItem('adminToken');
 		localStorage.removeItem('adminId');
+		localStorage.removeItem('adminUserId');
+		localStorage.removeItem('adminUsername');
 		navigate('/admin/login');
 	};
 

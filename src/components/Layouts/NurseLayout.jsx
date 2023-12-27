@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Control from '../../../src/assets/control.png';
 import Logo from '../../../public/LAMPARA/logo1-200h.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { IoIosHome, IoMdSettings } from 'react-icons/io';
+import { IoMdSettings } from 'react-icons/io';
 import { BiSolidMessageDetail } from 'react-icons/bi';
-import { FaUserNurse } from 'react-icons/fa';
 import { AiFillSchedule } from 'react-icons/ai';
 import { IoLogOutSharp } from 'react-icons/io5';
 import { LiaUserNurseSolid } from 'react-icons/lia';
@@ -30,6 +29,8 @@ const NurseLayout = ({ children, location, icon }) => {
 
 	const logout = async () => {
 		await localStorage.removeItem('nurseToken');
+		await localStorage.removeItem('nurseId');
+		await localStorage.removeItem('nurseUserId');
 		await navigate('/nurse/login');
 	};
 
