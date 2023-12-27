@@ -254,7 +254,7 @@ const ManageNurses = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{nurses.map((nurse) => (
+						{nurses?.map((nurse) => (
 							<tr key={nurse._id} className="border-b">
 								<td className="px-6 py-3">{nurse.last_name}</td>
 								<td className="px-6 py-3">{nurse.first_name}</td>
