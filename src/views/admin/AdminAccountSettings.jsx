@@ -57,7 +57,7 @@ const AdminAccountSettings = () => {
 					<p className="font-semibold text-xl mb-6">Account Information</p>
 					<LamparaDisplayText
 						label={'Username'}
-						value={localStorage.getItem('username')}
+						value={localStorage.getItem('adminUsername')}
 					/>
 					<p className="font-semibold">New Password</p>
 					<input

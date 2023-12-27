@@ -42,8 +42,6 @@ const Messages = () => {
 		const res = await GetChatsByUserId(userId, user);
 
 		setChats(res.data.chats);
-
-		console.log(res);
 	};
 
 	const getChatMessages = async () => {
