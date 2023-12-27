@@ -5,7 +5,7 @@ import AdminLogin from './views/auth/admin-login';
 import AdminMessages from './views/admin/Messages';
 import NurseMessages from './views/nurse/Messages';
 import NotFound from './views/not-found/not-found';
-import NurseLogin from './views/auth/nurse-login/nurse-login';
+import NurseLogin from './views/auth/nurse-login';
 import AuthenticatedAdminPrivateRoute from './components/PrivateRoute/AuthenticatedAdminPrivateRoute';
 import AdminPrivateRoute from './components/PrivateRoute/AdminPrivateRoute';
 import AuthenticatedNursePrivateRoute from './components/PrivateRoute/AuthenticatedNursePrivateRoute';

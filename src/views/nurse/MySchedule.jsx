@@ -1,6 +1,5 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import ScheduleCalendar from '../../components/Calendar/ScheduleCalendar';
 import { Helmet } from 'react-helmet';
 import NurseScheduleCalendar from '../../components/Calendar/NurseScheduleCalendar';
 import { GetNurseById } from '../../services/nurse.services';
@@ -33,7 +32,7 @@ const MySchedule = () => {
 
 	const getNurseDetails = async () => {
 		const res = await GetNurseById(localStorage.getItem('nurseId'));
-
+		console.log(res);
 		if (res.success) {
 			setNurse(res.data);
 		}
