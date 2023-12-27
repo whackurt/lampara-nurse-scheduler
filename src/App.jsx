@@ -1,9 +1,9 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ForgotPassword from './views/auth/forgot-password/forgot-password';
-import AdminLogin from './views/auth/admin-login/admin-login';
-import Messages from './views/admin/messages/messages';
-import MessagesNurses from './views/nurse/messages/messages-nurses';
+import AdminLogin from './views/auth/admin-login';
+import AdminMessages from './views/admin/Messages';
+import NurseMessages from './views/nurse/Messages';
 import NotFound from './views/not-found/not-found';
 import NurseLogin from './views/auth/nurse-login/nurse-login';
 import AuthenticatedAdminPrivateRoute from './components/PrivateRoute/AuthenticatedAdminPrivateRoute';
@@ -12,12 +12,12 @@ import AuthenticatedNursePrivateRoute from './components/PrivateRoute/Authentica
 import NursePrivateRoute from './components/PrivateRoute/NursePrivateRoute';
 import AdminLayout from './components/Layouts/AdminLayout';
 import NurseLayout from './components/Layouts/NurseLayout';
-import AdminDashboard from './views/admin/dashboard/AdminDashboard';
-import ManageSchedule from './views/admin/manage-schedule/ManageSchedule';
-import ManageNurses from './views/admin/manage-nurses/ManageNurses';
-import AdminAccountSettings from './views/admin/account-settings/AdminAccountSettings';
-import NurseAccountSettings from './views/nurse/account-settings/NurseAccountSettings';
-import MySchedule from './views/nurse/dashboard/MySchedule';
+import AdminDashboard from './views/admin/AdminDashboard';
+import ManageSchedule from './views/admin/ManageSchedule';
+import ManageNurses from './views/admin/ManageNurses';
+import AdminAccountSettings from './views/admin/AdminAccountSettings';
+import NurseAccountSettings from './views/nurse/NurseAccountSettings';
+import MySchedule from './views/nurse/MySchedule';
 import { IoIosHome, IoMdSettings } from 'react-icons/io';
 import { BiSolidMessageDetail } from 'react-icons/bi';
 import { FaUserNurse } from 'react-icons/fa';
@@ -86,7 +86,7 @@ const App = () => {
 								icon={<BiSolidMessageDetail size={25} />}
 								location={'Messages'}
 							>
-								<Messages />
+								<AdminMessages />
 							</AdminLayout>
 						</AdminPrivateRoute>
 					}
@@ -144,7 +144,7 @@ const App = () => {
 								icon={<BiSolidMessageDetail size={25} />}
 								location="Messages"
 							>
-								<MessagesNurses />
+								<NurseMessages />
 							</NurseLayout>
 						</NursePrivateRoute>
 					}
