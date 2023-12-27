@@ -4,6 +4,10 @@ const headers = {
 	Authorization: localStorage.getItem('adminToken'),
 };
 
+const nurseHeaders = {
+	Authorization: localStorage.getItem('nurseToken'),
+};
+
 export const CreateNurse = async (nurseData) => {
 	try {
 		const res = await api.post(`/nurse`, nurseData, { headers });
@@ -24,7 +28,7 @@ export const GetAllNurses = async () => {
 
 export const GetNurseById = async (nurseId) => {
 	try {
-		const res = await api.get(`/nurse/${nurseId}`, { headers });
+		const res = await api.get(`/nurse/${nurseId}`, { headers: nurseHeaders });
 		return res.data;
 	} catch (error) {
 		return { error: error.message };
