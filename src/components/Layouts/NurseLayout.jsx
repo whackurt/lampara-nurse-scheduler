@@ -30,7 +30,7 @@ const NurseLayout = ({ children, location, icon }) => {
 	const logout = async () => {
 		await localStorage.removeItem('nurseToken');
 		await localStorage.removeItem('nurseId');
-		await localStorage.removeItem('nurseUserId');
+		await localStorage.removeItem('userId');
 		await navigate('/nurse/login');
 	};
 
