@@ -15,11 +15,6 @@ import { GetMessages, SendMessage } from '../../services/message.services';
 import SearchResult from '../../components/Chat/SearchResult';
 import CustomModal from '../../components/Modal/CustomModal';
 import LamparaButton from '../../components/Button/LamparaButton';
-import io from 'socket.io-client';
-
-const ENDPOINT = 'http://localhost:3000';
-var socket, selectedChatCompare;
-
 const Messages = () => {
 	const [chats, setChats] = useState([]);
 	const [selectedChat, setSelectedChat] = useState(null);
@@ -36,11 +31,9 @@ const Messages = () => {
 
 	const [showModal, setShowModal] = useState(false);
 
-	const [socket, setSocket] = useState(false);
-	const [socketConnected, setSocketConnected] = useState(null);
-
 	const user = 'admin';
-	const userId = localStorage.getItem('adminUserId');
+	const position = 'admin';
+	const userId = localStorage.getItem('userId');
 
 	const toggleModal = () => {
 		setShowModal(!showModal);
@@ -55,21 +48,29 @@ const Messages = () => {
 	};
 
 	const getChatMessages = async () => {
-		const res = await GetMessages(selectedChat, user);
+		if (selectedChat) {
+			const res = await GetMessages(selectedChat, user);
 
-		if (res.status === 200) {
-			setMessages(res.data);
+			if (res.status === 200) {
+				setMessages(res.data);
+			}
 		}
 	};
 
 	const getChatById = async () => {
-		const res = await GetChatById(selectedChat, user);
+		if (selectedChat) {
+			const res = await GetChatById(selectedChat, user);
 
-		const chatmate = res.data.chat.users.filter((user) => user._id !== userId);
+			if (selectedChat) {
+				const chatmate = res.data.chat.users.filter(
+					(user) => user._id !== userId
+				);
 
-		if (res.status === 200) {
-			setChatmate(chatmate[0].name);
-			setActiveChatMate(chatmate[0]._id);
+				if (res.status === 200) {
+					setChatmate(chatmate[0].name);
+					setActiveChatMate(chatmate[0]._id);
+				}
+			}
 		}
 	};
 
@@ -100,8 +101,6 @@ const Messages = () => {
 
 		setKeyword('');
 		toggleModal();
-
-		// console.log(res.data);
 	};
 
 	useEffect(() => {
@@ -116,6 +115,7 @@ const Messages = () => {
 		getChatMessages();
 		getChatById();
 	}, [selectedChat]);
+
 	return (
 		<div>
 			<HelmetProvider>
@@ -126,11 +126,12 @@ const Messages = () => {
 			</HelmetProvider>
 			<div className="lg:pl-8 lg:pr-56 py-8">
 				<div className="flex shadow-sm w-full h-[600px]  rounded-md">
-					<div className="w-[345px] h-full bg-gray-50 relative">
+					<div className="w-[345px] relative h-full bg-gray-50">
 						<div className="flex items-center gap-x-2 bg-primary h-[60px] px-2">
 							<HiChatBubbleLeftRight size={30} color="FFFFFF" />
 							<p className="text-white font-bold text-xl">Your Messages</p>
 						</div>
+
 						<CustomModal
 							title={'Create Chat'}
 							showModal={showModal}
@@ -140,7 +141,6 @@ const Messages = () => {
 							<LamparaButton
 								label={'Create'}
 								onClick={async () => {
-									console.log(resultId);
 									await createChat();
 								}}
 							/>
@@ -162,9 +162,9 @@ const Messages = () => {
 							</div>
 						)}
 
-						<div className="shadow-sm px-4 py-2 bg-gray-300">
+						<div className="px-4 py-2 bg-gray-300">
 							<input
-								className="rounded-xl shadow-sm px-3 h-8 w-full text-sm"
+								className="rounded-xl shadow-sm px-3 h-8 w-full"
 								placeholder="Search"
 								type="text"
 								value={keyword}
@@ -203,17 +203,14 @@ const Messages = () => {
 					<div className="w-3/5 h-full bg-gray-100">
 						{messages && (
 							<ConversationContainer
-								socket={socket}
-								socketConnected={socketConnected}
-								setSocketConnected={setSocketConnected}
 								fetchChats={fetchChats}
-								getChatMessages={getChatMessages}
 								selectedChat={selectedChat}
 								messages={messages}
+								setMessages={setMessages}
 								user={user}
 								activeChatMate={activeChatMate}
 								name={chatmate}
-								position={'Nurse'}
+								position={position}
 							/>
 						)}
 					</div>

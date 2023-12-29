@@ -5,40 +5,61 @@ import LeftMsgCard from './LeftMsgCard';
 import RightMsgCard from './RightMsgCard';
 import { SendMessage } from '../../services/message.services';
 import moment from 'moment';
+import { io } from 'socket.io-client';
 
 const ConversationContainer = ({
-	socket,
-	socketConnected,
-	setSocketConnected,
 	name,
 	position,
 	selectedChat,
 	activeChatMate,
-	getChatMessages,
 	fetchChats,
 	user,
 	messages,
 	setMessages,
 }) => {
 	const [newMessage, setNewMessage] = useState('');
+	const socket = useRef();
 
 	const messageEndRef = useRef(null);
+
+	const userId = localStorage.getItem('userId');
 
 	const sendMessage = async () => {
 		const res = await SendMessage(
 			{
 				chatId: selectedChat,
 				receiver: activeChatMate,
-				sender: localStorage.getItem('nurseUserId'),
+				sender: userId,
 				content: newMessage,
 			},
-			'nurse'
+			user
 		);
 
 		if (res.status === 200) {
+			const newMessage = res.data;
 			setNewMessage('');
+			setMessages((prev) => [...prev, newMessage]);
+			fetchChats();
+			socket.current.emit('sendMessage', newMessage);
 		}
 	};
+
+	useEffect(() => {
+		socket.current = io('ws://localhost:8900');
+
+		socket.current.on('welcome', (message) => {
+			console.log(message);
+		});
+
+		socket.current.on('messageReceived', (newMessage) => {
+			setMessages((prev) => [...prev, newMessage]);
+			fetchChats();
+		});
+	}, []);
+
+	useEffect(() => {
+		socket.current.emit('addUser', userId);
+	}, [userId]);
 
 	useEffect(() => {
 		messageEndRef.current?.scrollIntoView();
@@ -71,7 +92,7 @@ const ConversationContainer = ({
 					</div>
 				) : (
 					messages.map((msg) =>
-						msg.sender?._id === localStorage.getItem('nurseUserId') ? (
+						msg.sender?._id === userId ? (
 							<RightMsgCard
 								key={msg._id}
 								message={msg.content}

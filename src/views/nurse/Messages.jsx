@@ -3,7 +3,6 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { HiChatBubbleLeftRight } from 'react-icons/hi2';
 import ConversationCard from '../../components/Chat/ConversationCard';
 import ConversationContainer from '../../components/Chat/ConversationContainer';
-// import ConversationContainer2 from '../../components/Chat/ConversationContainerCopy';
 import {
 	CreateChat,
 	GetChatById,
@@ -32,11 +31,9 @@ const Messages = () => {
 
 	const [showModal, setShowModal] = useState(false);
 
-	// const [socket, setSocket] = useState(false);
-	const [socketConnected, setSocketConnected] = useState(null);
-
 	const user = 'nurse';
-	const userId = localStorage.getItem('nurseUserId');
+	const position = 'nurse';
+	const userId = localStorage.getItem('userId');
 
 	const toggleModal = () => {
 		setShowModal(!showModal);
@@ -105,8 +102,6 @@ const Messages = () => {
 
 		setKeyword('');
 		toggleModal();
-
-		// console.log(res.data);
 	};
 
 	useEffect(() => {
@@ -210,18 +205,14 @@ const Messages = () => {
 					<div className="w-3/5 h-full bg-gray-100">
 						{messages && (
 							<ConversationContainer
-								// socket={socket}
-								// socketConnected={socketConnected}
-								// setSocketConnected={setSocketConnected}
 								fetchChats={fetchChats}
-								getChatMessages={getChatMessages}
 								selectedChat={selectedChat}
 								messages={messages}
 								setMessages={setMessages}
-								user={'nurse'}
+								user={user}
 								activeChatMate={activeChatMate}
 								name={chatmate}
-								position={'Admin'}
+								position={position}
 							/>
 						)}
 					</div>
