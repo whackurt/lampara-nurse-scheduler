@@ -142,7 +142,6 @@ const Messages = () => {
 							<LamparaButton
 								label={'Create'}
 								onClick={async () => {
-									// console.log(resultId);
 									await createChat();
 								}}
 							/>
