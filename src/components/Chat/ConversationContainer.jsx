@@ -7,6 +7,9 @@ import { SendMessage } from '../../services/message.services';
 import moment from 'moment';
 
 const ConversationContainer = ({
+	socket,
+	socketConnected,
+	setSocketConnected,
 	name,
 	position,
 	selectedChat,
@@ -15,6 +18,7 @@ const ConversationContainer = ({
 	fetchChats,
 	user,
 	messages,
+	setMessages,
 }) => {
 	const [newMessage, setNewMessage] = useState(null);
 
@@ -23,23 +27,46 @@ const ConversationContainer = ({
 			{
 				chatId: selectedChat,
 				receiver: activeChatMate,
-				sender:
-					user === 'admin'
-						? localStorage.getItem('adminUserId')
-						: localStorage.getItem('nurseUserId'),
+				sender: localStorage.getItem('nurseUserId'),
 				content: newMessage,
 			},
-			user
+			'nurse'
 		);
 
 		if (res.status === 200) {
+			if (socket) {
+				socket.emit('new message', res.data);
+				setMessages([...messages, res.data]);
+			}
 			setNewMessage('');
 			getChatMessages();
 			fetchChats();
 		}
 	};
 
-	useEffect(() => {}, [messages]);
+	useEffect(() => {
+		if (socket) {
+			socket.on('message received', (newMessageReceived) => {
+				console.log(newMessageReceived);
+				if (selectedChat != newMessageReceived.chat?._id) {
+					console.log(`new msg rcvd: ${newMessageReceived}`);
+				} else {
+					getChatMessages();
+					fetchChats();
+				}
+			});
+		}
+	}, []);
+
+	useEffect(() => {
+		if (socket) {
+			socket.emit('setup', localStorage.getItem('nurseUserId'));
+			socket.on('connected', () => {
+				setSocketConnected(true);
+				console.log('connected');
+			});
+		}
+	}, []);
 
 	return (
 		<div className="flex flex-col">
@@ -68,10 +95,7 @@ const ConversationContainer = ({
 					</div>
 				) : (
 					messages.map((msg) =>
-						msg.sender?._id ===
-						localStorage.getItem(
-							user === 'admin' ? 'adminUserId' : 'nurseUserId'
-						) ? (
+						msg.sender?._id === localStorage.getItem('nurseUserId') ? (
 							<RightMsgCard
 								message={msg.content}
 								time={moment(msg.createdAt).calendar()}

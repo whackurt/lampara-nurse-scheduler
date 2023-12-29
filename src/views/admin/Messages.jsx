@@ -15,6 +15,10 @@ import { GetMessages, SendMessage } from '../../services/message.services';
 import SearchResult from '../../components/Chat/SearchResult';
 import CustomModal from '../../components/Modal/CustomModal';
 import LamparaButton from '../../components/Button/LamparaButton';
+import io from 'socket.io-client';
+
+const ENDPOINT = 'http://localhost:3000';
+var socket, selectedChatCompare;
 
 const Messages = () => {
 	const [chats, setChats] = useState([]);
@@ -32,6 +36,9 @@ const Messages = () => {
 
 	const [showModal, setShowModal] = useState(false);
 
+	const [socket, setSocket] = useState(false);
+	const [socketConnected, setSocketConnected] = useState(null);
+
 	const user = 'admin';
 	const userId = localStorage.getItem('adminUserId');
 
@@ -42,7 +49,9 @@ const Messages = () => {
 	const fetchChats = async () => {
 		const res = await GetChatsByUserId(userId, user);
 
-		setChats(res.data?.chats);
+		if (res.status === 200) {
+			setChats(res.data.chats);
+		}
 	};
 
 	const getChatMessages = async () => {
@@ -50,6 +59,8 @@ const Messages = () => {
 
 		if (res.status === 200) {
 			setMessages(res.data);
+			// console.log(selectedChat);
+			socket.emit('join chat', selectedChat);
 		}
 	};
 
@@ -86,13 +97,13 @@ const Messages = () => {
 			await fetchChats();
 		}
 		if (res.status == 200) {
-			await setSelectedChat(res.data?.chat._id);
+			setSelectedChat(res.data?.chat._id);
 		}
 
 		setKeyword('');
 		toggleModal();
 
-		console.log(res.data);
+		// console.log(res.data);
 	};
 
 	useEffect(() => {
@@ -107,6 +118,16 @@ const Messages = () => {
 		getChatMessages();
 		getChatById();
 	}, [selectedChat]);
+
+	useEffect(() => {
+		const newSocket = io(ENDPOINT, {
+			transports: ['websocket', 'polling', 'flashsocket'],
+		});
+
+		if (newSocket) {
+			setSocket(newSocket);
+		}
+	}, []);
 
 	return (
 		<div>
@@ -193,6 +214,9 @@ const Messages = () => {
 					<div className="w-3/5 h-full bg-gray-100">
 						{messages && (
 							<ConversationContainer
+								socket={socket}
+								socketConnected={socketConnected}
+								setSocketConnected={setSocketConnected}
 								fetchChats={fetchChats}
 								getChatMessages={getChatMessages}
 								selectedChat={selectedChat}
