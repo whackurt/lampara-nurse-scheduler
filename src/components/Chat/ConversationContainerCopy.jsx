@@ -5,9 +5,10 @@ import LeftMsgCard from './LeftMsgCard';
 import RightMsgCard from './RightMsgCard';
 import { SendMessage } from '../../services/message.services';
 import moment from 'moment';
+import { io } from 'socket.io-client';
 
-const ConversationContainer = ({
-	socket,
+const ConversationContainerCopy = ({
+	// socket,
 	socketConnected,
 	setSocketConnected,
 	name,
@@ -20,8 +21,8 @@ const ConversationContainer = ({
 	messages,
 	setMessages,
 }) => {
-	const [newMessage, setNewMessage] = useState('');
-
+	const [newMessage, setNewMessage] = useState(null);
+	const [socket, setSocket] = useState(null);
 	const messageEndRef = useRef(null);
 
 	const sendMessage = async () => {
@@ -36,16 +37,40 @@ const ConversationContainer = ({
 		);
 
 		if (res.status === 200) {
-			setNewMessage('');
+			if (socket) {
+				socket.emit('new message', res.data);
+				setMessages([...messages, res.data]);
+				setNewMessage('');
+			}
 		}
 	};
 
 	useEffect(() => {
+		if (!socket) {
+			setSocket(
+				io('http://localhost:3000', {
+					transports: ['websocket', 'polling', 'flashsocket'],
+				})
+			);
+		}
+	}, []);
+
+	useEffect(() => {
+		socket?.emit('addUser', localStorage.getItem('nurseUserId'));
+		socket?.on('getUsers', (users) => {
+			console.log('users', users);
+		});
+	}, []);
+
+	useEffect(() => {
 		messageEndRef.current?.scrollIntoView();
-	}, [messages]);
+	}, [messages, selectedChat]);
 
 	return (
 		<div className="flex flex-col">
+			<h1 className="text-red-500 font-semibold">
+				Conversation container Copy
+			</h1>
 			<div className="flex h-[60px] gap-x-2 bg-primary p-2">
 				{activeChatMate && (
 					<>
@@ -115,4 +140,4 @@ const ConversationContainer = ({
 	);
 };
 
-export default ConversationContainer;
+export default ConversationContainerCopy;

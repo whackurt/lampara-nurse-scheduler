@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { LoginNurse } from '../../services/auth.services';
 import AppIcon from '../../assets/icon.png';
 import LamparaButton from '../../components/Button/LamparaButton';
@@ -33,10 +33,12 @@ const NurseLogin = (props) => {
 
 	return (
 		<div className="flex text-primary bg-mainBgColor w-full h-screen justify-center items-center">
-			<Helmet>
-				<title>Login - Lampara</title>
-				<meta property="og:title" content="Lampara" />
-			</Helmet>
+			<HelmetProvider>
+				<Helmet>
+					<title>Login - Lampara</title>
+					<meta property="og:title" content="Lampara" />
+				</Helmet>
+			</HelmetProvider>
 			<div className="flex flex-col items-center justify-center">
 				<img src={AppIcon} width={100} alt="Lampara" />
 

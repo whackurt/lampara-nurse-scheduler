@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import ScheduleCalendar from '../../components/Calendar/ScheduleCalendar';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { GetAllSchedules } from '../../services/schedule.services';
 
 const AdminDashboard = () => {
@@ -36,10 +36,12 @@ const AdminDashboard = () => {
 
 	return (
 		<div>
-			<Helmet>
-				<title>Dashboard - Lampara</title>
-				<meta property="og:title" content="Schedule-Nurses - Lampara" />
-			</Helmet>
+			<HelmetProvider>
+				<Helmet>
+					<title>Dashboard - Lampara</title>
+					<meta property="og:title" content="Schedule-Nurses - Lampara" />
+				</Helmet>
+			</HelmetProvider>
 			<div className="flex flex-col">
 				<h1 className="text-2xl font-semibold">Greetings!</h1>
 				<p>{moment().format('dddd, MMMM D, YYYY')}</p>

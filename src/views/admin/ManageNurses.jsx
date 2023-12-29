@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
 import { IoMdSearch } from 'react-icons/io';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import LamparaButton from '../../components/Button/LamparaButton';
 import CustomModal from '../../components/Modal/CustomModal';
 import LamparaInputForm from '../../components/Forms/LamparaInputForm';
@@ -100,10 +100,12 @@ const ManageNurses = () => {
 
 	return (
 		<div>
-			<Helmet>
-				<title>Manage Nurses - Lampara</title>
-				<meta property="og:title" content="Schedule-Nurses - Lampara" />
-			</Helmet>
+			<HelmetProvider>
+				<Helmet>
+					<title>Manage Nurses - Lampara</title>
+					<meta property="og:title" content="Schedule-Nurses - Lampara" />
+				</Helmet>
+			</HelmetProvider>
 
 			<CustomModal
 				title={'Add Nurse'}

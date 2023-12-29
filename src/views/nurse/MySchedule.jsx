@@ -1,6 +1,6 @@
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import NurseScheduleCalendar from '../../components/Calendar/NurseScheduleCalendar';
 import { GetNurseById } from '../../services/nurse.services';
 import { GetScheduleByNurseId } from '../../services/schedule.services';
@@ -45,10 +45,12 @@ const MySchedule = () => {
 
 	return (
 		<div>
-			<Helmet>
-				<title>My Schedule - Lampara</title>
-				<meta property="og:title" content="Schedule-Nurses - Lampara" />
-			</Helmet>
+			<HelmetProvider>
+				<Helmet>
+					<title>My Schedule - Lampara</title>
+					<meta property="og:title" content="Schedule-Nurses - Lampara" />
+				</Helmet>
+			</HelmetProvider>
 
 			<div className="flex flex-col">
 				<h1 className="text-2xl font-semibold">Hello, {nurse?.first_name}!</h1>

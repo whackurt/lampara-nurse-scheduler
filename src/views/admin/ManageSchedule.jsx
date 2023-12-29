@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ScheduleCalendar from '../../components/Calendar/ScheduleCalendar';
 import moment from 'moment';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import LamparaButton from '../../components/Button/LamparaButton';
 import CustomModal from '../../components/Modal/CustomModal';
 import LamparaDropdown from '../../components/Button/LamparaDropdown';
@@ -102,10 +102,12 @@ const ManageSchedule = () => {
 
 	return (
 		<div>
-			<Helmet>
-				<title>Manage Schedules - Lampara</title>
-				<meta property="og:title" content="Schedule-Nurses - Lampara" />
-			</Helmet>
+			<HelmetProvider>
+				<Helmet>
+					<title>Manage Schedules - Lampara</title>
+					<meta property="og:title" content="Schedule-Nurses - Lampara" />
+				</Helmet>
+			</HelmetProvider>
 
 			<CustomModal
 				title={'Create Schedule'}

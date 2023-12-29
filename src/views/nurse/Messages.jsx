@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { HiChatBubbleLeftRight } from 'react-icons/hi2';
 import ConversationCard from '../../components/Chat/ConversationCard';
 import ConversationContainer from '../../components/Chat/ConversationContainer';
+// import ConversationContainer2 from '../../components/Chat/ConversationContainerCopy';
 import {
 	CreateChat,
 	GetChatById,
@@ -14,10 +15,6 @@ import moment from 'moment';
 import SearchResult from '../../components/Chat/SearchResult';
 import CustomModal from '../../components/Modal/CustomModal';
 import LamparaButton from '../../components/Button/LamparaButton';
-import io from 'socket.io-client';
-
-const ENDPOINT = 'http://localhost:3000';
-var socket, selectedChatCompare;
 
 const Messages = () => {
 	const [chats, setChats] = useState([]);
@@ -35,7 +32,7 @@ const Messages = () => {
 
 	const [showModal, setShowModal] = useState(false);
 
-	const [socket, setSocket] = useState(false);
+	// const [socket, setSocket] = useState(false);
 	const [socketConnected, setSocketConnected] = useState(null);
 
 	const user = 'nurse';
@@ -54,23 +51,30 @@ const Messages = () => {
 	};
 
 	const getChatMessages = async () => {
-		const res = await GetMessages(selectedChat, user);
+		if (selectedChat) {
+			const res = await GetMessages(selectedChat, user);
 
-		if (res.status === 200) {
-			setMessages(res.data);
-			// console.log(selectedChat);
-			socket.emit('join chat', selectedChat);
+			if (res.status === 200) {
+				setMessages(res.data);
+				console.log(selectedChat);
+			}
 		}
 	};
 
 	const getChatById = async () => {
-		const res = await GetChatById(selectedChat, user);
+		if (selectedChat) {
+			const res = await GetChatById(selectedChat, user);
 
-		const chatmate = res.data.chat.users.filter((user) => user._id !== userId);
+			if (selectedChat) {
+				const chatmate = res.data.chat.users.filter(
+					(user) => user._id !== userId
+				);
 
-		if (res.status === 200) {
-			setChatmate(chatmate[0].name);
-			setActiveChatMate(chatmate[0]._id);
+				if (res.status === 200) {
+					setChatmate(chatmate[0].name);
+					setActiveChatMate(chatmate[0]._id);
+				}
+			}
 		}
 	};
 
@@ -118,22 +122,14 @@ const Messages = () => {
 		getChatById();
 	}, [selectedChat]);
 
-	useEffect(() => {
-		const newSocket = io(ENDPOINT, {
-			transports: ['websocket', 'polling', 'flashsocket'],
-		});
-
-		if (newSocket) {
-			setSocket(newSocket);
-		}
-	}, []);
-
 	return (
 		<div>
-			<Helmet>
-				<title>Messages - Lampara</title>
-				<meta property="og:title" content="Schedule-Nurses - Lampara" />
-			</Helmet>
+			<HelmetProvider>
+				<Helmet>
+					<title>Messages - Lampara</title>
+					<meta property="og:title" content="Schedule-Nurses - Lampara" />
+				</Helmet>
+			</HelmetProvider>
 			<div className="lg:pl-8 lg:pr-56 py-8">
 				<div className="flex shadow-sm w-full h-[600px]  rounded-md">
 					<div className="w-[345px] relative h-full bg-gray-50">
@@ -151,7 +147,7 @@ const Messages = () => {
 							<LamparaButton
 								label={'Create'}
 								onClick={async () => {
-									console.log(resultId);
+									// console.log(resultId);
 									await createChat();
 								}}
 							/>
@@ -214,9 +210,9 @@ const Messages = () => {
 					<div className="w-3/5 h-full bg-gray-100">
 						{messages && (
 							<ConversationContainer
-								socket={socket}
-								socketConnected={socketConnected}
-								setSocketConnected={setSocketConnected}
+								// socket={socket}
+								// socketConnected={socketConnected}
+								// setSocketConnected={setSocketConnected}
 								fetchChats={fetchChats}
 								getChatMessages={getChatMessages}
 								selectedChat={selectedChat}

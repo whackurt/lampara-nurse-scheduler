@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { HiChatBubbleLeftRight } from 'react-icons/hi2';
 import ConversationCard from '../../components/Chat/ConversationCard';
 import ConversationContainer from '../../components/Chat/ConversationContainer';
@@ -59,8 +59,6 @@ const Messages = () => {
 
 		if (res.status === 200) {
 			setMessages(res.data);
-			// console.log(selectedChat);
-			socket.emit('join chat', selectedChat);
 		}
 	};
 
@@ -118,23 +116,14 @@ const Messages = () => {
 		getChatMessages();
 		getChatById();
 	}, [selectedChat]);
-
-	useEffect(() => {
-		const newSocket = io(ENDPOINT, {
-			transports: ['websocket', 'polling', 'flashsocket'],
-		});
-
-		if (newSocket) {
-			setSocket(newSocket);
-		}
-	}, []);
-
 	return (
 		<div>
-			<Helmet>
-				<title>Messages - Lampara</title>
-				<meta property="og:title" content="Schedule-Nurses - Lampara" />
-			</Helmet>
+			<HelmetProvider>
+				<Helmet>
+					<title>Messages - Lampara</title>
+					<meta property="og:title" content="Schedule-Nurses - Lampara" />
+				</Helmet>
+			</HelmetProvider>
 			<div className="lg:pl-8 lg:pr-56 py-8">
 				<div className="flex shadow-sm w-full h-[600px]  rounded-md">
 					<div className="w-[345px] h-full bg-gray-50 relative">

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { LoginAdmin } from '../../services/auth.services';
 import AppIcon from '../../assets/icon.png';
 import LamparaInputForm from '../../components/Forms/LamparaInputForm';
@@ -34,10 +34,12 @@ const AdminLogin = () => {
 
 	return (
 		<div className="flex text-primary bg-mainBgColor w-full h-screen justify-center items-center">
-			<Helmet>
-				<title>Login - Lampara</title>
-				<meta property="og:title" content="Lampara" />
-			</Helmet>
+			<HelmetProvider>
+				<Helmet>
+					<title>Login - Lampara</title>
+					<meta property="og:title" content="Lampara" />
+				</Helmet>
+			</HelmetProvider>
 			<div className="flex flex-col items-center justify-center">
 				<img src={AppIcon} width={100} alt="Lampara" />
 

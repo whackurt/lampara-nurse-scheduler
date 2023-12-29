@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import LamparaDisplayText from '../../components/Forms/LamparaDisplayText';
 import LamparaButton from '../../components/Button/LamparaButton';
 import LamparaInputForm from '../../components/Forms/LamparaInputForm';
@@ -48,10 +48,12 @@ const AdminAccountSettings = () => {
 
 	return (
 		<div>
-			<Helmet>
-				<title>My Account - Lampara</title>
-				<meta property="og:title" content="Schedule-Nurses - Lampara" />
-			</Helmet>
+			<HelmetProvider>
+				<Helmet>
+					<title>My Account - Lampara</title>
+					<meta property="og:title" content="Schedule-Nurses - Lampara" />
+				</Helmet>
+			</HelmetProvider>
 			<div className="flex gap-x-4 gap-y-4 px-4">
 				<div className="flex flex-col lg:w-1/2 border-2 border-grey-600 p-6 rounded-md">
 					<p className="font-semibold text-xl mb-6">Account Information</p>
