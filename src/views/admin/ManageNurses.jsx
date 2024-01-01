@@ -24,9 +24,12 @@ const ManageNurses = () => {
 	const [updates, setUpdates] = useState({});
 
 	const [nurses, setNurses] = useState([]);
+	const [filteredNurses, setFilteredNurses] = useState([]);
 	const [departmentList, setDepartmentList] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [idToUpdate, setIdToUpdate] = useState(null);
+
+	const [keyword, setKeyword] = useState('');
 
 	const toggleAddModal = () => {
 		setShowAddModal(!showAddModal);
@@ -88,6 +91,15 @@ const ManageNurses = () => {
 		setLoading(false);
 	};
 
+	const searchNurse = () => {
+		const filteredNurses = nurses.filter(
+			(nurse) =>
+				nurse.first_name.toLowerCase().includes(keyword.toLowerCase()) ||
+				nurse.last_name.toLowerCase().includes(keyword.toLowerCase())
+		);
+		setFilteredNurses(filteredNurses);
+	};
+
 	useEffect(() => {
 		var toUpdate = nurses.filter((nurse) => nurse._id === idToUpdate);
 		setNurseToUpdate(toUpdate);
@@ -97,6 +109,11 @@ const ManageNurses = () => {
 		getAllNurses();
 		getAllDepartments(); // returns
 	}, []);
+
+	useEffect(() => {
+		console.log(keyword);
+		searchNurse();
+	}, [keyword]);
 
 	return (
 		<div>
@@ -216,9 +233,9 @@ const ManageNurses = () => {
 			<div className="flex justify-between">
 				<div className="flex justify-end gap-x-2 items-center">
 					<input
-						className="px-2 relative h-8 rounded-lg w-64"
+						className="px-2 relative h-8 rounded-lg w-64 border-2 text-sm"
 						type="text"
-						// onChange={(e) => setSearchValue(e.target.value)}
+						onChange={(e) => setKeyword(e.target.value)}
 						placeholder="Search nurse"
 					/>
 					<button
@@ -256,30 +273,55 @@ const ManageNurses = () => {
 						</tr>
 					</thead>
 					<tbody>
-						{nurses?.map((nurse) => (
-							<tr key={nurse._id} className="border-b">
-								<td className="px-6 py-3">{nurse.last_name}</td>
-								<td className="px-6 py-3">{nurse.first_name}</td>
-								<td className="px-6 py-3">{nurse.department?.name}</td>
-								<td className="px-6 py-3">{nurse.email}</td>
-								<td className="px-6 py-3">{nurse.username}</td>
-								<td className="px-6 py-3">
-									<div className="flex cursor-pointer">
-										<div
-											onClick={() => {
-												setIdToUpdate(nurse._id);
-												toggleUpdateModal();
-											}}
-										>
-											<FaEdit size={20} color="#05122e" />
-										</div>
-										<div onClick={() => deleteNurse(nurse._id)}>
-											<MdOutlineDeleteOutline size={20} color="#b31717" />
-										</div>
-									</div>
-								</td>
-							</tr>
-						))}
+						{keyword.length > 0
+							? filteredNurses?.map((nurse) => (
+									<tr key={nurse._id} className="border-b">
+										<td className="px-6 py-3">{nurse.last_name}</td>
+										<td className="px-6 py-3">{nurse.first_name}</td>
+										<td className="px-6 py-3">{nurse.department?.name}</td>
+										<td className="px-6 py-3">{nurse.email}</td>
+										<td className="px-6 py-3">{nurse.username}</td>
+										<td className="px-6 py-3">
+											<div className="flex cursor-pointer">
+												<div
+													onClick={() => {
+														setIdToUpdate(nurse._id);
+														toggleUpdateModal();
+													}}
+												>
+													<FaEdit size={20} color="#05122e" />
+												</div>
+												<div onClick={() => deleteNurse(nurse._id)}>
+													<MdOutlineDeleteOutline size={20} color="#b31717" />
+												</div>
+											</div>
+										</td>
+									</tr>
+							  ))
+							: nurses?.map((nurse) => (
+									<tr key={nurse._id} className="border-b">
+										<td className="px-6 py-3">{nurse.last_name}</td>
+										<td className="px-6 py-3">{nurse.first_name}</td>
+										<td className="px-6 py-3">{nurse.department?.name}</td>
+										<td className="px-6 py-3">{nurse.email}</td>
+										<td className="px-6 py-3">{nurse.username}</td>
+										<td className="px-6 py-3">
+											<div className="flex cursor-pointer">
+												<div
+													onClick={() => {
+														setIdToUpdate(nurse._id);
+														toggleUpdateModal();
+													}}
+												>
+													<FaEdit size={20} color="#05122e" />
+												</div>
+												<div onClick={() => deleteNurse(nurse._id)}>
+													<MdOutlineDeleteOutline size={20} color="#b31717" />
+												</div>
+											</div>
+										</td>
+									</tr>
+							  ))}
 					</tbody>
 				</table>
 			</div>

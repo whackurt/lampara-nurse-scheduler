@@ -8,13 +8,16 @@ const nurseHeaders = {
 	Authorization: localStorage.getItem('nurseToken'),
 };
 
-export const GetMessages = async (chatId, user) => {
+export const GetMessages = async (chatId, userId, user) => {
 	try {
 		const headers = user === 'admin' ? adminHeaders : nurseHeaders;
 
-		const res = await api.get(`/message/chat/${chatId}/messages`, {
-			headers,
-		});
+		const res = await api.get(
+			`/message/chat/${chatId}/messages?userId=${userId}`,
+			{
+				headers,
+			}
+		);
 
 		return res;
 	} catch (error) {

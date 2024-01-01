@@ -36,7 +36,9 @@ export const UpdateAdminPassword = async (creds) => {
 export const UpdateNursePassword = async (creds) => {
 	try {
 		const res = await api.put('/auth/nurse/update-password', creds, {
-			headers,
+			headers: {
+				Authorization: localStorage.getItem('nurseToken'),
+			},
 		});
 		return res;
 	} catch (error) {

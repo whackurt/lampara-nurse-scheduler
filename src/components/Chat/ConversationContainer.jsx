@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { RiSendPlaneFill } from 'react-icons/ri';
 import { IoMdSend } from 'react-icons/io';
 import LeftMsgCard from './LeftMsgCard';
 import RightMsgCard from './RightMsgCard';
@@ -30,6 +29,7 @@ const ConversationContainer = ({
 				chatId: selectedChat,
 				receiver: activeChatMate,
 				sender: userId,
+				copyOf: [activeChatMate, userId],
 				content: newMessage,
 			},
 			user
@@ -37,9 +37,12 @@ const ConversationContainer = ({
 
 		if (res.status === 200) {
 			const newMessage = res.data;
+
 			setNewMessage('');
 			setMessages((prev) => [...prev, newMessage]);
+
 			fetchChats();
+
 			socket.current.emit('sendMessage', newMessage);
 		}
 	};
@@ -48,11 +51,11 @@ const ConversationContainer = ({
 		socket.current = io('ws://localhost:8900');
 
 		socket.current.on('welcome', (message) => {
-			console.log(message);
+			// console.log(message);
 		});
 
 		socket.current.on('messageReceived', (newMessage) => {
-			setMessages((prev) => [...prev, newMessage]);
+			setMessages((prev) => [...prev, newMessage.message]);
 			fetchChats();
 		});
 	}, []);
@@ -68,6 +71,7 @@ const ConversationContainer = ({
 	return (
 		<div className="flex flex-col">
 			<div className="flex h-[60px] gap-x-2 bg-primary p-2">
+				{/* {<p className="text-white">{selectedChat}</p>} */}
 				{activeChatMate && (
 					<>
 						<div className="flex items-center ">
@@ -77,9 +81,9 @@ const ConversationContainer = ({
 								alt=""
 							/>
 						</div>
-						<div className="flex flex-col bg-primary ">
+						<div className="flex flex-col justify-center bg-primary ">
 							<h1 className="font-semibold text-gray-200"> {name} </h1>
-							<p className="text-xs text-gray-400">{position}</p>
+							{/* <p className="text-xs text-gray-400">{position}</p> */}
 						</div>
 					</>
 				)}
@@ -88,7 +92,7 @@ const ConversationContainer = ({
 			<div className="h-[497px] bg-gray-100 overflow-y-auto">
 				{activeChatMate == null ? (
 					<div className="h-full flex justify-center items-center	">
-						<p className="text-gray-500">No chat selected</p>
+						<p className="text-gray-500">No conversation selected</p>
 					</div>
 				) : (
 					messages.map((msg) =>

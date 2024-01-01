@@ -23,7 +23,7 @@ const AdminAccountSettings = () => {
 
 		if (matched) {
 			const res = await UpdateAdminPassword({
-				username: localStorage.getItem('username'),
+				username: localStorage.getItem('adminUsername'),
 				password: password,
 			});
 

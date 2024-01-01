@@ -15,6 +15,7 @@ import { GetMessages, SendMessage } from '../../services/message.services';
 import SearchResult from '../../components/Chat/SearchResult';
 import CustomModal from '../../components/Modal/CustomModal';
 import LamparaButton from '../../components/Button/LamparaButton';
+
 const Messages = () => {
 	const [chats, setChats] = useState([]);
 	const [selectedChat, setSelectedChat] = useState(null);
@@ -32,7 +33,7 @@ const Messages = () => {
 	const [showModal, setShowModal] = useState(false);
 
 	const user = 'admin';
-	const position = 'admin';
+	const position = 'Nurse';
 	const userId = localStorage.getItem('userId');
 
 	const toggleModal = () => {
@@ -49,7 +50,7 @@ const Messages = () => {
 
 	const getChatMessages = async () => {
 		if (selectedChat) {
-			const res = await GetMessages(selectedChat, user);
+			const res = await GetMessages(selectedChat, userId, user);
 
 			if (res.status === 200) {
 				setMessages(res.data);
@@ -87,15 +88,19 @@ const Messages = () => {
 			{
 				chatName: 'chat',
 				isGroupChat: false,
+				copyOf: [userId, resultId],
 				users: [userId, resultId],
 			},
 			user
 		);
 
+		console.log(res);
+
 		if (res.status == 201) {
 			await fetchChats();
 		}
 		if (res.status == 200) {
+			await fetchChats();
 			setSelectedChat(res.data?.chat._id);
 		}
 
@@ -105,7 +110,7 @@ const Messages = () => {
 
 	useEffect(() => {
 		fetchChats();
-	}, []);
+	}, [activeChatMate]);
 
 	useEffect(() => {
 		searchUsers(keyword);
@@ -188,12 +193,19 @@ const Messages = () => {
 									return (
 										<ConversationCard
 											key={chat._id}
+											chatId={chat._id}
+											userId={userId}
+											fetchChats={fetchChats}
+											getChatMessages={getChatMessages}
 											onClick={() => setSelectedChat(chat._id)}
 											time={moment(chat.latestMessage?.updatedAt).format(
 												'hh:mm a'
 											)}
 											name={chatmate[0]?.name}
 											latestMsg={chat.latestMessage?.content}
+											user={user}
+											setActiveChatMate={setActiveChatMate}
+											setMessages={setMessages}
 										/>
 									);
 								})
@@ -207,6 +219,7 @@ const Messages = () => {
 								selectedChat={selectedChat}
 								messages={messages}
 								setMessages={setMessages}
+								setActiveChatMate={setActiveChatMate}
 								user={user}
 								activeChatMate={activeChatMate}
 								name={chatmate}

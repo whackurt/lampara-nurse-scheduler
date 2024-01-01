@@ -58,3 +58,18 @@ export const SearchUsers = async (keyword, searchingUserId, user) => {
 		return { error: error.message };
 	}
 };
+
+export const DeleteChat = async (chatId, userId, user) => {
+	try {
+		const headers = user === 'admin' ? adminHeaders : nurseHeaders;
+
+		const res = await api.delete(
+			`/message/chat/delete?chatId=${chatId}&userId=${userId}`,
+			{ headers }
+		);
+
+		return res;
+	} catch (error) {
+		return { error: error.message };
+	}
+};
