@@ -222,6 +222,7 @@ const ManageSchedule = () => {
 					selected={startDate}
 					onChange={onChange}
 					startDate={startDate}
+					minDate={new Date()}
 					endDate={endDate}
 					isClearable={true}
 					selectsRange
