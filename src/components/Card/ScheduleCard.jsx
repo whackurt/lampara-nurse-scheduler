@@ -10,6 +10,7 @@ import {
 import LamparaDropdown from '../Button/LamparaDropdown';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import notify from '../Notification/notify';
 
 const ScheduleCard = ({
 	name,
@@ -45,6 +46,7 @@ const ScheduleCard = ({
 		const res = await DeleteScheduleById(idToDelete);
 
 		if (res.success) {
+			notify('Schedule deleted successfully');
 			toggleDeleteModal();
 			toggleScheduleModal(!showScheduleModal);
 			getSchedules();
@@ -60,6 +62,7 @@ const ScheduleCard = ({
 			const res = await UpdateScheduleById(idToUpdate, { shift_id: newShift });
 
 			if (res.success) {
+				notify('Schedule updated successfully');
 				toggleEditModal();
 				toggleScheduleModal(!showScheduleModal);
 				getSchedules();

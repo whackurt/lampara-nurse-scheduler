@@ -14,6 +14,7 @@ import {
 	UpdateNurseById,
 } from '../../services/nurse.services';
 import { GetAllDepartments } from '../../services/department.services';
+import toast, { Toaster } from 'react-hot-toast';
 
 const ManageNurses = () => {
 	const [showAddModal, setShowAddModal] = useState(false);
@@ -31,6 +32,10 @@ const ManageNurses = () => {
 
 	const [keyword, setKeyword] = useState('');
 
+	const notify = (message) => {
+		toast.success(message, { duration: 5000 });
+	};
+
 	const toggleAddModal = () => {
 		setShowAddModal(!showAddModal);
 	};
@@ -44,6 +49,7 @@ const ManageNurses = () => {
 		const res = await CreateNurse(newNurse);
 
 		if (res.success) {
+			notify('Nurse added successfully.');
 			getAllNurses();
 			toggleAddModal();
 		}
@@ -57,6 +63,7 @@ const ManageNurses = () => {
 		const res = await UpdateNurseById(idToUpdate, updates);
 
 		if (res.success) {
+			notify('Nurse updated successfully.');
 			getAllNurses();
 			toggleUpdateModal();
 		}
@@ -85,6 +92,7 @@ const ManageNurses = () => {
 		const res = await DeleteNurseById(id);
 
 		if (res.success) {
+			notify('Nurse deleted successfully.');
 			getAllNurses();
 		}
 
@@ -123,6 +131,8 @@ const ManageNurses = () => {
 					<meta property="og:title" content="Schedule-Nurses - Lampara" />
 				</Helmet>
 			</HelmetProvider>
+
+			<Toaster position="top-center" reverseOrder={true} />
 
 			<CustomModal
 				title={'Add Nurse'}

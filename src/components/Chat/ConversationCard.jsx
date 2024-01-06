@@ -75,7 +75,9 @@ const ConversationCard = ({
 					onClick={() => toggleModal()}
 					className="flex justify-center items-end "
 				>
-					<MdOutlineDeleteOutline size={20} color="#b31717" />
+					{user === 'admin' ? (
+						<MdOutlineDeleteOutline size={20} color="#b31717" />
+					) : null}
 				</div>
 			</div>
 		</div>

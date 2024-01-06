@@ -152,16 +152,19 @@ const Messages = () => {
 						{searchTouched && keyword != '' && (
 							<div className="z-50 absolute flex items-center justify-center px-4 py-2 mt-12 bg-white w-full min-h-[40px]">
 								<div className="w-full">
-									{results.map((res) => (
-										<SearchResult
-											key={res._id}
-											name={res.name}
-											onClick={() => {
-												setResultId(res._id);
-												toggleModal();
-											}}
-										/>
-									))}
+									{results.map(
+										(res) =>
+											res.isAdmin && (
+												<SearchResult
+													key={res._id}
+													name={res.name}
+													onClick={() => {
+														setResultId(res._id);
+														toggleModal();
+													}}
+												/>
+											)
+									)}
 								</div>
 							</div>
 						)}

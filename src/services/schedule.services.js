@@ -13,6 +13,19 @@ export const CreateSchedule = async (scheduleData) => {
 	}
 };
 
+export const CheckIfScheduled = async (nurseId, date) => {
+	try {
+		const res = await api.post(
+			`/schedule/checkSchedule?nurseId=${nurseId}&date=${date}`,
+			{ headers }
+		);
+
+		return res.data;
+	} catch (error) {
+		return { error: error.message };
+	}
+};
+
 export const GetAllSchedules = async () => {
 	try {
 		const res = await api.get(`/schedule`, { headers });
