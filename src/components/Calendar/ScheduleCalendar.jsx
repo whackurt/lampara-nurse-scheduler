@@ -11,6 +11,7 @@ const ScheduleCalendar = ({
 	events,
 	getSchedules,
 	shifts,
+	setKeyword,
 }) => {
 	const [showModal, setShowModal] = useState(false);
 	const [date, setDate] = useState('');
@@ -27,6 +28,14 @@ const ScheduleCalendar = ({
 
 	return (
 		<>
+			<div className="mb-2">
+				<input
+					className="border-2 px-2 py-1 rounded-md"
+					placeholder="Search"
+					type="text"
+					onChange={(e) => setKeyword(e.target.value)}
+				/>
+			</div>
 			<FullCalendar
 				plugins={[dayGridPlugin, interactionPlugin]}
 				initialView="dayGridMonth"

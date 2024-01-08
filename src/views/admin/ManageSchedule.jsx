@@ -29,8 +29,19 @@ const ManageSchedule = () => {
 	const [success, setSuccess] = useState(false);
 	const [dates, setDates] = useState([]);
 
+	const [filteredSchedules, setFilteredSchedules] = useState([]);
+	const [keyword, setKeyword] = useState('');
+
 	const toggleModal = () => {
 		setShowModal(!showModal);
+	};
+
+	const filterSchedules = () => {
+		const filteredSchedules = schedules.filter((sc) =>
+			sc.title.toLowerCase().includes(keyword.toLowerCase())
+		);
+
+		setFilteredSchedules(filteredSchedules);
 	};
 
 	const createSchedule = async () => {
@@ -167,6 +178,10 @@ const ManageSchedule = () => {
 	};
 
 	useEffect(() => {
+		filterSchedules();
+	}, [keyword]);
+
+	useEffect(() => {
 		getAllNurses();
 		getAllShifts();
 		getAllSchedules();
@@ -246,8 +261,9 @@ const ManageSchedule = () => {
 				</div>
 				<ScheduleCalendar
 					shifts={shifts}
+					setKeyword={setKeyword}
 					getSchedules={getAllSchedules}
-					events={schedules}
+					events={filteredSchedules.length > 0 ? filteredSchedules : schedules}
 					editable={true}
 				/>
 			</div>

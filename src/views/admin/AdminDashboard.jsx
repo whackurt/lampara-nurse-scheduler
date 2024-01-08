@@ -6,6 +6,8 @@ import { GetAllSchedules } from '../../services/schedule.services';
 
 const AdminDashboard = () => {
 	const [schedules, setSchedules] = useState([]);
+	const [filteredSchedules, setFilteredSchedules] = useState([]);
+	const [keyword, setKeyword] = useState('');
 
 	const getAllSchedules = async () => {
 		const res = await GetAllSchedules();
@@ -30,6 +32,18 @@ const AdminDashboard = () => {
 		}
 	};
 
+	const filterSchedules = () => {
+		const filteredSchedules = schedules.filter((sc) =>
+			sc.title.toLowerCase().includes(keyword.toLowerCase())
+		);
+
+		setFilteredSchedules(filteredSchedules);
+	};
+
+	useEffect(() => {
+		filterSchedules();
+	}, [keyword]);
+
 	useEffect(() => {
 		getAllSchedules();
 	}, []);
@@ -47,7 +61,11 @@ const AdminDashboard = () => {
 				<p>{moment().format('dddd, MMMM D, YYYY')}</p>
 			</div>
 			<div className="lg:px-24 py-16">
-				<ScheduleCalendar events={schedules} editable={false} />
+				<ScheduleCalendar
+					setKeyword={setKeyword}
+					events={filteredSchedules.length > 0 ? filteredSchedules : schedules}
+					editable={false}
+				/>
 			</div>
 		</div>
 	);
