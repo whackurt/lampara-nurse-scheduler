@@ -109,7 +109,7 @@ const Messages = () => {
 
 	useEffect(() => {
 		fetchChats();
-	}, [activeChatMate]);
+	}, []);
 
 	useEffect(() => {
 		searchUsers(keyword);
@@ -168,17 +168,18 @@ const Messages = () => {
 								</div>
 							</div>
 						)}
-
-						<div className="px-4 py-2 bg-gray-300">
-							<input
-								className="rounded-xl shadow-sm px-3 h-8 w-full"
-								placeholder="Search"
-								type="text"
-								value={keyword}
-								onFocus={() => setSearchTouched(true)}
-								onChange={(e) => setKeyword(e.target.value)}
-							/>
-						</div>
+						{user !== 'nurse' && (
+							<div className="px-4 py-2 bg-gray-300">
+								<input
+									className="rounded-xl shadow-sm px-3 h-8 w-full"
+									placeholder="Search"
+									type="text"
+									value={keyword}
+									onFocus={() => setSearchTouched(true)}
+									onChange={(e) => setKeyword(e.target.value)}
+								/>
+							</div>
+						)}
 
 						<div className="z-40 h-[495px] bg-gray-50 overflow-y-auto">
 							{chats.length == 0 ? (

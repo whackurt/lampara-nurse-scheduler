@@ -15,6 +15,7 @@ import {
 } from '../../services/nurse.services';
 import { GetAllDepartments } from '../../services/department.services';
 import toast, { Toaster } from 'react-hot-toast';
+import { CreateChat } from '../../services/chat.services';
 
 const ManageNurses = () => {
 	const [showAddModal, setShowAddModal] = useState(false);
@@ -32,6 +33,8 @@ const ManageNurses = () => {
 
 	const [keyword, setKeyword] = useState('');
 
+	const userId = localStorage.getItem('userId');
+
 	const notify = (message) => {
 		toast.success(message, { duration: 5000 });
 	};
@@ -48,10 +51,24 @@ const ManageNurses = () => {
 		setLoading(true);
 		const res = await CreateNurse(newNurse);
 
+		console.log(res);
+
 		if (res.success) {
-			notify('Nurse added successfully.');
-			getAllNurses();
-			toggleAddModal();
+			const createChatRes = await CreateChat(
+				{
+					chatName: 'chat',
+					isGroupChat: false,
+					copyOf: [userId, res.data?.nurseUserId],
+					users: [userId, res.data?.nurseUserId],
+				},
+				'admin'
+			);
+
+			if (createChatRes.status == 201) {
+				notify('Nurse added successfully.');
+				getAllNurses();
+				toggleAddModal();
+			}
 		}
 
 		setLoading(false);
