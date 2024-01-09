@@ -93,8 +93,6 @@ const Messages = () => {
 			user
 		);
 
-		console.log(res);
-
 		if (res.status == 201) {
 			await fetchChats();
 		}

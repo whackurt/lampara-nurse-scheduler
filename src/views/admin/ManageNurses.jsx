@@ -51,8 +51,6 @@ const ManageNurses = () => {
 		setLoading(true);
 		const res = await CreateNurse(newNurse);
 
-		console.log(res);
-
 		if (res.success) {
 			const createChatRes = await CreateChat(
 				{

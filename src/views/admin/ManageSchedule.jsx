@@ -109,7 +109,6 @@ const ManageSchedule = () => {
 			const day = String(loop.getDate()).padStart(2, '0');
 
 			const formattedDate = `${year}-${month}-${day}`;
-			// console.log(formattedDate);
 
 			selectedDates.push(formattedDate);
 
@@ -186,10 +185,6 @@ const ManageSchedule = () => {
 		getAllShifts();
 		getAllSchedules();
 	}, []);
-
-	useEffect(() => {
-		console.log(newSchedule);
-	}, [newSchedule]);
 
 	return (
 		<div>
