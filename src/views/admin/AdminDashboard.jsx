@@ -3,13 +3,19 @@ import React, { useEffect, useState } from 'react';
 import ScheduleCalendar from '../../components/Calendar/ScheduleCalendar';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { GetAllSchedules } from '../../services/schedule.services';
+import { ClipLoader } from 'react-spinners';
+import Loader from '../../components/Loader/Loader';
 
 const AdminDashboard = () => {
 	const [schedules, setSchedules] = useState([]);
 	const [filteredSchedules, setFilteredSchedules] = useState([]);
 	const [keyword, setKeyword] = useState('');
 
+	const [loading, setLoading] = useState(false);
+
 	const getAllSchedules = async () => {
+		setLoading(true);
+
 		const res = await GetAllSchedules();
 
 		if (res.success) {
@@ -30,6 +36,8 @@ const AdminDashboard = () => {
 
 			setSchedules(restructured);
 		}
+
+		setLoading(false);
 	};
 
 	const filterSchedules = () => {
@@ -63,11 +71,17 @@ const AdminDashboard = () => {
 				</p>
 			</div>
 			<div className="mt-4 border-2 p-8 rounded-md">
-				<ScheduleCalendar
-					setKeyword={setKeyword}
-					events={filteredSchedules.length > 0 ? filteredSchedules : schedules}
-					editable={false}
-				/>
+				{loading ? (
+					<Loader />
+				) : (
+					<ScheduleCalendar
+						setKeyword={setKeyword}
+						events={
+							filteredSchedules.length > 0 ? filteredSchedules : schedules
+						}
+						editable={false}
+					/>
+				)}
 			</div>
 		</div>
 	);

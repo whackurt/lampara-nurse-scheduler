@@ -16,6 +16,8 @@ import {
 import { GetAllDepartments } from '../../services/department.services';
 import toast, { Toaster } from 'react-hot-toast';
 import { CreateChat } from '../../services/chat.services';
+import { ClipLoader } from 'react-spinners';
+import Loader from '../../components/Loader/Loader';
 
 const ManageNurses = () => {
 	const [showAddModal, setShowAddModal] = useState(false);
@@ -93,8 +95,15 @@ const ManageNurses = () => {
 	};
 
 	const getAllNurses = async () => {
+		setLoading(true);
+
 		const res = await GetAllNurses();
-		setNurses(res.data);
+
+		if (res.success) {
+			setNurses(res.data);
+		}
+
+		setLoading(false);
 	};
 
 	const getAllDepartments = async () => {
@@ -299,86 +308,98 @@ const ManageNurses = () => {
 				<LamparaButton onClick={toggleAddModal} label={'Add Nurse'} />
 			</div>
 			<div className="overflow-x-auto">
-				<table className="w-full my-4 text-sm border  rounded-md text-left rtl:text-right text-gray-600">
-					<thead className="text-xs bg-primary text-white uppercase bg-secondary">
-						<tr>
-							<th scope="col" className="px-6 py-3">
-								Last Name
-							</th>
-							<th scope="col" className="px-6 py-3">
-								First Name
-							</th>
-							<th scope="col" className="px-6 py-3">
-								Department
-							</th>
-							<th scope="col" className="px-6 py-3">
-								Email Address
-							</th>
-							<th scope="col" className="px-6 py-3">
-								Username
-							</th>
+				<table className=" w-full my-4 text-sm border  rounded-md text-left rtl:text-right text-gray-600">
+					{loading ? (
+						<Loader />
+					) : (
+						<>
+							<thead className="text-xs bg-primary text-white uppercase ">
+								<tr>
+									<th scope="col" className="px-6 py-3">
+										Last Name
+									</th>
+									<th scope="col" className="px-6 py-3">
+										First Name
+									</th>
+									<th scope="col" className="px-6 py-3">
+										Department
+									</th>
+									<th scope="col" className="px-6 py-3">
+										Email Address
+									</th>
+									<th scope="col" className="px-6 py-3">
+										Username
+									</th>
 
-							<th scope="col" className="px-6 py-3">
-								Actions
-							</th>
-						</tr>
-					</thead>
-					<tbody>
-						{keyword.length > 0
-							? filteredNurses?.map((nurse) => (
-									<tr key={nurse._id} className="border-b">
-										<td className="px-6 py-3">{nurse.last_name}</td>
-										<td className="px-6 py-3">{nurse.first_name}</td>
-										<td className="px-6 py-3">{nurse.department?.name}</td>
-										<td className="px-6 py-3">{nurse.email}</td>
-										<td className="px-6 py-3">{nurse.username}</td>
-										<td className="px-6 py-3">
-											<div className="flex cursor-pointer">
-												<div
-													onClick={() => {
-														setIdToUpdate(nurse._id);
-														toggleUpdateModal();
-													}}
-												>
-													<FaEdit size={20} color="#05122e" />
-												</div>
-												<div onClick={() => deleteNurse(nurse._id)}>
-													<MdOutlineDeleteOutline size={20} color="#b31717" />
-												</div>
-											</div>
-										</td>
-									</tr>
-							  ))
-							: nurses?.map((nurse) => (
-									<tr key={nurse._id} className="border-b">
-										<td className="px-6 py-3">{nurse.last_name}</td>
-										<td className="px-6 py-3">{nurse.first_name}</td>
-										<td className="px-6 py-3">{nurse.department?.name}</td>
-										<td className="px-6 py-3">{nurse.email}</td>
-										<td className="px-6 py-3">{nurse.username}</td>
-										<td className="px-6 py-3">
-											<div className="flex cursor-pointer">
-												<div
-													onClick={() => {
-														setIdToUpdate(nurse._id);
-														toggleUpdateModal();
-													}}
-												>
-													<FaEdit size={20} color="#05122e" />
-												</div>
-												<div
-													onClick={() => {
-														setIdToDelete(nurse._id);
-														toggleDeleteModal();
-													}}
-												>
-													<MdOutlineDeleteOutline size={20} color="#b31717" />
-												</div>
-											</div>
-										</td>
-									</tr>
-							  ))}
-					</tbody>
+									<th scope="col" className="px-6 py-3">
+										Actions
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								{keyword.length > 0
+									? filteredNurses?.map((nurse) => (
+											<tr key={nurse._id} className="border-b">
+												<td className="px-6 py-3">{nurse.last_name}</td>
+												<td className="px-6 py-3">{nurse.first_name}</td>
+												<td className="px-6 py-3">{nurse.department?.name}</td>
+												<td className="px-6 py-3">{nurse.email}</td>
+												<td className="px-6 py-3">{nurse.username}</td>
+												<td className="px-6 py-3">
+													<div className="flex cursor-pointer">
+														<div
+															onClick={() => {
+																setIdToUpdate(nurse._id);
+																toggleUpdateModal();
+															}}
+														>
+															<FaEdit size={20} color="#05122e" />
+														</div>
+														<div onClick={() => deleteNurse(nurse._id)}>
+															<MdOutlineDeleteOutline
+																size={20}
+																color="#b31717"
+															/>
+														</div>
+													</div>
+												</td>
+											</tr>
+									  ))
+									: nurses?.map((nurse) => (
+											<tr key={nurse._id} className="border-b">
+												<td className="px-6 py-3">{nurse.last_name}</td>
+												<td className="px-6 py-3">{nurse.first_name}</td>
+												<td className="px-6 py-3">{nurse.department?.name}</td>
+												<td className="px-6 py-3">{nurse.email}</td>
+												<td className="px-6 py-3">{nurse.username}</td>
+												<td className="px-6 py-3">
+													<div className="flex cursor-pointer">
+														<div
+															onClick={() => {
+																setIdToUpdate(nurse._id);
+																toggleUpdateModal();
+															}}
+														>
+															<FaEdit size={20} color="#05122e" />
+														</div>
+														<div
+															onClick={() => {
+																setIdToDelete(nurse._id);
+																toggleDeleteModal();
+															}}
+														>
+															<MdOutlineDeleteOutline
+																size={20}
+																color="#b31717"
+															/>
+														</div>
+													</div>
+												</td>
+											</tr>
+									  ))}
+							</tbody>
+						</>
+					)}
 				</table>
 			</div>
 		</div>

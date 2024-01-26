@@ -14,6 +14,7 @@ import moment from 'moment';
 import SearchResult from '../../components/Chat/SearchResult';
 import CustomModal from '../../components/Modal/CustomModal';
 import LamparaButton from '../../components/Button/LamparaButton';
+import Loader from '../../components/Loader/Loader';
 
 const Messages = () => {
 	const [chats, setChats] = useState([]);
@@ -30,6 +31,7 @@ const Messages = () => {
 	const [activeChatMate, setActiveChatMate] = useState(null);
 
 	const [showModal, setShowModal] = useState(false);
+	const [loading, setLoading] = useState(false);
 
 	const user = 'nurse';
 	const position = 'Admin';
@@ -40,11 +42,14 @@ const Messages = () => {
 	};
 
 	const fetchChats = async () => {
+		setLoading(true);
 		const res = await GetChatsByUserId(userId, user);
 
 		if (res.status === 200) {
 			setChats(res.data.chats);
 		}
+
+		setLoading(false);
 	};
 
 	const getChatMessages = async () => {
@@ -179,39 +184,43 @@ const Messages = () => {
 							</div>
 						)}
 
-						<div className="z-40 h-[495px] bg-gray-50 overflow-y-auto">
-							{chats.length == 0 ? (
-								<div className="flex items-center justify-center h-full">
-									<p className="text-gray-500 text-sm text-center">
-										No conversation found
-									</p>
-								</div>
-							) : (
-								chats.map((chat) => {
-									const chatmate = chat.users.filter(
-										(user) => user._id !== userId
-									);
-									return (
-										<ConversationCard
-											key={chat._id}
-											chatId={chat._id}
-											userId={userId}
-											fetchChats={fetchChats}
-											getChatMessages={getChatMessages}
-											onClick={() => setSelectedChat(chat._id)}
-											time={moment(chat.latestMessage?.updatedAt).format(
-												'hh:mm a'
-											)}
-											name={chatmate[0]?.name}
-											latestMsg={chat.latestMessage?.content}
-											user={user}
-											setActiveChatMate={setActiveChatMate}
-											setMessages={setMessages}
-										/>
-									);
-								})
-							)}
-						</div>
+						{loading ? (
+							<Loader />
+						) : (
+							<div className="z-40 h-[495px] bg-gray-50 overflow-y-auto">
+								{chats.length == 0 ? (
+									<div className="flex items-center justify-center h-full">
+										<p className="text-gray-500 text-sm text-center">
+											No conversation found
+										</p>
+									</div>
+								) : (
+									chats.map((chat) => {
+										const chatmate = chat.users.filter(
+											(user) => user._id !== userId
+										);
+										return (
+											<ConversationCard
+												key={chat._id}
+												chatId={chat._id}
+												userId={userId}
+												fetchChats={fetchChats}
+												getChatMessages={getChatMessages}
+												onClick={() => setSelectedChat(chat._id)}
+												time={moment(chat.latestMessage?.updatedAt).format(
+													'hh:mm a'
+												)}
+												name={chatmate[0]?.name}
+												latestMsg={chat.latestMessage?.content}
+												user={user}
+												setActiveChatMate={setActiveChatMate}
+												setMessages={setMessages}
+											/>
+										);
+									})
+								)}
+							</div>
+						)}
 					</div>
 					<div className="w-3/5 h-full bg-gray-100">
 						{messages && (

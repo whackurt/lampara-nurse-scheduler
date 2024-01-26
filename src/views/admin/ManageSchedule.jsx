@@ -16,6 +16,8 @@ import {
 } from '../../services/schedule.services';
 import notify from '../../components/Notification/notify';
 import { Toaster } from 'react-hot-toast';
+import { ClipLoader } from 'react-spinners';
+import Loader from '../../components/Loader/Loader';
 
 const ManageSchedule = () => {
 	const [showModal, setShowModal] = useState(false);
@@ -115,8 +117,6 @@ const ManageSchedule = () => {
 			loop.setDate(loop.getDate() + 1);
 		}
 
-		console.log(selectedDates);
-
 		if (selectedDates.length > 0) {
 			setDates(selectedDates);
 		}
@@ -153,6 +153,8 @@ const ManageSchedule = () => {
 	};
 
 	const getAllSchedules = async () => {
+		setLoading(true);
+
 		const res = await GetAllSchedules();
 
 		if (res.success) {
@@ -174,6 +176,8 @@ const ManageSchedule = () => {
 
 			setSchedules(restructured);
 		}
+
+		setLoading(false);
 	};
 
 	useEffect(() => {
@@ -251,16 +255,24 @@ const ManageSchedule = () => {
 				</p>
 			</div> */}
 			<div className="border-2 p-8 rounded-md">
-				<div className="flex justify-end gap-x-2">
-					<LamparaButton onClick={toggleModal} label={'Create Schedule'} />
-				</div>
-				<ScheduleCalendar
-					shifts={shifts}
-					setKeyword={setKeyword}
-					getSchedules={getAllSchedules}
-					events={filteredSchedules.length > 0 ? filteredSchedules : schedules}
-					editable={true}
-				/>
+				{loading ? (
+					<Loader />
+				) : (
+					<>
+						<div className="flex justify-end gap-x-2">
+							<LamparaButton onClick={toggleModal} label={'Create Schedule'} />
+						</div>
+						<ScheduleCalendar
+							shifts={shifts}
+							setKeyword={setKeyword}
+							getSchedules={getAllSchedules}
+							events={
+								filteredSchedules.length > 0 ? filteredSchedules : schedules
+							}
+							editable={true}
+						/>
+					</>
+				)}
 			</div>
 		</div>
 	);

@@ -4,13 +4,19 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import NurseScheduleCalendar from '../../components/Calendar/NurseScheduleCalendar';
 import { GetNurseById } from '../../services/nurse.services';
 import { GetScheduleByNurseId } from '../../services/schedule.services';
+import Loader from '../../components/Loader/Loader';
 
 const MySchedule = () => {
 	const [nurse, setNurse] = useState(null);
 	const [mySchedule, setMySchedule] = useState([]);
 
+	const [loading, setLoading] = useState(false);
+
 	const getMySchedules = async () => {
-		const res = await GetScheduleByNurseId(localStorage.getItem('nurseId'));
+		setLoading(true);
+
+		const nurseId = localStorage.getItem('nurseId');
+		const res = await GetScheduleByNurseId(nurseId);
 
 		if (res.success) {
 			var restructured = res.data?.schedule.map((sc) => {
@@ -28,10 +34,13 @@ const MySchedule = () => {
 			});
 			setMySchedule(restructured);
 		}
+
+		setLoading(false);
 	};
 
 	const getNurseDetails = async () => {
 		const nurseId = localStorage.getItem('nurseId');
+
 		const res = await GetNurseById(nurseId);
 
 		if (res.success) {
@@ -62,7 +71,7 @@ const MySchedule = () => {
 				</pc>
 			</div>
 			<div className="mt-4 border-2 p-8 rounded-md">
-				<NurseScheduleCalendar events={mySchedule} />
+				{loading ? <Loader /> : <NurseScheduleCalendar events={mySchedule} />}
 			</div>
 		</div>
 	);
