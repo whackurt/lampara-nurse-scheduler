@@ -10,6 +10,8 @@ import LamparaButton from '../../components/Button/LamparaButton';
 const AdminLogin = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const [errorMsg, setErrorMsg] = useState('');
+
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
 
@@ -17,24 +19,32 @@ const AdminLogin = () => {
 
 	const login = async () => {
 		setError(false);
+		setErrorMsg('');
 		setLoading(true);
 
-		const res = await LoginAdmin({ username: username, password: password });
+		if (username != '' && password != '') {
+			const res = await LoginAdmin({ username: username, password: password });
 
-		if (res.status == 200) {
-			localStorage.setItem('adminToken', res.data.token);
-			localStorage.setItem('adminId', res.data.id);
-			localStorage.setItem('userId', res.data.adminUserId);
-			localStorage.setItem('adminUsername', res.data.username);
-			navigate('/admin');
+			if (res.status == 200) {
+				localStorage.setItem('adminToken', res.data.token);
+				localStorage.setItem('adminId', res.data.id);
+				localStorage.setItem('userId', res.data.adminUserId);
+				localStorage.setItem('adminUsername', res.data.username);
+				navigate('/admin');
+			} else {
+				setError(true);
+				setErrorMsg('Invalid username or password');
+			}
 		} else {
 			setError(true);
+			setErrorMsg('Username and password are required.');
 		}
+
 		setLoading(false);
 	};
 
 	return (
-		<div className="bg-mainBgColor h-screen w-full font-nunito">
+		<div className="bg-nurse-background bg-cover bg-center h-screen w-full font-nunito">
 			<HelmetProvider>
 				<Helmet>
 					<title>Login - sked.io</title>
@@ -71,9 +81,11 @@ const AdminLogin = () => {
 							<p className="text-xs text-secondary">Forgot password?</p>
 						</div>
 
-						<p className="text-red-500 text-xs text-center">
-							{error ? 'Invalid username or password' : ''}
-						</p>
+						<div className="flex justify-center items-center h-4 ">
+							<p className="text-red-500 text-xs text-center">
+								{error && errorMsg}
+							</p>
+						</div>
 
 						<LamparaButton
 							width={'w-full'}

@@ -9,6 +9,7 @@ import Icon from '../../assets/skedio-icon.png';
 const NurseLogin = (props) => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const [errorMsg, setErrorMsg] = useState('');
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
 
@@ -16,23 +17,31 @@ const NurseLogin = (props) => {
 
 	const login = async () => {
 		setError(false);
+		setErrorMsg('');
 		setLoading(true);
 
-		const res = await LoginNurse({ username: username, password: password });
+		if (username != '' && password != '') {
+			const res = await LoginNurse({ username: username, password: password });
 
-		if (res.status == 200) {
-			localStorage.setItem('nurseToken', res.data.token);
-			localStorage.setItem('nurseId', res.data.nurseId);
-			localStorage.setItem('userId', res.data.nurseUserId);
-			navigate('/nurse');
+			if (res.status == 200) {
+				localStorage.setItem('nurseToken', res.data.token);
+				localStorage.setItem('nurseId', res.data.nurseId);
+				localStorage.setItem('userId', res.data.nurseUserId);
+				navigate('/nurse');
+			} else {
+				setError(true);
+				setErrorMsg('Invalid username or password');
+			}
 		} else {
 			setError(true);
+			setErrorMsg('Username and password are required');
 		}
+
 		setLoading(false);
 	};
 
 	return (
-		<div className="bg-mainBgColor h-screen w-full font-nunito">
+		<div className="bg-nurse-background bg-cover bg-center h-screen w-full font-nunito">
 			<HelmetProvider>
 				<Helmet>
 					<title>Login - sked.io</title>
@@ -41,7 +50,7 @@ const NurseLogin = (props) => {
 			</HelmetProvider>
 
 			<div className="flex justify-center pt-16 px-4">
-				<div className="flex flex-col items-center justify-center shadow-lg rounded-md py-16 bg-white w-full lg:w-1/3">
+				<div className="flex flex-col items-center justify-center shadow-xl rounded-md py-16 bg-white w-full lg:w-1/3">
 					<img src={Icon} width={80} alt="Lampara" />
 					<p className="text-primary uppercase text-sm font-bold">Nurse</p>
 					<div className="my-6 text-center text-secondary">
@@ -69,9 +78,11 @@ const NurseLogin = (props) => {
 							<p className="text-xs text-secondary">Forgot password?</p>
 						</div>
 
-						<p className="text-red-500 text-xs text-center">
-							{error ? 'Invalid username or password' : ''}
-						</p>
+						<div className="flex justify-center items-center h-4 ">
+							<p className="text-red-500 text-xs text-center">
+								{error && errorMsg}
+							</p>
+						</div>
 
 						<LamparaButton
 							width={'w-full'}
