@@ -47,7 +47,7 @@ const AdminAccountSettings = () => {
 	};
 
 	return (
-		<div>
+		<div className="py-4 ">
 			<HelmetProvider>
 				<Helmet>
 					<title>My Account - sked.io</title>

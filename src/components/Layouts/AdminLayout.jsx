@@ -196,7 +196,7 @@ const AdminLayout = ({ children, location, icon }) => {
 						/>
 					</div>
 				</div>
-				<div className="bg-white my-4 rounded-md p-4 text-gray-700">
+				<div className="bg-white my-4 overflow-hidden rounded-md text-gray-700">
 					{children}
 				</div>
 			</div>

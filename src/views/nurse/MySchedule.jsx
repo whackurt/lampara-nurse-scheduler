@@ -54,7 +54,7 @@ const MySchedule = () => {
 	}, []);
 
 	return (
-		<div className="px-8 py-4">
+		<div className="px-8 py-8">
 			<HelmetProvider>
 				<Helmet>
 					<title>My Schedule - sked.io</title>

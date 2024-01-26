@@ -131,8 +131,8 @@ const Messages = () => {
 					<meta property="og:title" content="Messages - sked.io" />
 				</Helmet>
 			</HelmetProvider>
-			<div className="lg:pl-8 lg:pr-56 py-8">
-				<div className="flex shadow-sm w-full h-[600px]  rounded-md">
+			<div className="">
+				<div className="flex shadow-sm h-[600px]  rounded-md">
 					<div className="w-[345px] relative h-full bg-gray-50">
 						<div className="flex items-center gap-x-2 bg-primary h-[60px] px-2">
 							<HiChatBubbleLeftRight size={30} color="FFFFFF" />
@@ -222,7 +222,7 @@ const Messages = () => {
 							</div>
 						)}
 					</div>
-					<div className="w-3/5 h-full bg-gray-100">
+					<div className="w-full h-full bg-gray-100">
 						{messages && (
 							<ConversationContainer
 								fetchChats={fetchChats}

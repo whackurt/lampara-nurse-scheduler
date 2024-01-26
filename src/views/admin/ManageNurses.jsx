@@ -156,7 +156,7 @@ const ManageNurses = () => {
 	}, [keyword]);
 
 	return (
-		<div>
+		<div className="p-4">
 			<HelmetProvider>
 				<Helmet>
 					<title>Manage Nurses - sked.io</title>
