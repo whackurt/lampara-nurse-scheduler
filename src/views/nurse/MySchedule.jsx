@@ -44,19 +44,23 @@ const MySchedule = () => {
 	}, []);
 
 	return (
-		<div>
+		<div className="px-8 py-4">
 			<HelmetProvider>
 				<Helmet>
-					<title>My Schedule - Lampara</title>
-					<meta property="og:title" content="Schedule-Nurses - Lampara" />
+					<title>My Schedule - sked.io</title>
+					<meta property="og:title" content="My Schedule - sked.io" />
 				</Helmet>
 			</HelmetProvider>
 
 			<div className="flex flex-col">
-				<h1 className="text-2xl font-semibold">Hello, {nurse?.first_name}!</h1>
-				<p>{moment().format('dddd, MMMM D, YYYY')}</p>
+				<h1 className="text-primary text-3xl font-bold">
+					Hello, {nurse?.first_name}!
+				</h1>
+				<pc className="text-secondary text-xl">
+					{moment().format('dddd, MMMM D, YYYY')}
+				</pc>
 			</div>
-			<div className="lg:px-24 py-16">
+			<div className="mt-4 border-2 p-8 rounded-md">
 				<NurseScheduleCalendar events={mySchedule} />
 			</div>
 		</div>

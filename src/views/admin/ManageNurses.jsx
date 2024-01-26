@@ -20,6 +20,7 @@ import { CreateChat } from '../../services/chat.services';
 const ManageNurses = () => {
 	const [showAddModal, setShowAddModal] = useState(false);
 	const [showUpdateModal, setShowUpdateModal] = useState(false);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
 	const [newNurse, setNewNurse] = useState({});
 	const [nurseToUpdate, setNurseToUpdate] = useState(null);
@@ -30,6 +31,7 @@ const ManageNurses = () => {
 	const [departmentList, setDepartmentList] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [idToUpdate, setIdToUpdate] = useState(null);
+	const [idToDelete, setIdToDelete] = useState(null);
 
 	const [keyword, setKeyword] = useState('');
 
@@ -45,6 +47,10 @@ const ManageNurses = () => {
 
 	const toggleUpdateModal = () => {
 		setShowUpdateModal(!showUpdateModal);
+	};
+
+	const toggleDeleteModal = () => {
+		setShowDeleteModal(!showDeleteModal);
 	};
 
 	const addNurse = async () => {
@@ -111,6 +117,8 @@ const ManageNurses = () => {
 			getAllNurses();
 		}
 
+		toggleDeleteModal();
+
 		setLoading(false);
 	};
 
@@ -142,8 +150,8 @@ const ManageNurses = () => {
 		<div>
 			<HelmetProvider>
 				<Helmet>
-					<title>Manage Nurses - Lampara</title>
-					<meta property="og:title" content="Schedule-Nurses - Lampara" />
+					<title>Manage Nurses - sked.io</title>
+					<meta property="og:title" content="Manage Nurses - sked.io" />
 				</Helmet>
 			</HelmetProvider>
 
@@ -255,6 +263,24 @@ const ManageNurses = () => {
 					label={'Save Update'}
 				/>
 			</CustomModal>
+
+			<CustomModal
+				title={'Delete Schedule'}
+				showModal={showDeleteModal}
+				toggleModal={toggleDeleteModal}
+			>
+				<p>Are you sure you want to delete nurse?</p>
+				<div className="flex justify-end">
+					<LamparaButton
+						label={'Delete'}
+						loading={loading}
+						loadingText={'Deleting...'}
+						bgColor="bg-red-500"
+						width={'w-[100px]'}
+						onClick={() => deleteNurse(idToDelete)}
+					/>
+				</div>
+			</CustomModal>
 			<div className="flex justify-between">
 				<div className="flex justify-end gap-x-2 items-center">
 					<input
@@ -340,7 +366,12 @@ const ManageNurses = () => {
 												>
 													<FaEdit size={20} color="#05122e" />
 												</div>
-												<div onClick={() => deleteNurse(nurse._id)}>
+												<div
+													onClick={() => {
+														setIdToDelete(nurse._id);
+														toggleDeleteModal();
+													}}
+												>
 													<MdOutlineDeleteOutline size={20} color="#b31717" />
 												</div>
 											</div>

@@ -122,8 +122,8 @@ const Messages = () => {
 		<div>
 			<HelmetProvider>
 				<Helmet>
-					<title>Messages - Lampara</title>
-					<meta property="og:title" content="Schedule-Nurses - Lampara" />
+					<title>Messages - sked.io</title>
+					<meta property="og:title" content="Messages - sked.io" />
 				</Helmet>
 			</HelmetProvider>
 			<div className="lg:pl-8 lg:pr-56 py-8">

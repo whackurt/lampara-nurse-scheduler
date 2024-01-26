@@ -23,6 +23,13 @@ import { BiSolidMessageDetail } from 'react-icons/bi';
 import { FaUserNurse } from 'react-icons/fa';
 import { AiFillSchedule } from 'react-icons/ai';
 
+import { MdOutlineDashboard } from 'react-icons/md';
+import { BiMessageSquareDetail } from 'react-icons/bi';
+import { TbNurse } from 'react-icons/tb';
+import { HiOutlineCalendarDays } from 'react-icons/hi2';
+import { TbSettings } from 'react-icons/tb';
+import { TbLogout2 } from 'react-icons/tb';
+
 const App = () => {
 	return (
 		<BrowserRouter>
@@ -55,7 +62,7 @@ const App = () => {
 					element={
 						<AdminPrivateRoute user={'admin'} redirect={'/admin/login'}>
 							<AdminLayout
-								icon={<IoIosHome size={25} />}
+								icon={<MdOutlineDashboard size={25} />}
 								location={'Dashboard'}
 							>
 								<AdminDashboard />
@@ -69,7 +76,7 @@ const App = () => {
 					element={
 						<AdminPrivateRoute user={'admin'} redirect={'/admin/login'}>
 							<AdminLayout
-								icon={<FaUserNurse size={25} />}
+								icon={<TbNurse size={25} />}
 								location={'Manage Nurses'}
 							>
 								<ManageNurses />
@@ -83,7 +90,7 @@ const App = () => {
 					element={
 						<AdminPrivateRoute user={'admin'} redirect={'/admin/login'}>
 							<AdminLayout
-								icon={<BiSolidMessageDetail size={25} />}
+								icon={<BiMessageSquareDetail size={25} />}
 								location={'Messages'}
 							>
 								<AdminMessages />
@@ -97,8 +104,8 @@ const App = () => {
 					element={
 						<AdminPrivateRoute user={'admin'} redirect={'/admin/login'}>
 							<AdminLayout
-								icon={<AiFillSchedule size={25} />}
-								location={'Manage Schedule'}
+								icon={<HiOutlineCalendarDays size={25} />}
+								location={'Manage Schedules'}
 							>
 								<ManageSchedule />
 							</AdminLayout>
@@ -111,7 +118,7 @@ const App = () => {
 					element={
 						<AdminPrivateRoute user={'admin'} redirect={'/admin/login'}>
 							<AdminLayout
-								icon={<IoMdSettings size={25} />}
+								icon={<TbSettings size={25} />}
 								location={'Account Settings'}
 							>
 								<AdminAccountSettings />
@@ -127,7 +134,7 @@ const App = () => {
 					element={
 						<NursePrivateRoute user={'nurse'} redirect={'/nurse/login'}>
 							<NurseLayout
-								icon={<AiFillSchedule size={25} />}
+								icon={<HiOutlineCalendarDays size={25} />}
 								location="My Schedule"
 							>
 								<MySchedule />
@@ -141,7 +148,7 @@ const App = () => {
 					element={
 						<NursePrivateRoute user={'nurse'} redirect={'/nurse/login'}>
 							<NurseLayout
-								icon={<BiSolidMessageDetail size={25} />}
+								icon={<BiMessageSquareDetail size={25} />}
 								location="Messages"
 							>
 								<NurseMessages />
@@ -155,7 +162,7 @@ const App = () => {
 					element={
 						<NursePrivateRoute user={'nurse'} redirect={'/nurse/login'}>
 							<NurseLayout
-								icon={<IoMdSettings size={25} />}
+								icon={<TbSettings size={25} />}
 								location="Account Settings"
 							>
 								<NurseAccountSettings />

@@ -10,11 +10,11 @@ const LamparaInputForm = ({
 }) => {
 	return (
 		<div className="flex flex-col justify-center py-2">
-			<p className="font-light text-xs">
+			<p className="text-sm font-medium text-secondary">
 				{label} {required ? <span className="text-red-500">*</span> : ''}
 			</p>
 			<input
-				className="text-sm h-8 px-2 border-2 "
+				className="text-sm h-10 px-2 border-2 rounded-md"
 				type={type}
 				name={label}
 				disabled={disabled}

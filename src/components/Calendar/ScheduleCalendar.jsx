@@ -43,7 +43,7 @@ const ScheduleCalendar = ({
 				weekends={true}
 				events={events}
 				dayMaxEventRows={3}
-				eventBackgroundColor="#288a01"
+				eventBackgroundColor="#0077B6"
 				eventBorderColor="#FFFFFF"
 			/>
 			<CustomModal

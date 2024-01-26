@@ -190,8 +190,8 @@ const ManageSchedule = () => {
 		<div>
 			<HelmetProvider>
 				<Helmet>
-					<title>Manage Schedules - Lampara</title>
-					<meta property="og:title" content="Schedule-Nurses - Lampara" />
+					<title>Manage Schedules - sked.io</title>
+					<meta property="og:title" content="Manage Schedules - sked.io" />
 				</Helmet>
 			</HelmetProvider>
 
@@ -245,13 +245,13 @@ const ManageSchedule = () => {
 					label={'Create'}
 				/>
 			</CustomModal>
-			<div className="flex flex-col">
-				<p className="text-2xl font-semibold">
+			{/* <div className="flex flex-col">
+				<p className="text-primary text-2xl font-semibold">
 					{moment().format('dddd, MMMM D, YYYY')}
 				</p>
-			</div>
-			<div className="lg:px-24 py-16">
-				<div className="flex justify-end py-2 gap-x-2">
+			</div> */}
+			<div className="border-2 p-8 rounded-md">
+				<div className="flex justify-end gap-x-2">
 					<LamparaButton onClick={toggleModal} label={'Create Schedule'} />
 				</div>
 				<ScheduleCalendar

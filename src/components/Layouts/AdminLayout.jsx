@@ -1,39 +1,51 @@
 import React, { useState } from 'react';
 import Control from '../../../src/assets/control.png';
-import Logo from '../../../public/LAMPARA/logo1-200h.png';
+import Icon from '../../../src/assets/skedio-icon.png';
+import Logo from '../../../src/assets/skedio-logo.png';
+
 import { Link, useNavigate } from 'react-router-dom';
-import { IoIosHome, IoMdSettings } from 'react-icons/io';
-import { BiSolidMessageDetail } from 'react-icons/bi';
-import { FaUserNurse } from 'react-icons/fa';
-import { AiFillSchedule } from 'react-icons/ai';
-import { IoLogOut } from 'react-icons/io5';
+import { MdOutlineDashboard } from 'react-icons/md';
+import { BiMessageSquareDetail } from 'react-icons/bi';
+import { TbNurse } from 'react-icons/tb';
+import { HiOutlineCalendarDays } from 'react-icons/hi2';
+import { TbSettings } from 'react-icons/tb';
+import { TbLogout2 } from 'react-icons/tb';
+import { CgProfile } from 'react-icons/cg';
+import CustomModal from '../Modal/CustomModal';
+import LamparaButton from '../Button/LamparaButton';
 
 const AdminLayout = ({ children, location, icon }) => {
 	const [open, setOpen] = useState(true);
+	const [showLogoutModal, setShowLogoutModal] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const navigate = useNavigate();
 
 	const Menus = [
 		{
 			title: 'Dashboard',
-			icon: <IoIosHome size={25} color="#24234d" />,
+			icon: <MdOutlineDashboard size={25} color="#0077B6" />,
 			route: '/admin',
 		},
 		{
 			title: 'Messages',
-			icon: <BiSolidMessageDetail size={25} color="#24234d" />,
+			icon: <BiMessageSquareDetail size={25} color="#0077B6" />,
 			route: '/admin/messages',
 		},
 		{
 			title: 'Manage Nurses',
-			icon: <FaUserNurse size={25} color="#24234d" />,
+			icon: <TbNurse size={25} color="#0077B6" />,
 			route: '/admin/manage-nurses',
 		},
 		{
 			title: 'Manage Schedules',
-			icon: <AiFillSchedule size={25} color="#24234d" />,
+			icon: <HiOutlineCalendarDays size={25} color="#0077B6" />,
 			route: '/admin/manage-schedules',
 		},
 	];
+
+	const toggleLogoutModal = () => {
+		setShowLogoutModal(!showLogoutModal);
+	};
 
 	const logout = () => {
 		localStorage.removeItem('adminToken');
@@ -44,10 +56,27 @@ const AdminLayout = ({ children, location, icon }) => {
 	};
 
 	return (
-		<div className="flex font-poppins text-primary w-full overflow-x-auto">
+		<div className="flex font-nunito text-primary w-full overflow-x-auto">
+			<CustomModal
+				title={'Confirm Logout'}
+				showModal={showLogoutModal}
+				toggleModal={toggleLogoutModal}
+			>
+				<p className="text-secondary">Are you sure you want to logout?</p>
+				<div className="flex justify-end">
+					<LamparaButton
+						label={'Logout'}
+						loading={loading}
+						loadingText={'Deleting...'}
+						bgColor="bg-red-500"
+						width={'w-[100px]'}
+						onClick={() => logout()}
+					/>
+				</div>
+			</CustomModal>
 			<div
 				className={` ${
-					open ? 'w-72' : 'w-20 '
+					open ? 'w-56' : 'w-20 '
 				} bg-white h-screen p-5 shadow-md pt-8 fixed top-0 left duration-300 `}
 			>
 				<img
@@ -59,8 +88,8 @@ const AdminLayout = ({ children, location, icon }) => {
 
 				<div className="flex gap-x-4 items-center">
 					<img
-						width={60}
-						src={Logo}
+						width={40}
+						src={Icon}
 						className={`cursor-pointer duration-500`}
 					/>
 					<div className="flex flex-col">
@@ -69,13 +98,17 @@ const AdminLayout = ({ children, location, icon }) => {
 								!open && 'scale-0'
 							}`}
 						>
-							LAMPARA
-							<p className="text-sm font-normal">Scheduler</p>
+							<img
+								width={80}
+								src={Logo}
+								className={`cursor-pointer duration-500`}
+							/>
 						</div>
 					</div>
 				</div>
-				<div className="flex justify-center mt-10">
-					<p className="font-bold">Admin</p>
+				<div className="flex flex-col items-center mt-10 ">
+					<CgProfile size={40} color="#454545" />
+					<p className="text-lg font-bold text-secondary">Admin</p>
 				</div>
 				<div className="flex flex-col justify-between">
 					<ul className="pt-6">
@@ -84,7 +117,9 @@ const AdminLayout = ({ children, location, icon }) => {
 								<li
 									key={index}
 									className={`flex ${
-										location === Menu.title ? 'text-primary' : 'text-slate-700'
+										location === Menu.title
+											? 'text-primary bg-slate-100'
+											: 'text-slate-700'
 									} rounded-md p-2 cursor-pointer hover:bg-slate-100 text-primary text-sm items-center gap-x-4 
               ${Menu.gap ? 'mt-9' : 'mt-2'} ${
 										index === 0 && 'bg-light-white'
@@ -94,7 +129,7 @@ const AdminLayout = ({ children, location, icon }) => {
 									<span
 										className={`${
 											!open && 'hidden'
-										} origin-left duration-200  font-normal`}
+										} origin-left duration-200 font-semibold`}
 									>
 										{Menu.title}
 									</span>
@@ -106,22 +141,27 @@ const AdminLayout = ({ children, location, icon }) => {
 					<div className="flex flex-col  mt-32">
 						<Link
 							to={'/admin/my-account'}
-							className="flex items-center hover:bg-slate-100 h-12 rounded-md gap-x-4 px-2"
+							className={`${
+								location === 'Account Settings'
+									? 'text-primary bg-slate-100'
+									: 'text-slate-700'
+							} flex items-center hover:bg-slate-100 h-12 rounded-md gap-x-4 px-2`}
 						>
-							<IoMdSettings size={25} color="#24234d" />
+							<TbSettings size={25} color="#0077B6" />
 							<p
 								className={`${
 									!open && 'hidden'
-								} origin-left duration-200 text-sm  font-normal`}
+								} origin-left duration-200 text-sm  font-semibold`}
 							>
 								Account Settings
 							</p>
 						</Link>
+
 						<div
-							onClick={() => logout()}
+							onClick={() => toggleLogoutModal()}
 							className="flex items-center hover:bg-slate-100 h-12 rounded-md cursor-pointer gap-x-4 px-2"
 						>
-							<IoLogOut size={25} color="#b50d1e" />
+							<TbLogout2 size={25} color="#b50d1e" />
 							<a
 								className={`${
 									!open && 'hidden'
@@ -136,12 +176,12 @@ const AdminLayout = ({ children, location, icon }) => {
 
 			<div
 				className={`h-screen w-full overflow-y-auto p-4 bg-gray-100 ${
-					open ? 'ml-72' : 'ml-20'
+					open ? 'ml-56' : 'ml-20'
 				} duration-300 `}
 			>
 				<div className="flex justify-left gap-x-2 items-center w-full px-4 rounded-md bg-white h-12">
 					{icon}
-					<p className="font-bold text-primary">{location}</p>
+					<p className="font-bold text-secondary">{location}</p>
 				</div>
 				<div className="bg-white my-4 rounded-md p-4 text-gray-700">
 					{children}

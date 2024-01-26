@@ -49,18 +49,20 @@ const AdminDashboard = () => {
 	}, []);
 
 	return (
-		<div>
+		<div className="px-8 py-4">
 			<HelmetProvider>
 				<Helmet>
-					<title>Dashboard - Lampara</title>
-					<meta property="og:title" content="Schedule-Nurses - Lampara" />
+					<title>Dashboard - sked.io</title>
+					<meta property="og:title" content="Dashboard - sked.io" />
 				</Helmet>
 			</HelmetProvider>
 			<div className="flex flex-col">
-				<h1 className="text-2xl font-semibold">Greetings!</h1>
-				<p>{moment().format('dddd, MMMM D, YYYY')}</p>
+				<h1 className="text-primary text-3xl font-bold">Good day!</h1>
+				<p className="text-secondary text-xl">
+					{moment().format('dddd, MMMM D, YYYY')}
+				</p>
 			</div>
-			<div className="lg:px-24 py-16">
+			<div className="mt-4 border-2 p-8 rounded-md">
 				<ScheduleCalendar
 					setKeyword={setKeyword}
 					events={filteredSchedules.length > 0 ? filteredSchedules : schedules}

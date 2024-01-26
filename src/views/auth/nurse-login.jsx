@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { LoginNurse } from '../../services/auth.services';
-import AppIcon from '../../assets/icon.png';
 import LamparaButton from '../../components/Button/LamparaButton';
 import LamparaInputForm from '../../components/Forms/LamparaInputForm';
+import Icon from '../../assets/skedio-icon.png';
 
 const NurseLogin = (props) => {
 	const [username, setUsername] = useState('');
@@ -32,46 +32,56 @@ const NurseLogin = (props) => {
 	};
 
 	return (
-		<div className="flex text-primary bg-mainBgColor w-full h-screen justify-center items-center">
+		<div className="bg-mainBgColor h-screen w-full font-nunito">
 			<HelmetProvider>
 				<Helmet>
-					<title>Login - Lampara</title>
-					<meta property="og:title" content="Lampara" />
+					<title>Login - sked.io</title>
+					<meta property="og:title" content="sked.io" />
 				</Helmet>
 			</HelmetProvider>
-			<div className="flex flex-col items-center justify-center">
-				<img src={AppIcon} width={100} alt="Lampara" />
 
-				<h1 className="font-bold text-2xl text-primary font-inter">LAMPARA</h1>
-				<p>Nurse</p>
-				<div className="mt-4">
-					<LamparaInputForm
-						label="Username"
-						onChange={(e) => setUsername(e.target.value)}
-						placeholder="Enter your username"
-					/>
-					<LamparaInputForm
-						type={'password'}
-						label="Password"
-						onChange={(e) => setPassword(e.target.value)}
-						placeholder="Enter your password"
-					/>
+			<div className="flex justify-center pt-16 px-4">
+				<div className="flex flex-col items-center justify-center shadow-lg rounded-md py-16 bg-white w-full lg:w-1/3">
+					<img src={Icon} width={80} alt="Lampara" />
+					<p className="text-primary uppercase text-sm font-bold">Nurse</p>
+					<div className="my-6 text-center text-secondary">
+						<h1 className="font-bold text-3xl lg:text-4xl text-slate-800">
+							Welcome back
+						</h1>
+						<p>Login to your account below.</p>
+					</div>
+
+					<div className="w-full px-4 lg:px-12">
+						<LamparaInputForm
+							type="text"
+							label="Username"
+							onChange={(e) => setUsername(e.target.value)}
+							placeholder="Enter your username"
+						/>
+
+						<LamparaInputForm
+							type="password"
+							label="Password"
+							onChange={(e) => setPassword(e.target.value)}
+							placeholder="Enter your password"
+						/>
+						<div className="flex justify-end">
+							<p className="text-xs text-secondary">Forgot password?</p>
+						</div>
+
+						<p className="text-red-500 text-xs text-center">
+							{error ? 'Invalid username or password' : ''}
+						</p>
+
+						<LamparaButton
+							width={'w-full'}
+							label="Login"
+							loading={loading}
+							loadingText="Logging in..."
+							onClick={() => login()}
+						/>
+					</div>
 				</div>
-
-				<p className="text-red-500 text-xs">
-					{error ? 'Invalid username or password' : ''}
-				</p>
-
-				<LamparaButton
-					width={'w-full'}
-					label="Login"
-					loading={loading}
-					loadingText="Logging in..."
-					onClick={() => login()}
-				/>
-				<Link to={'/forgot-password'}>
-					<p className="text-xs text-slate-600">Forgot password?</p>
-				</Link>
 			</div>
 		</div>
 	);

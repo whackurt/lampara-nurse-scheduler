@@ -1,37 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import Control from '../../../src/assets/control.png';
-import Logo from '../../../public/LAMPARA/logo1-200h.png';
+import Logo from '../../../src/assets/skedio-logo.png';
+import Icon from '../../../src/assets/skedio-icon.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { IoMdSettings } from 'react-icons/io';
 import { BiSolidMessageDetail } from 'react-icons/bi';
+import { BiMessageSquareDetail } from 'react-icons/bi';
+import { TbSettings } from 'react-icons/tb';
+import { TbLogout2 } from 'react-icons/tb';
 import { AiFillSchedule } from 'react-icons/ai';
 import { IoLogOutSharp } from 'react-icons/io5';
 import { LiaUserNurseSolid } from 'react-icons/lia';
 import { GetNurseById } from '../../services/nurse.services.js';
+import { HiOutlineCalendarDays } from 'react-icons/hi2';
+import CustomModal from '../Modal/CustomModal.jsx';
+import LamparaButton from '../Button/LamparaButton.jsx';
 
 const NurseLayout = ({ children, location, icon }) => {
 	const [open, setOpen] = useState(true);
-	const navigate = useNavigate();
+	const [showLogoutModal, setShowLogoutModal] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const [nurse, setNurse] = useState(null);
 
+	const navigate = useNavigate();
 	const Menus = [
 		{
 			title: 'My Schedule',
-			icon: <AiFillSchedule size={25} color="#24234d" />,
+			icon: <HiOutlineCalendarDays size={25} color="#0077B6" />,
 			route: '/nurse',
 		},
 		{
 			title: 'Messages',
-			icon: <BiSolidMessageDetail size={25} color="#24234d" />,
+			icon: <BiMessageSquareDetail size={25} color="#0077B6" />,
 			route: '/nurse/messages',
 		},
 	];
 
+	const toggleLogoutModal = () => {
+		setShowLogoutModal(!showLogoutModal);
+	};
+
 	const logout = async () => {
-		await localStorage.removeItem('nurseToken');
-		await localStorage.removeItem('nurseId');
-		await localStorage.removeItem('userId');
-		await navigate('/nurse/login');
+		localStorage.removeItem('nurseToken');
+		localStorage.removeItem('nurseId');
+		localStorage.removeItem('userId');
+		navigate('/nurse/login');
 	};
 
 	const getNurseDetails = async () => {
@@ -47,7 +60,24 @@ const NurseLayout = ({ children, location, icon }) => {
 	}, []);
 
 	return (
-		<div className="flex font-poppins text-primary w-full overflow-x-auto">
+		<div className="flex font-nunito text-primary w-full overflow-x-auto">
+			<CustomModal
+				title={'Confirm Logout'}
+				showModal={showLogoutModal}
+				toggleModal={toggleLogoutModal}
+			>
+				<p className="text-secondary">Are you sure you want to logout?</p>
+				<div className="flex justify-end">
+					<LamparaButton
+						label={'Logout'}
+						loading={loading}
+						loadingText={'Deleting...'}
+						bgColor="bg-red-500"
+						width={'w-[100px]'}
+						onClick={() => logout()}
+					/>
+				</div>
+			</CustomModal>
 			<div
 				className={` ${
 					open ? 'w-72' : 'w-20 '
@@ -62,23 +92,21 @@ const NurseLayout = ({ children, location, icon }) => {
 
 				<div className="flex gap-x-4 items-center">
 					<img
-						width={60}
-						src={Logo}
+						width={40}
+						src={Icon}
 						className={`cursor-pointer duration-500`}
 					/>
 					<div className="flex flex-col">
-						<div
-							className={`text-primary origin-left font-bold text-lg duration-200 ${
-								!open && 'scale-0'
-							}`}
-						>
-							LAMPARA
-							<p className="text-sm font-normal">Scheduler</p>
-						</div>
+						<img
+							width={80}
+							src={Logo}
+							className={`cursor-pointer duration-500`}
+						/>
 					</div>
 				</div>
-				<div className="flex justify-center mt-10">
-					<p className="font-bold">Nurse</p>
+				<div className="flex flex-col items-center mt-10 ">
+					<LiaUserNurseSolid size={40} color="#454545" />
+					<p className="text-lg font-bold text-secondary">Nurse</p>
 				</div>
 				<div className="flex flex-col justify-between">
 					<ul className="pt-6">
@@ -87,7 +115,9 @@ const NurseLayout = ({ children, location, icon }) => {
 								<li
 									key={index}
 									className={`flex ${
-										location === Menu.title ? 'text-primary' : 'text-slate-700'
+										location === Menu.title
+											? 'text-primary bg-slate-100'
+											: 'text-slate-700'
 									} rounded-md p-2 cursor-pointer hover:bg-slate-100 text-primary text-sm items-center gap-x-4 
               ${Menu.gap ? 'mt-9' : 'mt-2'} ${
 										index === 0 && 'bg-light-white'
@@ -97,7 +127,7 @@ const NurseLayout = ({ children, location, icon }) => {
 									<span
 										className={`${
 											!open && 'hidden'
-										} origin-left duration-200  font-normal`}
+										} origin-left duration-200  font-semibold`}
 									>
 										{Menu.title}
 									</span>
@@ -109,22 +139,26 @@ const NurseLayout = ({ children, location, icon }) => {
 					<div className="flex flex-col mt-64">
 						<Link
 							to={'/nurse/my-account'}
-							className="flex items-center hover:bg-slate-100 h-12 rounded-md gap-x-4 px-2"
+							className={`${
+								location === 'Account Settings'
+									? 'text-primary bg-slate-100'
+									: 'text-slate-700'
+							} flex items-center hover:bg-slate-100 h-12 rounded-md gap-x-4 px-2`}
 						>
-							<IoMdSettings size={25} color="#24234d" />
+							<TbSettings size={25} color="#0077B6" />
 							<p
 								className={`${
 									!open && 'hidden'
-								} origin-left duration-200 text-sm font-normal`}
+								} origin-left duration-200 text-sm font-semibold`}
 							>
 								Account Settings
 							</p>
 						</Link>
 						<div
-							onClick={() => logout()}
+							onClick={() => toggleLogoutModal()}
 							className="flex items-center hover:bg-slate-100 h-12 rounded-md cursor-pointer gap-x-4 px-2"
 						>
-							<IoLogOutSharp size={25} color="#b50d1e" />
+							<TbLogout2 size={25} color="#b50d1e" />
 							<a
 								className={`${
 									!open && 'hidden'
@@ -145,11 +179,11 @@ const NurseLayout = ({ children, location, icon }) => {
 				<div className="flex justify-between gap-x-2 items-center w-full px-4 rounded-md bg-white h-12">
 					<div className="flex gap-x-2">
 						{icon}
-						<p className="font-bold text-primary">{location}</p>
+						<p className="font-bold text-secondary">{location}</p>
 					</div>
 					<div className="flex items-center gap-x-3">
 						<LiaUserNurseSolid size={30} />
-						<p className="font-semibold">
+						<p className="font-semibold text-secondary">
 							{nurse?.first_name} {nurse?.last_name}
 						</p>
 					</div>
