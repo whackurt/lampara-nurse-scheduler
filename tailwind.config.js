@@ -13,6 +13,10 @@ export default {
 				secondary: '#454545',
 				mainBgColor: '#f5f4f2',
 			},
+			backgroundImage: {
+				'nurse-background':
+					"url('https://c4.wallpaperflare.com/wallpaper/145/876/936/doctor-medicine-nurse-wallpaper-preview.jpg')",
+			},
 		},
 	},
 	plugins: [],
