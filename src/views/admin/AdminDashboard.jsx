@@ -5,6 +5,10 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { GetAllSchedules } from '../../services/schedule.services';
 import { ClipLoader } from 'react-spinners';
 import Loader from '../../components/Loader/Loader';
+import DashboardCard from '../../components/Card/DashboardCard';
+import { LiaUserNurseSolid } from 'react-icons/lia';
+import { BiCalendar } from 'react-icons/bi';
+import { AiOutlineSchedule } from 'react-icons/ai';
 
 const AdminDashboard = () => {
 	const [schedules, setSchedules] = useState([]);
@@ -70,7 +74,24 @@ const AdminDashboard = () => {
 					{moment().format('dddd, MMMM D, YYYY')}
 				</p>
 			</div>
-			<div className="mt-4 border-2 p-8 rounded-md">
+			<div className="flex mt-6 gap-x-3">
+				<DashboardCard
+					title={'Nurses'}
+					value={12}
+					icon={<LiaUserNurseSolid size={25} />}
+				/>
+				<DashboardCard
+					title={'Schedules'}
+					value={23}
+					icon={<BiCalendar size={25} />}
+				/>
+				<DashboardCard
+					title={'Shifts'}
+					value={9}
+					icon={<AiOutlineSchedule size={25} />}
+				/>
+			</div>
+			<div className="mt-6 border-2 p-8 rounded-md">
 				{loading ? (
 					<Loader />
 				) : (
