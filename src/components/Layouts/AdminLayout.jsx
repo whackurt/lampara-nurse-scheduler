@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Control from '../../../src/assets/control.png';
 import Icon from '../../../src/assets/skedio-icon.png';
 import Logo from '../../../src/assets/skedio-logo.png';
-
+import AdminIcon from '../../assets/admin-icon.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdOutlineDashboard } from 'react-icons/md';
 import { BiMessageSquareDetail } from 'react-icons/bi';
@@ -11,8 +11,10 @@ import { HiOutlineCalendarDays } from 'react-icons/hi2';
 import { TbSettings } from 'react-icons/tb';
 import { TbLogout2 } from 'react-icons/tb';
 import { CgProfile } from 'react-icons/cg';
+
 import CustomModal from '../Modal/CustomModal';
 import LamparaButton from '../Button/LamparaButton';
+import { IoMdNotificationsOutline } from 'react-icons/io';
 
 const AdminLayout = ({ children, location, icon }) => {
 	const [open, setOpen] = useState(true);
@@ -107,8 +109,10 @@ const AdminLayout = ({ children, location, icon }) => {
 					</div>
 				</div>
 				<div className="flex flex-col items-center mt-10 ">
-					<CgProfile size={40} color="#454545" />
-					<p className="text-lg font-bold text-secondary">Admin</p>
+					{/* <CgProfile size={40} color="#454545" />
+					<p className="text-lg font-bold text-secondary">Admin</p> */}
+
+					<img src={AdminIcon} width={60} />
 				</div>
 				<div className="flex flex-col justify-between">
 					<ul className="pt-6">
@@ -179,9 +183,18 @@ const AdminLayout = ({ children, location, icon }) => {
 					open ? 'ml-56' : 'ml-20'
 				} duration-300 `}
 			>
-				<div className="flex justify-left gap-x-2 items-center w-full px-4 rounded-md bg-white h-12">
-					{icon}
-					<p className="font-bold text-secondary">{location}</p>
+				<div className="flex justify-between gap-x-2 items-center w-full px-4 rounded-md bg-white h-12">
+					<div className="flex items-center gap-x-2">
+						{icon}
+						<p className="font-bold text-secondary">{location}</p>
+					</div>
+					<div>
+						<IoMdNotificationsOutline
+							className="cursor-pointer"
+							size={25}
+							color="#454545"
+						/>
+					</div>
 				</div>
 				<div className="bg-white my-4 rounded-md p-4 text-gray-700">
 					{children}

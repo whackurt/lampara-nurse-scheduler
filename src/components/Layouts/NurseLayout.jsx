@@ -2,15 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Control from '../../../src/assets/control.png';
 import Logo from '../../../src/assets/skedio-logo.png';
 import Icon from '../../../src/assets/skedio-icon.png';
+import NurseIcon from '../../assets/nurse-icon.png';
 import { Link, useNavigate } from 'react-router-dom';
-import { IoMdSettings } from 'react-icons/io';
-import { BiSolidMessageDetail } from 'react-icons/bi';
 import { BiMessageSquareDetail } from 'react-icons/bi';
 import { TbSettings } from 'react-icons/tb';
 import { TbLogout2 } from 'react-icons/tb';
-import { AiFillSchedule } from 'react-icons/ai';
-import { IoLogOutSharp } from 'react-icons/io5';
-import { LiaUserNurseSolid } from 'react-icons/lia';
+import { IoMdNotificationsOutline } from 'react-icons/io';
 import { GetNurseById } from '../../services/nurse.services.js';
 import { HiOutlineCalendarDays } from 'react-icons/hi2';
 import CustomModal from '../Modal/CustomModal.jsx';
@@ -80,7 +77,7 @@ const NurseLayout = ({ children, location, icon }) => {
 			</CustomModal>
 			<div
 				className={` ${
-					open ? 'w-72' : 'w-20 '
+					open ? 'w-56' : 'w-20 '
 				} bg-white h-screen p-5 shadow-md pt-8 fixed top-0 left duration-300 `}
 			>
 				<img
@@ -105,8 +102,15 @@ const NurseLayout = ({ children, location, icon }) => {
 					</div>
 				</div>
 				<div className="flex flex-col items-center mt-10 ">
-					<LiaUserNurseSolid size={40} color="#454545" />
-					<p className="text-lg font-bold text-secondary">Nurse</p>
+					{/* <LiaUserNurseSolid size={40} color="#454545" /> */}
+					<img src={NurseIcon} width={60} />
+					<p
+						className={`${
+							!open && 'hidden'
+						} text-lg font-bold text-secondary text-center`}
+					>
+						{nurse?.first_name} {nurse?.last_name}
+					</p>
 				</div>
 				<div className="flex flex-col justify-between">
 					<ul className="pt-6">
@@ -173,19 +177,28 @@ const NurseLayout = ({ children, location, icon }) => {
 
 			<div
 				className={`h-screen w-full overflow-y-auto p-4 bg-gray-100 ${
-					open ? 'ml-72' : 'ml-20'
+					open ? 'ml-56' : 'ml-20'
 				} duration-300 `}
 			>
 				<div className="flex justify-between gap-x-2 items-center w-full px-4 rounded-md bg-white h-12">
 					<div className="flex gap-x-2">
-						{icon}
-						<p className="font-bold text-secondary">{location}</p>
+						<div className="flex items-center gap-x-2">
+							{icon}
+							<p className="font-bold text-secondary">{location}</p>
+						</div>
 					</div>
 					<div className="flex items-center gap-x-3">
-						<LiaUserNurseSolid size={30} />
-						<p className="font-semibold text-secondary">
+						<div>
+							<IoMdNotificationsOutline
+								className="cursor-pointer"
+								size={25}
+								color="#454545"
+							/>
+						</div>
+						{/* <LiaUserNurseSolid size={30} /> */}
+						{/* <p className="font-semibold text-secondary">
 							{nurse?.first_name} {nurse?.last_name}
-						</p>
+						</p> */}
 					</div>
 				</div>
 				<div className="bg-white my-4 rounded-md p-4 text-gray-700">
