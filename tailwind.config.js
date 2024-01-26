@@ -6,10 +6,12 @@ export default {
 			fontFamily: {
 				inter: ['Inter', 'sans-serif'],
 				poppins: ['Poppins', 'sans-serif'],
+				nunito: ['Nunito', 'sans-serif'],
 			},
 			colors: {
-				primary: '#24234d',
-				mainBgColor: '#ebebeb',
+				primary: '#0077B6',
+				secondary: '#454545',
+				mainBgColor: '#f5f4f2',
 			},
 		},
 	},
