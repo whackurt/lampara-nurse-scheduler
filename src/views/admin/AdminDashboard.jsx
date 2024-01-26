@@ -9,13 +9,23 @@ import DashboardCard from '../../components/Card/DashboardCard';
 import { LiaUserNurseSolid } from 'react-icons/lia';
 import { BiCalendar } from 'react-icons/bi';
 import { AiOutlineSchedule } from 'react-icons/ai';
+import {
+	GetNurseCount,
+	GetSchedulesCount,
+	GetShiftCount,
+} from '../../services/statistics';
 
 const AdminDashboard = () => {
 	const [schedules, setSchedules] = useState([]);
 	const [filteredSchedules, setFilteredSchedules] = useState([]);
 	const [keyword, setKeyword] = useState('');
-
 	const [loading, setLoading] = useState(false);
+
+	const [statistics, setStatistics] = useState({
+		nurseCount: 0,
+		shiftCount: 0,
+		scheduleCount: 0,
+	});
 
 	const getAllSchedules = async () => {
 		setLoading(true);
@@ -52,6 +62,28 @@ const AdminDashboard = () => {
 		setFilteredSchedules(filteredSchedules);
 	};
 
+	const getStatistics = async () => {
+		const nurse = await GetNurseCount();
+		const nurseCount = nurse.count;
+
+		const schedule = await GetSchedulesCount();
+		const schedCount = schedule.count;
+
+		const shift = await GetShiftCount();
+		const shiftCount = shift.count;
+
+		setStatistics({
+			...statistics,
+			nurseCount: nurseCount,
+			shiftCount: shiftCount,
+			scheduleCount: schedCount,
+		});
+	};
+
+	useEffect(() => {
+		getStatistics();
+	}, []);
+
 	useEffect(() => {
 		filterSchedules();
 	}, [keyword]);
@@ -77,17 +109,17 @@ const AdminDashboard = () => {
 			<div className="flex mt-6 gap-x-3">
 				<DashboardCard
 					title={'Nurses'}
-					value={12}
+					value={statistics.nurseCount}
 					icon={<LiaUserNurseSolid size={25} />}
 				/>
 				<DashboardCard
 					title={'Schedules'}
-					value={23}
+					value={statistics.scheduleCount}
 					icon={<BiCalendar size={25} />}
 				/>
 				<DashboardCard
 					title={'Shifts'}
-					value={9}
+					value={statistics.shiftCount}
 					icon={<AiOutlineSchedule size={25} />}
 				/>
 			</div>
