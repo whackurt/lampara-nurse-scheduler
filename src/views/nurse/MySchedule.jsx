@@ -31,7 +31,8 @@ const MySchedule = () => {
 	};
 
 	const getNurseDetails = async () => {
-		const res = await GetNurseById(localStorage.getItem('nurseId'));
+		const nurseId = localStorage.getItem('nurseId');
+		const res = await GetNurseById(nurseId);
 
 		if (res.success) {
 			setNurse(res.data);
