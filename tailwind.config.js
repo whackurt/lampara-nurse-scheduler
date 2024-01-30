@@ -14,8 +14,7 @@ export default {
 				mainBgColor: '#f5f4f2',
 			},
 			backgroundImage: {
-				'nurse-background':
-					"url('https://c4.wallpaperflare.com/wallpaper/145/876/936/doctor-medicine-nurse-wallpaper-preview.jpg')",
+				'nurse-background': "url('/src/assets/wallpaper-doctor.jpg')",
 			},
 		},
 	},
