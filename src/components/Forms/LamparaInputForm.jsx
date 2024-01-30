@@ -14,7 +14,7 @@ const LamparaInputForm = ({
 				{label} {required ? <span className="text-red-500">*</span> : ''}
 			</p>
 			<input
-				className="text-sm h-10 px-2 border-2 rounded-md"
+				className="text-sm h-10 px-2 border rounded-md"
 				type={type}
 				name={label}
 				disabled={disabled}

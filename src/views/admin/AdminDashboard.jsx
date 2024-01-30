@@ -5,7 +5,6 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { GetAllSchedules } from '../../services/schedule.services';
 import { ClipLoader } from 'react-spinners';
 import Loader from '../../components/Loader/Loader';
-import DashboardCard from '../../components/Card/DashboardCard';
 import { LiaUserNurseSolid } from 'react-icons/lia';
 import { BiCalendar } from 'react-icons/bi';
 import { AiOutlineSchedule } from 'react-icons/ai';
@@ -14,10 +13,13 @@ import {
 	GetSchedulesCount,
 	GetShiftCount,
 } from '../../services/statistics';
+import StatisticsCard from '../../components/Card/StatisticsCard';
+import { GetAllNurses } from '../../services/nurse.services';
 
 const AdminDashboard = () => {
 	const [schedules, setSchedules] = useState([]);
 	const [filteredSchedules, setFilteredSchedules] = useState([]);
+	const [nurses, setNurses] = useState([]);
 	const [keyword, setKeyword] = useState('');
 	const [loading, setLoading] = useState(false);
 
@@ -34,6 +36,10 @@ const AdminDashboard = () => {
 
 		if (res.success) {
 			var restructured = res.data.map((sc) => {
+				const formattedDate = moment(
+					sc.date.substring(0, 10),
+					'YYYY-MM-DDThh:mm:ss.SSSZ'
+				).format('YYYY-MM-DD');
 				return {
 					title: `${sc.nurse_id?.first_name} ${sc.nurse_id?.last_name}`,
 					time: `${moment(
@@ -44,7 +50,8 @@ const AdminDashboard = () => {
 						'YYYY-MM-DDThh:mm:ss.SSSZ'
 					).format('hh:mmA')}`,
 					dept: sc.department?.name,
-					date: `${moment(sc.date).format('yyyy-MM-DD')}`,
+					date: formattedDate,
+					backgroundColor: sc.department?.color,
 				};
 			});
 
@@ -55,9 +62,12 @@ const AdminDashboard = () => {
 	};
 
 	const filterSchedules = () => {
-		const filteredSchedules = schedules.filter((sc) =>
-			sc.title.toLowerCase().includes(keyword.toLowerCase())
+		const filteredSchedules = schedules.filter(
+			(sc) =>
+				sc.title.toLowerCase().includes(keyword.toLowerCase()) ||
+				sc.dept.toLowerCase().includes(keyword.toLowerCase())
 		);
+		console.log(filteredSchedules);
 
 		setFilteredSchedules(filteredSchedules);
 	};
@@ -80,16 +90,36 @@ const AdminDashboard = () => {
 		});
 	};
 
-	useEffect(() => {
-		getStatistics();
-	}, []);
+	const getAllNurses = async () => {
+		const res = await GetAllNurses();
+
+		var restructured = res.data.map((nurse) => {
+			return {
+				value: nurse._id,
+				label: `${nurse.last_name}, ${nurse.first_name}`,
+			};
+		});
+
+		restructured = [
+			...restructured,
+			{
+				value: 'None',
+				label: 'None',
+			},
+		];
+
+		setNurses(restructured);
+	};
 
 	useEffect(() => {
 		filterSchedules();
+		console.log(keyword, nurses);
 	}, [keyword]);
 
 	useEffect(() => {
+		getStatistics();
 		getAllSchedules();
+		getAllNurses();
 	}, []);
 
 	return (
@@ -107,20 +137,20 @@ const AdminDashboard = () => {
 				</p>
 			</div>
 			<div className="flex mt-6 gap-x-3">
-				<DashboardCard
+				<StatisticsCard
 					title={'Nurses'}
 					value={statistics.nurseCount}
-					icon={<LiaUserNurseSolid size={25} />}
+					icon={<LiaUserNurseSolid size={25} color="#0077B6" />}
 				/>
-				<DashboardCard
+				<StatisticsCard
 					title={'Schedules'}
 					value={statistics.scheduleCount}
-					icon={<BiCalendar size={25} />}
+					icon={<BiCalendar size={25} color="#0077B6" />}
 				/>
-				<DashboardCard
+				<StatisticsCard
 					title={'Shifts'}
 					value={statistics.shiftCount}
-					icon={<AiOutlineSchedule size={25} />}
+					icon={<AiOutlineSchedule size={25} color="#0077B6" />}
 				/>
 			</div>
 			<div className="mt-6 border-2 p-8 rounded-md">
@@ -128,10 +158,11 @@ const AdminDashboard = () => {
 					<Loader />
 				) : (
 					<ScheduleCalendar
+						// shifts={shifts}
+						nurses={nurses}
 						setKeyword={setKeyword}
-						events={
-							filteredSchedules.length > 0 ? filteredSchedules : schedules
-						}
+						getSchedules={getAllSchedules}
+						events={keyword !== '' ? filteredSchedules : schedules}
 						editable={false}
 					/>
 				)}

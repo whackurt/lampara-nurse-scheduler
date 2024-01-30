@@ -123,6 +123,7 @@ const Messages = () => {
 	}, [keyword]);
 
 	useEffect(() => {
+		setMessages([]);
 		getChatMessages();
 		getChatById();
 	}, [selectedChat]);

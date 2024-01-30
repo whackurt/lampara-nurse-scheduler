@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ScheduleCalendar from '../../components/Calendar/ScheduleCalendar';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import LamparaButton from '../../components/Button/LamparaButton';
 import CustomModal from '../../components/Modal/CustomModal';
@@ -26,11 +26,12 @@ const ManageSchedule = () => {
 	const [endDate, setEndDate] = useState(null);
 	const [nurses, setNurses] = useState([]);
 	const [shifts, setShifts] = useState([]);
-	const [schedules, setSchedules] = useState([]);
+
 	const [loading, setLoading] = useState(false);
-	const [success, setSuccess] = useState(false);
+	const [createLoading, setCreateLoading] = useState(false);
 	const [dates, setDates] = useState([]);
 
+	const [schedules, setSchedules] = useState([]);
 	const [filteredSchedules, setFilteredSchedules] = useState([]);
 	const [keyword, setKeyword] = useState('');
 
@@ -39,15 +40,17 @@ const ManageSchedule = () => {
 	};
 
 	const filterSchedules = () => {
-		const filteredSchedules = schedules.filter((sc) =>
-			sc.title.toLowerCase().includes(keyword.toLowerCase())
+		const filteredSchedules = schedules.filter(
+			(sc) =>
+				sc.title.toLowerCase().includes(keyword.toLowerCase()) ||
+				sc.dept.toLowerCase().includes(keyword.toLowerCase())
 		);
 
 		setFilteredSchedules(filteredSchedules);
 	};
 
 	const createSchedule = async () => {
-		setLoading(true);
+		setCreateLoading(true);
 
 		if (Object.keys(newSchedule).length > 0) {
 			let created = 0;
@@ -59,12 +62,14 @@ const ManageSchedule = () => {
 					dates[i]
 				);
 
+				console.log(checkSched);
+
 				if (!checkSched.success) {
 					scheduledAlready = true;
 					break;
 				}
 
-				newSchedule.date = `${dates[i]}T00:00:00.000`;
+				newSchedule.date = `${dates[i]}`;
 
 				const createSchedResponse = await CreateSchedule(newSchedule);
 
@@ -89,7 +94,7 @@ const ManageSchedule = () => {
 			}
 		}
 
-		setLoading(false);
+		setCreateLoading(false);
 	};
 
 	const onChange = (dates) => {
@@ -128,9 +133,17 @@ const ManageSchedule = () => {
 		var restructured = res.data.map((nurse) => {
 			return {
 				value: nurse._id,
-				label: `${nurse.first_name} ${nurse.last_name}`,
+				label: `${nurse.last_name}, ${nurse.first_name}`,
 			};
 		});
+
+		restructured = [
+			...restructured,
+			{
+				value: 'None',
+				label: 'None',
+			},
+		];
 
 		setNurses(restructured);
 	};
@@ -159,9 +172,14 @@ const ManageSchedule = () => {
 
 		if (res.success) {
 			var restructured = res.data.map((sc) => {
+				const formattedDate = moment(
+					sc.date.substring(0, 10),
+					'YYYY-MM-DDThh:mm:ss.SSSZ'
+				).format('YYYY-MM-DD');
+
 				return {
 					_id: sc._id,
-					title: `${sc.nurse_id?.first_name} ${sc.nurse_id?.last_name}`,
+					title: `${sc.nurse_id?.last_name}, ${sc.nurse_id?.first_name}`,
 					time: `${moment(
 						sc.shift_id?.start_time,
 						'YYYY-MM-DDThh:mm:ss.SSSZ'
@@ -170,7 +188,8 @@ const ManageSchedule = () => {
 						'YYYY-MM-DDThh:mm:ss.SSSZ'
 					).format('hh:mmA')}`,
 					dept: sc.department?.name,
-					date: `${moment(sc.date).format('yyyy-MM-DD')}`,
+					date: formattedDate,
+					backgroundColor: sc.department?.color,
 				};
 			});
 
@@ -182,6 +201,7 @@ const ManageSchedule = () => {
 
 	useEffect(() => {
 		filterSchedules();
+		console.log('keyword:', keyword);
 	}, [keyword]);
 
 	useEffect(() => {
@@ -249,12 +269,7 @@ const ManageSchedule = () => {
 					label={'Create'}
 				/>
 			</CustomModal>
-			{/* <div className="flex flex-col">
-				<p className="text-primary text-2xl font-semibold">
-					{moment().format('dddd, MMMM D, YYYY')}
-				</p>
-			</div> */}
-			<div className="border-2 p-8 rounded-md">
+			<div className="p-8 rounded-md">
 				{loading ? (
 					<Loader />
 				) : (
@@ -264,11 +279,10 @@ const ManageSchedule = () => {
 						</div>
 						<ScheduleCalendar
 							shifts={shifts}
+							nurses={nurses}
 							setKeyword={setKeyword}
 							getSchedules={getAllSchedules}
-							events={
-								filteredSchedules.length > 0 ? filteredSchedules : schedules
-							}
+							events={keyword !== '' ? filteredSchedules : schedules}
 							editable={true}
 						/>
 					</>

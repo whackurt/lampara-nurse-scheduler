@@ -11,6 +11,9 @@ import LamparaDropdown from '../Button/LamparaDropdown';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import notify from '../Notification/notify';
+import Loader from '../Loader/Loader';
+import { CiEdit } from 'react-icons/ci';
+import { AiOutlineDelete } from 'react-icons/ai';
 
 const ScheduleCard = ({
 	name,
@@ -31,6 +34,8 @@ const ScheduleCard = ({
 	const [showEditModal, setShowEditModal] = useState(false);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const [loading, setLoading] = useState(false);
+	const [editLoading, setEditLoading] = useState(false);
+	const [deleteLoading, setDeleteLoading] = useState(false);
 
 	const toggleEditModal = () => {
 		setShowEditModal(!showEditModal);
@@ -41,7 +46,7 @@ const ScheduleCard = ({
 	};
 
 	const deleteSchedule = async () => {
-		setLoading(true);
+		setDeleteLoading(true);
 
 		const res = await DeleteScheduleById(idToDelete);
 
@@ -52,11 +57,11 @@ const ScheduleCard = ({
 			getSchedules();
 		}
 
-		setLoading(false);
+		setDeleteLoading(false);
 	};
 
 	const editScheduleShift = async () => {
-		setLoading(true);
+		setEditLoading(true);
 
 		if (newShift != null) {
 			const res = await UpdateScheduleById(idToUpdate, { shift_id: newShift });
@@ -69,7 +74,7 @@ const ScheduleCard = ({
 			}
 		}
 
-		setLoading(false);
+		setEditLoading(false);
 	};
 
 	return (
@@ -125,7 +130,7 @@ const ScheduleCard = ({
 								toggleEditModal();
 							}}
 						>
-							<FaEdit size={20} color="#05122e" />
+							<CiEdit size={20} color="#0077B6" />
 						</div>
 						<div
 							onClick={() => {
@@ -133,7 +138,7 @@ const ScheduleCard = ({
 								toggleDeleteModal();
 							}}
 						>
-							<MdOutlineDeleteOutline size={20} color="#b31717" />
+							<AiOutlineDelete size={20} color="#e02832" />
 						</div>
 					</div>
 				)}

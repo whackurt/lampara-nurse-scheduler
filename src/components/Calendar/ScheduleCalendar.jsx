@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import timeGridPlugin from '@fullcalendar/timegrid';
+
 import ScheduleCard from '../Card/ScheduleCard';
 import CustomModal from '../Modal/CustomModal';
 import moment from 'moment';
+import LamparaDropdown from '../Button/LamparaDropdown';
+import { GetAllDepartments } from '../../services/department.services';
+import { TbFilterX } from 'react-icons/tb';
 
 const ScheduleCalendar = ({
 	editable = false,
@@ -12,10 +17,13 @@ const ScheduleCalendar = ({
 	getSchedules,
 	shifts,
 	setKeyword,
+	nurses,
 }) => {
 	const [showModal, setShowModal] = useState(false);
 	const [date, setDate] = useState('');
 	const [scheduledNurses, setScheduledNurses] = useState([]);
+
+	const [departments, setDepartments] = useState([]);
 
 	const toggleModal = (arg) => {
 		setDate(arg.dateStr);
@@ -26,23 +34,60 @@ const ScheduleCalendar = ({
 		setShowModal(!showModal);
 	};
 
+	const getDepartments = async () => {
+		const res = await GetAllDepartments();
+		const departments = res.data;
+
+		var restructured = departments.map((dept) => {
+			return {
+				value: dept.name,
+				label: dept.name,
+			};
+		});
+
+		restructured = [...restructured, { value: '', label: 'None' }];
+
+		setDepartments(restructured);
+	};
+
+	useEffect(() => {
+		getDepartments();
+	}, []);
+
 	return (
 		<>
-			<div className="mb-2">
-				<input
-					className="border-2 px-2 py-1 rounded-md"
-					placeholder="Search"
-					type="text"
-					onChange={(e) => setKeyword(e.target.value)}
+			<div className="flex items-center gap-x-2">
+				<button
+					onClick={() => setKeyword('')}
+					className="border cursor-pointer hover:shadow-md p-2 rounded-md"
+				>
+					<TbFilterX size={15} color="#404040" />
+				</button>
+
+				<LamparaDropdown
+					label={'Filter by Department'}
+					placeholder={'Select department'}
+					options={departments}
+					required={false}
+					width={'w-56'}
+					onChange={(option) => setKeyword(option.value)}
+				/>
+				<LamparaDropdown
+					label={'Filter by Nurse'}
+					placeholder={'Select nurse'}
+					options={nurses}
+					required={false}
+					width={'w-56'}
+					onChange={(option) => setKeyword(option.label)}
 				/>
 			</div>
 			<FullCalendar
-				plugins={[dayGridPlugin, interactionPlugin]}
+				plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
 				initialView="dayGridMonth"
 				dateClick={toggleModal}
 				weekends={true}
 				events={events}
-				dayMaxEventRows={3}
+				dayMaxEventRows={5}
 				eventBackgroundColor="#0077B6"
 				eventBorderColor="#FFFFFF"
 			/>
