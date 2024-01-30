@@ -56,7 +56,7 @@ const AdminAccountSettings = () => {
 				</Helmet>
 			</HelmetProvider>
 			<div className="flex gap-x-4 gap-y-4 px-4">
-				<div className="flex flex-col lg:w-1/2 border-2 border-grey-600 p-6 rounded-md">
+				<div className="flex flex-col lg:w-1/2 border border-grey-600 p-6 rounded-md">
 					<p className="font-semibold text-xl mb-6">Account Information</p>
 					<LamparaDisplayText
 						label={'Username'}

@@ -2,7 +2,7 @@ import React from 'react';
 
 const StatisticsCard = ({ title, value, icon }) => {
 	return (
-		<div className="border border-slate-100 shadow h-24 w-40 bg-white p-2 rounded-md">
+		<div className="border  h-24 w-40 bg-white p-2 rounded-md">
 			<div className="flex gap-x-1">
 				{icon}
 				<p className="font-bold text-lg text-secondary">{title}</p>

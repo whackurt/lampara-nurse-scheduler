@@ -97,7 +97,7 @@ const AdminDashboard = () => {
 	}, []);
 
 	return (
-		<div className="px-8 py-4">
+		<div className="px-8 py-8">
 			<HelmetProvider>
 				<Helmet>
 					<title>Dashboard - sked.io</title>
@@ -105,12 +105,12 @@ const AdminDashboard = () => {
 				</Helmet>
 			</HelmetProvider>
 			<div className="flex flex-col">
-				<h1 className="text-primary text-3xl font-bold">Good day!</h1>
+				<h1 className="text-primary text-3xl font-bold">Good day&#x1F44B;</h1>
 				<p className="text-secondary text-xl">
 					{moment().format('dddd, MMMM D, YYYY')}
 				</p>
 			</div>
-			<div className="flex mt-6 gap-x-3">
+			<div className="flex mt-6 gap-x-3 ">
 				<StatisticsCard
 					title={'Nurses'}
 					value={statistics.nurseCount}
@@ -127,7 +127,7 @@ const AdminDashboard = () => {
 					icon={<AiOutlineSchedule size={25} color="#0077B6" />}
 				/>
 			</div>
-			<div className="mt-6 border-2 p-8 rounded-md">
+			<div className="mt-10 border p-8 rounded-md">
 				{loading ? (
 					<Loader />
 				) : (

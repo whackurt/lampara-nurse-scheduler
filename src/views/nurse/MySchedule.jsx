@@ -59,11 +59,12 @@ const MySchedule = () => {
 
 			<div className="flex flex-col">
 				<h1 className="text-primary text-3xl font-bold">
-					Hello, {nurse?.first_name}!
+					Hello, {nurse?.first_name}&#x1F44B;
 				</h1>
-				<pc className="text-secondary text-xl">
+				<p className="text-xs">You can view your schedule below.</p>
+				<p className="text-secondary text-xl mt-3">
 					{moment().format('dddd, MMMM D, YYYY')}
-				</pc>
+				</p>
 			</div>
 			<div className="mt-4 border-2 p-8 rounded-md">
 				{loading ? <Loader /> : <NurseScheduleCalendar events={mySchedule} />}
