@@ -18,6 +18,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import { CreateChat } from '../../services/chat.services';
 import { ClipLoader } from 'react-spinners';
 import Loader from '../../components/Loader/Loader';
+import { CiEdit } from 'react-icons/ci';
+import { AiOutlineDelete } from 'react-icons/ai';
 
 const ManageNurses = () => {
 	const [showAddModal, setShowAddModal] = useState(false);
@@ -83,12 +85,14 @@ const ManageNurses = () => {
 	const updateNurse = async () => {
 		setLoading(true);
 
-		const res = await UpdateNurseById(idToUpdate, updates);
+		if (Object.keys(updates).length !== 0) {
+			const res = await UpdateNurseById(idToUpdate, updates);
 
-		if (res.success) {
-			notify('Nurse updated successfully.');
-			getAllNurses();
-			toggleUpdateModal();
+			if (res.success) {
+				notify('Nurse updated successfully.');
+				getAllNurses();
+				toggleUpdateModal();
+			}
 		}
 
 		setLoading(false);
@@ -98,7 +102,7 @@ const ManageNurses = () => {
 		setLoading(true);
 
 		const res = await GetAllNurses();
-
+		console.log(res);
 		if (res.success) {
 			setNurses(res.data);
 		}
@@ -316,14 +320,15 @@ const ManageNurses = () => {
 							<thead className="text-xs bg-primary text-white uppercase ">
 								<tr>
 									<th scope="col" className="px-6 py-3">
+										Department
+									</th>
+									<th scope="col" className="px-6 py-3">
 										Last Name
 									</th>
 									<th scope="col" className="px-6 py-3">
 										First Name
 									</th>
-									<th scope="col" className="px-6 py-3">
-										Department
-									</th>
+
 									<th scope="col" className="px-6 py-3">
 										Email Address
 									</th>
@@ -340,9 +345,21 @@ const ManageNurses = () => {
 								{keyword.length > 0
 									? filteredNurses?.map((nurse) => (
 											<tr key={nurse._id} className="border-b">
+												<td className={`px-6 py-3`}>
+													<div>
+														<div
+															style={{
+																backgroundColor: `${nurse.department?.color}`,
+															}}
+															className="flex w-28 text-white justify-center px-2 rounded-sm"
+														>
+															{nurse.department?.name}
+														</div>
+													</div>
+												</td>
 												<td className="px-6 py-3">{nurse.last_name}</td>
 												<td className="px-6 py-3">{nurse.first_name}</td>
-												<td className="px-6 py-3">{nurse.department?.name}</td>
+
 												<td className="px-6 py-3">{nurse.email}</td>
 												<td className="px-6 py-3">{nurse.username}</td>
 												<td className="px-6 py-3">
@@ -353,13 +370,10 @@ const ManageNurses = () => {
 																toggleUpdateModal();
 															}}
 														>
-															<FaEdit size={20} color="#05122e" />
+															<CiEdit size={20} color="#0077B6" />
 														</div>
 														<div onClick={() => deleteNurse(nurse._id)}>
-															<MdOutlineDeleteOutline
-																size={20}
-																color="#b31717"
-															/>
+															<AiOutlineDelete size={20} color="#e02832" />
 														</div>
 													</div>
 												</td>
@@ -367,9 +381,21 @@ const ManageNurses = () => {
 									  ))
 									: nurses?.map((nurse) => (
 											<tr key={nurse._id} className="border-b">
+												<td className={`px-6 py-3`}>
+													<div>
+														<div
+															style={{
+																backgroundColor: `${nurse.department?.color}`,
+															}}
+															className="flex w-28 text-white justify-center px-2 rounded-sm"
+														>
+															{nurse.department?.name}
+														</div>
+													</div>
+												</td>
 												<td className="px-6 py-3">{nurse.last_name}</td>
 												<td className="px-6 py-3">{nurse.first_name}</td>
-												<td className="px-6 py-3">{nurse.department?.name}</td>
+
 												<td className="px-6 py-3">{nurse.email}</td>
 												<td className="px-6 py-3">{nurse.username}</td>
 												<td className="px-6 py-3">
@@ -380,7 +406,7 @@ const ManageNurses = () => {
 																toggleUpdateModal();
 															}}
 														>
-															<FaEdit size={20} color="#05122e" />
+															<CiEdit size={20} color="#0077B6" />
 														</div>
 														<div
 															onClick={() => {
@@ -388,10 +414,7 @@ const ManageNurses = () => {
 																toggleDeleteModal();
 															}}
 														>
-															<MdOutlineDeleteOutline
-																size={20}
-																color="#b31717"
-															/>
+															<AiOutlineDelete size={20} color="#e02832" />
 														</div>
 													</div>
 												</td>
