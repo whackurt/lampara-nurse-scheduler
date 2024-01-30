@@ -9,6 +9,7 @@ const LamparaDropdown = ({
 	onChange,
 	placeholder,
 	defaultOption,
+	width = null,
 }) => {
 	return (
 		<div className="mb-4">
@@ -16,8 +17,8 @@ const LamparaDropdown = ({
 				{label} {required ? <span className="text-red-500">*</span> : ''}
 			</p>
 			<Dropdown
-				controlClassName="flex items-center rounded-md h-8 border-2 "
 				className="rounded"
+				controlClassName={`flex items-center rounded-md ${width} h-8 border`}
 				menuClassName="text-sm"
 				placeholderClassName="text-sm"
 				arrowClassName="flex items-center"
