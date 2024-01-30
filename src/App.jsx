@@ -25,11 +25,22 @@ import { TbNurse } from 'react-icons/tb';
 import { HiOutlineCalendarDays } from 'react-icons/hi2';
 import { TbSettings } from 'react-icons/tb';
 import ManageShifts from './views/admin/ManageShifts';
+import LandingPage from './views/LandingPage';
 
 const App = () => {
 	return (
 		<BrowserRouter>
 			<Routes>
+				<Route
+					exact
+					path="/"
+					element={
+						<AuthenticatedAdminPrivateRoute>
+							<LandingPage />
+						</AuthenticatedAdminPrivateRoute>
+					}
+				/>
+
 				{/* AUTH ROUTES */}
 				<Route
 					exact
