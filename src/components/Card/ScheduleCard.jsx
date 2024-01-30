@@ -55,6 +55,8 @@ const ScheduleCard = ({
 			toggleDeleteModal();
 			toggleScheduleModal(!showScheduleModal);
 			getSchedules();
+		} else {
+			notify('Failed to delete schedule.', true);
 		}
 
 		setDeleteLoading(false);
@@ -71,6 +73,8 @@ const ScheduleCard = ({
 				toggleEditModal();
 				toggleScheduleModal(!showScheduleModal);
 				getSchedules();
+			} else {
+				notify('Failed to update schedule.', true);
 			}
 		}
 

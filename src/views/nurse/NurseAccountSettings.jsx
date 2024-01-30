@@ -52,6 +52,8 @@ const NurseAccountSettings = () => {
 
 		if (res.success) {
 			setNurse(res.data);
+		} else {
+			notify('Failed to fetch nurse details.', true);
 		}
 	};
 

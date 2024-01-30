@@ -48,9 +48,9 @@ const Messages = () => {
 		setLoading(true);
 
 		const res = await GetChatsByUserId(userId, user);
-
 		if (res.status === 200) {
-			setChats(res.data.chats);
+			const chats = res.data.chats;
+			setChats(chats);
 		}
 
 		setLoading(false);
@@ -59,9 +59,9 @@ const Messages = () => {
 	const getChatMessages = async () => {
 		if (selectedChat) {
 			const res = await GetMessages(selectedChat, userId, user);
-
 			if (res.status === 200) {
-				setMessages(res.data);
+				const chatMessages = res.data;
+				setMessages(chatMessages);
 			}
 		}
 	};
@@ -87,7 +87,8 @@ const Messages = () => {
 		const res = await SearchUsers(keyword, userId, user);
 
 		if (res.status == 200) {
-			setResults(res.data?.users);
+			const resultUsers = res.data?.users;
+			setResults(resultUsers);
 		}
 	};
 
@@ -107,7 +108,8 @@ const Messages = () => {
 		}
 		if (res.status == 200) {
 			await fetchChats();
-			setSelectedChat(res.data?.chat._id);
+			const chatId = res.data?.chat._id;
+			setSelectedChat(chatId);
 		}
 
 		setKeyword('');

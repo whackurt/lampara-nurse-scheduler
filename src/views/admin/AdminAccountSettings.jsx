@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import LamparaDisplayText from '../../components/Forms/LamparaDisplayText';
 import LamparaButton from '../../components/Button/LamparaButton';
-import LamparaInputForm from '../../components/Forms/LamparaInputForm';
 import { UpdateAdminPassword } from '../../services/auth.services';
+import notify from '../../components/Notification/notify';
 
 const AdminAccountSettings = () => {
 	const [password, setPassword] = useState('');
@@ -28,6 +28,7 @@ const AdminAccountSettings = () => {
 			});
 
 			if (res.data.success) {
+				notify('Password updated successfully');
 				setPassword('');
 				setConfirmPassword('');
 				toggleEditMode();
