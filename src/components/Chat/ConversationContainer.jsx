@@ -48,7 +48,10 @@ const ConversationContainer = ({
 	};
 
 	useEffect(() => {
-		socket.current = io('ws://localhost:8900');
+		const serverUrl =
+			'https://lampara-socket-server-production.up.railway.app/';
+
+		socket.current = io(serverUrl);
 
 		socket.current.on('welcome', (message) => {
 			// console.log(message);
