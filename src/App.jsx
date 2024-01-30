@@ -18,17 +18,13 @@ import ManageNurses from './views/admin/ManageNurses';
 import AdminAccountSettings from './views/admin/AdminAccountSettings';
 import NurseAccountSettings from './views/nurse/NurseAccountSettings';
 import MySchedule from './views/nurse/MySchedule';
-import { IoIosHome, IoMdSettings } from 'react-icons/io';
-import { BiSolidMessageDetail } from 'react-icons/bi';
-import { FaUserNurse } from 'react-icons/fa';
-import { AiFillSchedule } from 'react-icons/ai';
-
+import { LuCalendarClock } from 'react-icons/lu';
 import { MdOutlineDashboard } from 'react-icons/md';
 import { BiMessageSquareDetail } from 'react-icons/bi';
 import { TbNurse } from 'react-icons/tb';
 import { HiOutlineCalendarDays } from 'react-icons/hi2';
 import { TbSettings } from 'react-icons/tb';
-import { TbLogout2 } from 'react-icons/tb';
+import ManageShifts from './views/admin/ManageShifts';
 
 const App = () => {
 	return (
@@ -108,6 +104,20 @@ const App = () => {
 								location={'Manage Schedules'}
 							>
 								<ManageSchedule />
+							</AdminLayout>
+						</AdminPrivateRoute>
+					}
+				/>
+				<Route
+					exact
+					path="/admin/manage-shifts"
+					element={
+						<AdminPrivateRoute user={'admin'} redirect={'/admin/login'}>
+							<AdminLayout
+								icon={<LuCalendarClock size={25} />}
+								location={'Manage Shifts'}
+							>
+								<ManageShifts />
 							</AdminLayout>
 						</AdminPrivateRoute>
 					}

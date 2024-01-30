@@ -10,11 +10,10 @@ import { TbNurse } from 'react-icons/tb';
 import { HiOutlineCalendarDays } from 'react-icons/hi2';
 import { TbSettings } from 'react-icons/tb';
 import { TbLogout2 } from 'react-icons/tb';
-import { CgProfile } from 'react-icons/cg';
-
 import CustomModal from '../Modal/CustomModal';
 import LamparaButton from '../Button/LamparaButton';
 import { IoMdNotificationsOutline } from 'react-icons/io';
+import { LuCalendarClock } from 'react-icons/lu';
 
 const AdminLayout = ({ children, location, icon }) => {
 	const [open, setOpen] = useState(true);
@@ -42,6 +41,11 @@ const AdminLayout = ({ children, location, icon }) => {
 			title: 'Manage Schedules',
 			icon: <HiOutlineCalendarDays size={25} color="#0077B6" />,
 			route: '/admin/manage-schedules',
+		},
+		{
+			title: 'Manage Shifts',
+			icon: <LuCalendarClock size={25} color="#0077B6" />,
+			route: '/admin/manage-shifts',
 		},
 	];
 
