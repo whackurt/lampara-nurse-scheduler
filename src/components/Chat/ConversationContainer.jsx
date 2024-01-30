@@ -43,29 +43,29 @@ const ConversationContainer = ({
 
 			fetchChats();
 
-			socket.current.emit('sendMessage', newMessage);
+			// socket.current.emit('sendMessage', newMessage);
 		}
 	};
 
-	useEffect(() => {
-		const serverUrl =
-			'https://lampara-socket-server-production.up.railway.app/';
+	// useEffect(() => {
+	// 	const serverUrl =
+	// 		'https://lampara-socket-server-production.up.railway.app/';
 
-		socket.current = io(serverUrl);
+	// 	socket.current = io(serverUrl);
 
-		socket.current.on('welcome', (message) => {
-			// console.log(message);
-		});
+	// 	socket.current.on('welcome', (message) => {
+	// 		// console.log(message);
+	// 	});
 
-		socket.current.on('messageReceived', (newMessage) => {
-			setMessages((prev) => [...prev, newMessage.message]);
-			fetchChats();
-		});
-	}, []);
+	// 	socket.current.on('messageReceived', (newMessage) => {
+	// 		setMessages((prev) => [...prev, newMessage.message]);
+	// 		fetchChats();
+	// 	});
+	// }, []);
 
-	useEffect(() => {
-		socket.current.emit('addUser', userId);
-	}, [userId]);
+	// useEffect(() => {
+	// 	socket.current.emit('addUser', userId);
+	// }, [userId]);
 
 	useEffect(() => {
 		messageEndRef.current?.scrollIntoView();
@@ -74,7 +74,6 @@ const ConversationContainer = ({
 	return (
 		<div className="flex flex-col">
 			<div className="flex h-[60px] gap-x-2 bg-primary p-2">
-				{/* {<p className="text-white">{selectedChat}</p>} */}
 				{activeChatMate && (
 					<>
 						<div className="flex items-center ">
@@ -86,7 +85,6 @@ const ConversationContainer = ({
 						</div>
 						<div className="flex flex-col justify-center bg-primary ">
 							<h1 className="font-semibold text-gray-200"> {name} </h1>
-							{/* <p className="text-xs text-gray-400">{position}</p> */}
 						</div>
 					</>
 				)}
