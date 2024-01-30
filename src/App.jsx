@@ -31,15 +31,7 @@ const App = () => {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route
-					exact
-					path="/"
-					element={
-						<AuthenticatedAdminPrivateRoute>
-							<LandingPage />
-						</AuthenticatedAdminPrivateRoute>
-					}
-				/>
+				<Route exact path="/" element={<LandingPage />} />
 
 				{/* AUTH ROUTES */}
 				<Route
