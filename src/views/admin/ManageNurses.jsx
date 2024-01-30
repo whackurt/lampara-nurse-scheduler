@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FaEdit } from 'react-icons/fa';
-import { MdOutlineDeleteOutline } from 'react-icons/md';
+import { AiOutlineEdit } from 'react-icons/ai';
 import { IoMdSearch } from 'react-icons/io';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import LamparaButton from '../../components/Button/LamparaButton';
@@ -16,11 +15,13 @@ import {
 import { GetAllDepartments } from '../../services/department.services';
 import toast, { Toaster } from 'react-hot-toast';
 import { CreateChat } from '../../services/chat.services';
-import { ClipLoader } from 'react-spinners';
 import Loader from '../../components/Loader/Loader';
-import { CiEdit } from 'react-icons/ci';
 import { AiOutlineDelete } from 'react-icons/ai';
 import { restructureDepartments } from '../../helpers/restructure';
+import LamparaTextButtonWithIcon from '../../components/Button/LamparaButtonWithIcon';
+import { IoIosAddCircleOutline } from 'react-icons/io';
+import { IoSaveOutline } from 'react-icons/io5';
+import LamparaIconButton from '../../components/Button/LamparaIconButton';
 
 const ManageNurses = () => {
 	const [showAddModal, setShowAddModal] = useState(false);
@@ -223,9 +224,11 @@ const ManageNurses = () => {
 						setNewNurse({ ...newNurse, password: e.target.value })
 					}
 				/>
-				<LamparaButton
+				<LamparaTextButtonWithIcon
 					loading={loading}
 					loadingText={'Adding nurse...'}
+					icon={<IoIosAddCircleOutline size={25} />}
+					bgColor="bg-green-600"
 					onClick={() => addNurse()}
 					label={'Add Nurse'}
 				/>
@@ -275,9 +278,10 @@ const ManageNurses = () => {
 					placeholder={nurseToUpdate && nurseToUpdate[0]?.username}
 					onChange={(e) => setUpdates({ ...updates, username: e.target.value })}
 				/>
-				<LamparaButton
+				<LamparaTextButtonWithIcon
 					loading={loading}
 					loadingText={'Updating nurse...'}
+					icon={<IoSaveOutline size={20} />}
 					onClick={() => updateNurse()}
 					label={'Save Update'}
 				/>
@@ -315,7 +319,12 @@ const ManageNurses = () => {
 						<IoMdSearch color="#24234d" />
 					</button>
 				</div>
-				<LamparaButton onClick={toggleAddModal} label={'Add Nurse'} />
+				<LamparaTextButtonWithIcon
+					label={'Add Nurse'}
+					bgColor="bg-green-600"
+					icon={<IoIosAddCircleOutline size={25} />}
+					onClick={toggleAddModal}
+				/>
 			</div>
 			<div className="overflow-x-auto">
 				<table className=" w-full my-4 text-sm border  rounded-md text-left rtl:text-right text-gray-600">
@@ -369,18 +378,25 @@ const ManageNurses = () => {
 												<td className="px-6 py-3">{nurse.email}</td>
 												<td className="px-6 py-3">{nurse.username}</td>
 												<td className="px-6 py-3">
-													<div className="flex cursor-pointer">
-														<div
+													<div className="flex gap-x-1 cursor-pointer">
+														<LamparaIconButton
 															onClick={() => {
 																setIdToUpdate(nurse._id);
 																toggleUpdateModal();
 															}}
-														>
-															<CiEdit size={20} color="#0077B6" />
-														</div>
-														<div onClick={() => deleteNurse(nurse._id)}>
-															<AiOutlineDelete size={20} color="#e02832" />
-														</div>
+															color={'bg-blue-500'}
+															icon={<AiOutlineEdit size={20} color="#FFFFFF" />}
+														/>
+														<LamparaIconButton
+															onClick={() => {
+																setIdToDelete(nurse._id);
+																toggleDeleteModal();
+															}}
+															color={'bg-red-500'}
+															icon={
+																<AiOutlineDelete size={20} color="#FFFFFF" />
+															}
+														/>
 													</div>
 												</td>
 											</tr>
@@ -405,23 +421,25 @@ const ManageNurses = () => {
 												<td className="px-6 py-3">{nurse.email}</td>
 												<td className="px-6 py-3">{nurse.username}</td>
 												<td className="px-6 py-3">
-													<div className="flex cursor-pointer">
-														<div
+													<div className="flex gap-x-1 cursor-pointer">
+														<LamparaIconButton
 															onClick={() => {
 																setIdToUpdate(nurse._id);
 																toggleUpdateModal();
 															}}
-														>
-															<CiEdit size={20} color="#0077B6" />
-														</div>
-														<div
+															color={'bg-blue-500'}
+															icon={<AiOutlineEdit size={20} color="#FFFFFF" />}
+														/>
+														<LamparaIconButton
 															onClick={() => {
 																setIdToDelete(nurse._id);
 																toggleDeleteModal();
 															}}
-														>
-															<AiOutlineDelete size={20} color="#e02832" />
-														</div>
+															color={'bg-red-500'}
+															icon={
+																<AiOutlineDelete size={20} color="#FFFFFF" />
+															}
+														/>
 													</div>
 												</td>
 											</tr>

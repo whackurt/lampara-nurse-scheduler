@@ -4,6 +4,10 @@ import LamparaDisplayText from '../../components/Forms/LamparaDisplayText';
 import LamparaButton from '../../components/Button/LamparaButton';
 import { UpdateAdminPassword } from '../../services/auth.services';
 import notify from '../../components/Notification/notify';
+import LamparaTextButtonWithIcon from '../../components/Button/LamparaButtonWithIcon';
+import { AiOutlineEdit } from 'react-icons/ai';
+import { MdOutlineCancel } from 'react-icons/md';
+import { AiOutlineSave } from 'react-icons/ai';
 
 const AdminAccountSettings = () => {
 	const [password, setPassword] = useState('');
@@ -99,26 +103,29 @@ const AdminAccountSettings = () => {
 
 					{editMode ? (
 						<div className="flex gap-x-2 justify-center">
-							<LamparaButton
+							<LamparaTextButtonWithIcon
 								loading={loading}
 								loadingText={'Saving...'}
 								onClick={() => savePassword()}
 								width={'w-[150px]'}
+								icon={<AiOutlineSave size={25} color="#FFFFFF" />}
 								label={'Save'}
 								bgColor="bg-green-700"
 							/>
-							<LamparaButton
+							<LamparaTextButtonWithIcon
 								onClick={toggleEditMode}
 								width={'w-[150px]'}
+								icon={<MdOutlineCancel size={25} color="#FFFFFF" />}
 								label={'Cancel'}
 								bgColor="bg-red-700"
 							/>
 						</div>
 					) : (
 						<div className="flex justify-center">
-							<LamparaButton
+							<LamparaTextButtonWithIcon
 								onClick={toggleEditMode}
 								width={'w-[300px]'}
+								icon={<AiOutlineEdit size={25} color="#FFFFFF" />}
 								label={'Change Password'}
 							/>
 						</div>

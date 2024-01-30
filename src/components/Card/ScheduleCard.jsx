@@ -14,6 +14,8 @@ import notify from '../Notification/notify';
 import Loader from '../Loader/Loader';
 import { CiEdit } from 'react-icons/ci';
 import { AiOutlineDelete } from 'react-icons/ai';
+import { AiOutlineEdit } from 'react-icons/ai';
+import LamparaIconButton from '../Button/LamparaIconButton';
 
 const ScheduleCard = ({
 	name,
@@ -127,23 +129,23 @@ const ScheduleCard = ({
 					Nurse: <span className="text-sm font-semibold">{name}</span>
 				</h1>
 				{editable && (
-					<div className="flex cursor-pointer">
-						<div
+					<div className="flex gap-x-1 cursor-pointer">
+						<LamparaIconButton
 							onClick={() => {
 								setIdToUpdate(id);
 								toggleEditModal();
 							}}
-						>
-							<CiEdit size={20} color="#0077B6" />
-						</div>
-						<div
+							color={'bg-blue-500'}
+							icon={<AiOutlineEdit size={20} color="#FFFFFF" />}
+						/>
+						<LamparaIconButton
 							onClick={() => {
 								setIdToDelete(id);
 								toggleDeleteModal();
 							}}
-						>
-							<AiOutlineDelete size={20} color="#e02832" />
-						</div>
+							color={'bg-red-500'}
+							icon={<AiOutlineDelete size={20} color="#FFFFFF" />}
+						/>
 					</div>
 				)}
 			</div>

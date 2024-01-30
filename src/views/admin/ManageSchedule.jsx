@@ -21,6 +21,9 @@ import {
 	restructureSchedules,
 	restructureShifts,
 } from '../../helpers/restructure';
+import LamparaTextButtonWithIcon from '../../components/Button/LamparaButtonWithIcon';
+import { IoCreateOutline } from 'react-icons/io5';
+import { MdEditCalendar } from 'react-icons/md';
 
 const ManageSchedule = () => {
 	const [showModal, setShowModal] = useState(false);
@@ -222,11 +225,13 @@ const ManageSchedule = () => {
 					selectsRange
 				/>
 
-				<LamparaButton
+				<LamparaTextButtonWithIcon
 					loading={loading}
-					loadingText={'Creating...'}
+					loadingText={'Saving schedule...'}
+					icon={<MdEditCalendar size={25} color="#FFFFFF" />}
+					bgColor="bg-green-600"
 					onClick={createSchedule}
-					label={'Create'}
+					label={'Save New Schedule'}
 				/>
 			</CustomModal>
 			<div className="p-8 rounded-md">
@@ -235,7 +240,12 @@ const ManageSchedule = () => {
 				) : (
 					<>
 						<div className="flex justify-end gap-x-2">
-							<LamparaButton onClick={toggleModal} label={'Create Schedule'} />
+							<LamparaTextButtonWithIcon
+								icon={<MdEditCalendar size={25} color="#FFFFFF" />}
+								onClick={toggleModal}
+								bgColor="bg-green-600"
+								label={'Create Schedule'}
+							/>
 						</div>
 						<ScheduleCalendar
 							shifts={shifts}
