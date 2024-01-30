@@ -20,6 +20,7 @@ import { ClipLoader } from 'react-spinners';
 import Loader from '../../components/Loader/Loader';
 import { CiEdit } from 'react-icons/ci';
 import { AiOutlineDelete } from 'react-icons/ai';
+import { restructureDepartments } from '../../helpers/restructure';
 
 const ManageNurses = () => {
 	const [showAddModal, setShowAddModal] = useState(false);
@@ -33,7 +34,9 @@ const ManageNurses = () => {
 	const [nurses, setNurses] = useState([]);
 	const [filteredNurses, setFilteredNurses] = useState([]);
 	const [departmentList, setDepartmentList] = useState([]);
+
 	const [loading, setLoading] = useState(false);
+
 	const [idToUpdate, setIdToUpdate] = useState(null);
 	const [idToDelete, setIdToDelete] = useState(null);
 
@@ -77,6 +80,8 @@ const ManageNurses = () => {
 				getAllNurses();
 				toggleAddModal();
 			}
+		} else {
+			notify('Failed to create chat.', true);
 		}
 
 		setLoading(false);
@@ -87,11 +92,12 @@ const ManageNurses = () => {
 
 		if (Object.keys(updates).length !== 0) {
 			const res = await UpdateNurseById(idToUpdate, updates);
-
 			if (res.success) {
 				notify('Nurse updated successfully.');
 				getAllNurses();
 				toggleUpdateModal();
+			} else {
+				notify('Failed to update nurse.', true);
 			}
 		}
 
@@ -102,9 +108,11 @@ const ManageNurses = () => {
 		setLoading(true);
 
 		const res = await GetAllNurses();
-		console.log(res);
 		if (res.success) {
-			setNurses(res.data);
+			const fetchedNurses = res.data;
+			setNurses(fetchedNurses);
+		} else {
+			notify('Failed to fetch nurses.', true);
 		}
 
 		setLoading(false);
@@ -113,9 +121,8 @@ const ManageNurses = () => {
 	const getAllDepartments = async () => {
 		const res = await GetAllDepartments();
 
-		var restructured = res.data.map((dept) => {
-			return { value: dept._id, label: dept.name };
-		});
+		const fetchedDepts = res.data;
+		var restructured = restructureDepartments(fetchedDepts);
 
 		setDepartmentList(restructured);
 	};
@@ -124,14 +131,14 @@ const ManageNurses = () => {
 		setLoading(true);
 
 		const res = await DeleteNurseById(id);
-
 		if (res.success) {
 			notify('Nurse deleted successfully.');
 			getAllNurses();
+		} else {
+			notify('Failed to delete nurse.', true);
 		}
 
 		toggleDeleteModal();
-
 		setLoading(false);
 	};
 
@@ -151,11 +158,10 @@ const ManageNurses = () => {
 
 	useEffect(() => {
 		getAllNurses();
-		getAllDepartments(); // returns
+		getAllDepartments();
 	}, []);
 
 	useEffect(() => {
-		console.log(keyword);
 		searchNurse();
 	}, [keyword]);
 

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import ScheduleCalendar from '../../components/Calendar/ScheduleCalendar';
-import moment from 'moment-timezone';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import LamparaButton from '../../components/Button/LamparaButton';
 import CustomModal from '../../components/Modal/CustomModal';
@@ -9,15 +8,19 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { GetAllNurses } from '../../services/nurse.services';
 import { GetAllShifts } from '../../services/shift.services';
+import notify from '../../components/Notification/notify';
+import { Toaster } from 'react-hot-toast';
+import Loader from '../../components/Loader/Loader';
 import {
 	CreateSchedule,
 	GetAllSchedules,
 	CheckIfScheduled,
 } from '../../services/schedule.services';
-import notify from '../../components/Notification/notify';
-import { Toaster } from 'react-hot-toast';
-import { ClipLoader } from 'react-spinners';
-import Loader from '../../components/Loader/Loader';
+import {
+	restructureNurses,
+	restructureSchedules,
+	restructureShifts,
+} from '../../helpers/restructure';
 
 const ManageSchedule = () => {
 	const [showModal, setShowModal] = useState(false);
@@ -61,8 +64,6 @@ const ManageSchedule = () => {
 					newSchedule.nurse_id,
 					dates[i]
 				);
-
-				console.log(checkSched);
 
 				if (!checkSched.success) {
 					scheduledAlready = true;
@@ -129,38 +130,16 @@ const ManageSchedule = () => {
 
 	const getAllNurses = async () => {
 		const res = await GetAllNurses();
-
-		var restructured = res.data.map((nurse) => {
-			return {
-				value: nurse._id,
-				label: `${nurse.last_name}, ${nurse.first_name}`,
-			};
-		});
-
-		restructured = [
-			...restructured,
-			{
-				value: 'None',
-				label: 'None',
-			},
-		];
+		const fetchedNurses = res.data;
+		var restructured = restructureNurses(fetchedNurses);
 
 		setNurses(restructured);
 	};
 
 	const getAllShifts = async () => {
 		const res = await GetAllShifts();
-
-		var restructured = res.data.map((shift) => {
-			return {
-				value: shift._id,
-				label: `${moment(shift.start_time, 'YYYY-MM-DDThh:mm:ss.SSSZ').format(
-					'hh:mmA'
-				)}-${moment(shift.end_time, 'YYYY-MM-DDThh:mm:ss.SSSZ').format(
-					'hh:mmA'
-				)}`,
-			};
-		});
+		const fetchedShifts = res.data;
+		var restructured = restructureShifts(fetchedShifts);
 
 		setShifts(restructured);
 	};
@@ -169,31 +148,13 @@ const ManageSchedule = () => {
 		setLoading(true);
 
 		const res = await GetAllSchedules();
-
 		if (res.success) {
-			var restructured = res.data.map((sc) => {
-				const formattedDate = moment(
-					sc.date.substring(0, 10),
-					'YYYY-MM-DDThh:mm:ss.SSSZ'
-				).format('YYYY-MM-DD');
-
-				return {
-					_id: sc._id,
-					title: `${sc.nurse_id?.last_name}, ${sc.nurse_id?.first_name}`,
-					time: `${moment(
-						sc.shift_id?.start_time,
-						'YYYY-MM-DDThh:mm:ss.SSSZ'
-					).format('hh:mmA')}-${moment(
-						sc.shift_id?.end_time,
-						'YYYY-MM-DDThh:mm:ss.SSSZ'
-					).format('hh:mmA')}`,
-					dept: sc.department?.name,
-					date: formattedDate,
-					backgroundColor: sc.department?.color,
-				};
-			});
+			const fetchedSchedules = res.data;
+			var restructured = restructureSchedules(fetchedSchedules);
 
 			setSchedules(restructured);
+		} else {
+			notify('Failed to fetch schedules.', true);
 		}
 
 		setLoading(false);
@@ -201,7 +162,6 @@ const ManageSchedule = () => {
 
 	useEffect(() => {
 		filterSchedules();
-		console.log('keyword:', keyword);
 	}, [keyword]);
 
 	useEffect(() => {

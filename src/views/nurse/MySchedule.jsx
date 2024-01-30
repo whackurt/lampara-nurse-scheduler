@@ -5,6 +5,7 @@ import NurseScheduleCalendar from '../../components/Calendar/NurseScheduleCalend
 import { GetNurseById } from '../../services/nurse.services';
 import { GetScheduleByNurseId } from '../../services/schedule.services';
 import Loader from '../../components/Loader/Loader';
+import { restructureNurseSchedule } from '../../helpers/restructure';
 
 const MySchedule = () => {
 	const [nurse, setNurse] = useState(null);
@@ -19,20 +20,12 @@ const MySchedule = () => {
 		const res = await GetScheduleByNurseId(nurseId);
 
 		if (res.success) {
-			var restructured = res.data?.schedule.map((sc) => {
-				return {
-					title: `${moment(
-						sc.shift_id?.start_time,
-						'YYYY-MM-DDThh:mm:ss.SSSZ'
-					).format('hh:mmA')} - ${moment(
-						sc.shift_id?.end_time,
-						'YYYY-MM-DDThh:mm:ss.SSSZ'
-					).format('hh:mmA')}`,
-					date: `${moment(sc.date).format('yyyy-MM-DD')}`,
-					dept: res.data?.department.name,
-				};
-			});
+			const fetchedSchedules = res.data;
+			var restructured = restructureNurseSchedule(fetchedSchedules);
+
 			setMySchedule(restructured);
+		} else {
+			notify('Failed to fetch schedules.', true);
 		}
 
 		setLoading(false);
@@ -45,6 +38,8 @@ const MySchedule = () => {
 
 		if (res.success) {
 			setNurse(res.data);
+		} else {
+			notify('Failed to fetch nurse details.', true);
 		}
 	};
 

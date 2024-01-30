@@ -45,8 +45,6 @@ const ScheduleCalendar = ({
 			};
 		});
 
-		restructured = [...restructured, { value: '', label: 'None' }];
-
 		setDepartments(restructured);
 	};
 

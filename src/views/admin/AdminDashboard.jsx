@@ -15,6 +15,10 @@ import {
 } from '../../services/statistics';
 import StatisticsCard from '../../components/Card/StatisticsCard';
 import { GetAllNurses } from '../../services/nurse.services';
+import {
+	restructureNurses,
+	restructureSchedules,
+} from '../../helpers/restructure';
 
 const AdminDashboard = () => {
 	const [schedules, setSchedules] = useState([]);
@@ -33,29 +37,13 @@ const AdminDashboard = () => {
 		setLoading(true);
 
 		const res = await GetAllSchedules();
-
 		if (res.success) {
-			var restructured = res.data.map((sc) => {
-				const formattedDate = moment(
-					sc.date.substring(0, 10),
-					'YYYY-MM-DDThh:mm:ss.SSSZ'
-				).format('YYYY-MM-DD');
-				return {
-					title: `${sc.nurse_id?.first_name} ${sc.nurse_id?.last_name}`,
-					time: `${moment(
-						sc.shift_id?.start_time,
-						'YYYY-MM-DDThh:mm:ss.SSSZ'
-					).format('hh:mmA')}-${moment(
-						sc.shift_id?.end_time,
-						'YYYY-MM-DDThh:mm:ss.SSSZ'
-					).format('hh:mmA')}`,
-					dept: sc.department?.name,
-					date: formattedDate,
-					backgroundColor: sc.department?.color,
-				};
-			});
+			const fetchedSchedules = res.data;
+			var restructured = restructureSchedules(fetchedSchedules);
 
 			setSchedules(restructured);
+		} else {
+			notify('Failed to fetch schedules.', true);
 		}
 
 		setLoading(false);
@@ -67,7 +55,6 @@ const AdminDashboard = () => {
 				sc.title.toLowerCase().includes(keyword.toLowerCase()) ||
 				sc.dept.toLowerCase().includes(keyword.toLowerCase())
 		);
-		console.log(filteredSchedules);
 
 		setFilteredSchedules(filteredSchedules);
 	};
@@ -93,27 +80,14 @@ const AdminDashboard = () => {
 	const getAllNurses = async () => {
 		const res = await GetAllNurses();
 
-		var restructured = res.data.map((nurse) => {
-			return {
-				value: nurse._id,
-				label: `${nurse.last_name}, ${nurse.first_name}`,
-			};
-		});
-
-		restructured = [
-			...restructured,
-			{
-				value: 'None',
-				label: 'None',
-			},
-		];
+		const fetchedNurses = res.data;
+		var restructured = restructureNurses(fetchedNurses);
 
 		setNurses(restructured);
 	};
 
 	useEffect(() => {
 		filterSchedules();
-		console.log(keyword, nurses);
 	}, [keyword]);
 
 	useEffect(() => {
