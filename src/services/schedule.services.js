@@ -1,12 +1,12 @@
 import { api } from './axios';
 
-const headers = {
-	Authorization: localStorage.getItem('adminToken'),
-};
-
 export const CreateSchedule = async (scheduleData) => {
 	try {
-		const res = await api.post('/schedule', scheduleData, { headers });
+		const res = await api.post('/schedule', scheduleData, {
+			headers: {
+				Authorization: localStorage.getItem('adminToken'),
+			},
+		});
 		return res.data;
 	} catch (error) {
 		return { error: error.message };
@@ -17,7 +17,11 @@ export const CheckIfScheduled = async (nurseId, date) => {
 	try {
 		const res = await api.post(
 			`/schedule/checkSchedule?nurseId=${nurseId}&date=${date}`,
-			{ headers }
+			{
+				headers: {
+					Authorization: localStorage.getItem('adminToken'),
+				},
+			}
 		);
 
 		return res.data;
@@ -28,7 +32,11 @@ export const CheckIfScheduled = async (nurseId, date) => {
 
 export const GetAllSchedules = async () => {
 	try {
-		const res = await api.get(`/schedule`, { headers });
+		const res = await api.get(`/schedule`, {
+			headers: {
+				Authorization: localStorage.getItem('adminToken'),
+			},
+		});
 		return res.data;
 	} catch (error) {
 		return { error: error.message };
@@ -37,7 +45,11 @@ export const GetAllSchedules = async () => {
 
 export const GetScheduleById = async (scheduleId) => {
 	try {
-		const res = await api.get(`/schedule/${scheduleId}`, { headers });
+		const res = await api.get(`/schedule/${scheduleId}`, {
+			headers: {
+				Authorization: localStorage.getItem('adminToken'),
+			},
+		});
 		return res.data;
 	} catch (error) {
 		return { error: error.message };
@@ -46,7 +58,11 @@ export const GetScheduleById = async (scheduleId) => {
 
 export const GetScheduleByNurseId = async (nurseId) => {
 	try {
-		const res = await api.get(`/schedule/nurse/${nurseId}`, { headers });
+		const res = await api.get(`/schedule/nurse/${nurseId}`, {
+			headers: {
+				Authorization: localStorage.getItem('adminToken'),
+			},
+		});
 		return res.data;
 	} catch (error) {
 		return { error: error.message };
@@ -55,7 +71,11 @@ export const GetScheduleByNurseId = async (nurseId) => {
 
 export const UpdateScheduleById = async (scheduleId, updates) => {
 	try {
-		const res = await api.put(`/schedule/${scheduleId}`, updates, { headers });
+		const res = await api.put(`/schedule/${scheduleId}`, updates, {
+			headers: {
+				Authorization: localStorage.getItem('adminToken'),
+			},
+		});
 		return res.data;
 	} catch (error) {
 		return { error: error.message };
@@ -64,7 +84,11 @@ export const UpdateScheduleById = async (scheduleId, updates) => {
 
 export const DeleteScheduleById = async (scheduleId) => {
 	try {
-		const res = await api.delete(`/schedule/${scheduleId}`, { headers });
+		const res = await api.delete(`/schedule/${scheduleId}`, {
+			headers: {
+				Authorization: localStorage.getItem('adminToken'),
+			},
+		});
 		return res.data;
 	} catch (error) {
 		return { error: error.message };

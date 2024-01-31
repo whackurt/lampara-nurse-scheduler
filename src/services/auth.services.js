@@ -1,9 +1,5 @@
 import { api } from './axios';
 
-const headers = {
-	Authorization: localStorage.getItem('adminToken'),
-};
-
 export const LoginAdmin = async (creds) => {
 	try {
 		const res = await api.post('/auth/admin/login', creds);
@@ -25,7 +21,9 @@ export const LoginNurse = async (creds) => {
 export const UpdateAdminPassword = async (creds) => {
 	try {
 		const res = await api.put('/auth/admin/update-password', creds, {
-			headers,
+			headers: {
+				Authorization: localStorage.getItem('adminToken'),
+			},
 		});
 		return res;
 	} catch (error) {

@@ -1,16 +1,12 @@
 import { api } from './axios';
 
-const headers = {
-	Authorization: localStorage.getItem('adminToken'),
-};
-
-const nurseHeaders = {
-	Authorization: localStorage.getItem('nurseToken'),
-};
-
 export const CreateNurse = async (nurseData) => {
 	try {
-		const res = await api.post(`/nurse`, nurseData, { headers });
+		const res = await api.post(`/nurse`, nurseData, {
+			headers: {
+				Authorization: localStorage.getItem('adminToken'),
+			},
+		});
 		return res.data;
 	} catch (error) {
 		return { error: error.message };
@@ -19,7 +15,11 @@ export const CreateNurse = async (nurseData) => {
 
 export const GetAllNurses = async () => {
 	try {
-		const res = await api.get('/nurse', { headers });
+		const res = await api.get('/nurse', {
+			headers: {
+				Authorization: localStorage.getItem('adminToken'),
+			},
+		});
 		return res.data;
 	} catch (error) {
 		return { error: error.message };
@@ -28,7 +28,11 @@ export const GetAllNurses = async () => {
 
 export const GetNurseById = async (nurseId) => {
 	try {
-		const res = await api.get(`/nurse/${nurseId}`, { headers: nurseHeaders });
+		const res = await api.get(`/nurse/${nurseId}`, {
+			headers: {
+				Authorization: localStorage.getItem('nurseToken'),
+			},
+		});
 		return res.data;
 	} catch (error) {
 		return { error: error.message };
@@ -37,7 +41,11 @@ export const GetNurseById = async (nurseId) => {
 
 export const UpdateNurseById = async (nurseId, updates) => {
 	try {
-		const res = await api.put(`/nurse/${nurseId}`, updates, { headers });
+		const res = await api.put(`/nurse/${nurseId}`, updates, {
+			headers: {
+				Authorization: localStorage.getItem('adminToken'),
+			},
+		});
 		return res.data;
 	} catch (error) {
 		return { error: error.message };
@@ -46,7 +54,11 @@ export const UpdateNurseById = async (nurseId, updates) => {
 
 export const DeleteNurseById = async (nurseId) => {
 	try {
-		const res = await api.delete(`/nurse/${nurseId}`, { headers });
+		const res = await api.delete(`/nurse/${nurseId}`, {
+			headers: {
+				Authorization: localStorage.getItem('adminToken'),
+			},
+		});
 		return res.data;
 	} catch (error) {
 		return { error: error.message };

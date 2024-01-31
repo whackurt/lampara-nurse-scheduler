@@ -1,16 +1,15 @@
 import { api } from './axios';
 
-const adminHeaders = {
-	Authorization: localStorage.getItem('adminToken'),
-};
-
-const nurseHeaders = {
-	Authorization: localStorage.getItem('nurseToken'),
-};
-
 export const GetMessages = async (chatId, userId, user) => {
 	try {
-		const headers = user === 'admin' ? adminHeaders : nurseHeaders;
+		const headers =
+			user === 'admin'
+				? {
+						Authorization: localStorage.getItem('adminToken'),
+				  }
+				: {
+						Authorization: localStorage.getItem('nurseToken'),
+				  };
 
 		const res = await api.get(
 			`/message/chat/${chatId}/messages?userId=${userId}`,
@@ -27,7 +26,14 @@ export const GetMessages = async (chatId, userId, user) => {
 
 export const SendMessage = async (messageData, user) => {
 	try {
-		const headers = user === 'admin' ? adminHeaders : nurseHeaders;
+		const headers =
+			user === 'admin'
+				? {
+						Authorization: localStorage.getItem('adminToken'),
+				  }
+				: {
+						Authorization: localStorage.getItem('nurseToken'),
+				  };
 
 		const res = await api.post(
 			`/message/chat/${messageData.chatId}/send`,
