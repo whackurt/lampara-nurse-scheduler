@@ -6,7 +6,11 @@ const adminHeaders = {
 
 export const GetNurseCount = async () => {
 	try {
-		const res = await api.get(`/statistics/nurse`, { headers: adminHeaders });
+		const res = await api.get(`/statistics/nurse`, {
+			headers: {
+				Authorization: localStorage.getItem('adminToken'),
+			},
+		});
 		return res.data;
 	} catch (error) {
 		return { error: error.message };
@@ -16,7 +20,9 @@ export const GetNurseCount = async () => {
 export const GetSchedulesCount = async () => {
 	try {
 		const res = await api.get(`/statistics/schedule`, {
-			headers: adminHeaders,
+			headers: {
+				Authorization: localStorage.getItem('adminToken'),
+			},
 		});
 		return res.data;
 	} catch (error) {
@@ -26,7 +32,11 @@ export const GetSchedulesCount = async () => {
 
 export const GetShiftCount = async () => {
 	try {
-		const res = await api.get(`/statistics/shift`, { headers: adminHeaders });
+		const res = await api.get(`/statistics/shift`, {
+			headers: {
+				Authorization: localStorage.getItem('adminToken'),
+			},
+		});
 		return res.data;
 	} catch (error) {
 		return { error: error.message };

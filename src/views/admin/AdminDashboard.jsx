@@ -111,9 +111,6 @@ const AdminDashboard = () => {
 		getStatistics();
 	}, []);
 
-	// useEffect(() => {
-	// 	getStatistics();
-	// }, [schedules]);
 
 	return (
 		<div className="px-8 py-8">
