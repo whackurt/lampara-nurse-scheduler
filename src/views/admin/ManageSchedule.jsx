@@ -23,7 +23,7 @@ import {
 import LamparaTextButtonWithIcon from '../../components/Button/LamparaButtonWithIcon';
 import { MdEditCalendar } from 'react-icons/md';
 import { VscFilePdf } from 'react-icons/vsc';
-import Icon from '../../assets/skedio-icon.png';
+import ComingSoon from '../../components/Card/ComingSoon';
 
 const ManageSchedule = () => {
 	const [showCreateModal, setShowCreateModal] = useState(false);
@@ -195,15 +195,7 @@ const ManageSchedule = () => {
 				toggleModal={toggleExportModal}
 				showModal={showExportModal}
 			>
-				<div className="flex flex-col items-center justify-center border-2 bg-primary px-2 py-6 rounded-md">
-					<div className="border-2 border-white rounded">
-						<img src={Icon} width={40} alt="" />
-					</div>
-					<p className="text-white mt-3">This feature is</p>
-					<p className="text-white text-2xl text-center font-bold">
-						Coming Soon!
-					</p>
-				</div>
+				<ComingSoon />
 			</CustomModal>
 
 			<CustomModal
