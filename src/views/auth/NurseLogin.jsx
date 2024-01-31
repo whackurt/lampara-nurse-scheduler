@@ -5,6 +5,7 @@ import { LoginNurse } from '../../services/auth.services';
 import LamparaButton from '../../components/Button/LamparaButton';
 import LamparaInputForm from '../../components/Forms/LamparaInputForm';
 import Icon from '../../assets/skedio-icon.png';
+import LamparaAuthForm from '../../components/Forms/LamparaAuthForm';
 
 const NurseLogin = (props) => {
 	const [username, setUsername] = useState('');
@@ -61,14 +62,14 @@ const NurseLogin = (props) => {
 					</div>
 
 					<div className="w-full px-4 lg:px-12">
-						<LamparaInputForm
+						<LamparaAuthForm
 							type="text"
 							label="Username"
 							onChange={(e) => setUsername(e.target.value)}
 							placeholder="Enter your username"
 						/>
 
-						<LamparaInputForm
+						<LamparaAuthForm
 							type="password"
 							label="Password"
 							onChange={(e) => setPassword(e.target.value)}

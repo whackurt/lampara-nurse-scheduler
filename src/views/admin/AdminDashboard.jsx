@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import ScheduleCalendar from '../../components/Calendar/ScheduleCalendar';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { GetAllSchedules } from '../../services/schedule.services';
-import { ClipLoader } from 'react-spinners';
 import Loader from '../../components/Loader/Loader';
 import { LiaUserNurseSolid } from 'react-icons/lia';
 import { BiCalendar } from 'react-icons/bi';
@@ -26,6 +25,7 @@ const AdminDashboard = () => {
 	const [nurses, setNurses] = useState([]);
 	const [keyword, setKeyword] = useState('');
 	const [loading, setLoading] = useState(false);
+	const [statisticLoading, setStatisticLoading] = useState(false);
 
 	const [statistics, setStatistics] = useState({
 		nurseCount: 0,
@@ -60,14 +60,27 @@ const AdminDashboard = () => {
 	};
 
 	const getStatistics = async () => {
+		setStatisticLoading(true);
+
+		var nurseCount = 0;
+		var schedCount = 0;
+		var shiftCount = 0;
+
 		const nurse = await GetNurseCount();
-		const nurseCount = nurse.count;
+
+		if (nurse.success) {
+			nurseCount = nurse.count;
+		}
 
 		const schedule = await GetSchedulesCount();
-		const schedCount = schedule.count;
+		if (schedule.success) {
+			schedCount = schedule.count;
+		}
 
 		const shift = await GetShiftCount();
-		const shiftCount = shift.count;
+		if (shift.success) {
+			shiftCount = shift.count;
+		}
 
 		setStatistics({
 			...statistics,
@@ -75,6 +88,8 @@ const AdminDashboard = () => {
 			shiftCount: shiftCount,
 			scheduleCount: schedCount,
 		});
+
+		setStatisticLoading(false);
 	};
 
 	const getAllNurses = async () => {
@@ -91,10 +106,14 @@ const AdminDashboard = () => {
 	}, [keyword]);
 
 	useEffect(() => {
-		getStatistics();
 		getAllSchedules();
 		getAllNurses();
+		getStatistics();
 	}, []);
+
+	// useEffect(() => {
+	// 	getStatistics();
+	// }, [schedules]);
 
 	return (
 		<div className="px-8 py-8">
@@ -112,16 +131,19 @@ const AdminDashboard = () => {
 			</div>
 			<div className="flex mt-6 gap-x-3 ">
 				<StatisticsCard
+					loading={statisticLoading}
 					title={'Nurses'}
 					value={statistics.nurseCount}
 					icon={<LiaUserNurseSolid size={25} color="#0077B6" />}
 				/>
 				<StatisticsCard
+					loading={statisticLoading}
 					title={'Schedules'}
 					value={statistics.scheduleCount}
 					icon={<BiCalendar size={25} color="#0077B6" />}
 				/>
 				<StatisticsCard
+					loading={statisticLoading}
 					title={'Shifts'}
 					value={statistics.shiftCount}
 					icon={<AiOutlineSchedule size={25} color="#0077B6" />}
