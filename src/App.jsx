@@ -1,11 +1,11 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ForgotPassword from './views/auth/forgot-password/forgot-password';
-import AdminLogin from './views/auth/admin-login';
+import AdminLogin from './views/auth/AdminLogin';
 import AdminMessages from './views/admin/Messages';
 import NurseMessages from './views/nurse/Messages';
 import NotFound from './views/not-found/not-found';
-import NurseLogin from './views/auth/nurse-login';
+import NurseLogin from './views/auth/NurseLogin';
 import AuthenticatedAdminPrivateRoute from './components/PrivateRoute/AuthenticatedAdminPrivateRoute';
 import AdminPrivateRoute from './components/PrivateRoute/AdminPrivateRoute';
 import AuthenticatedNursePrivateRoute from './components/PrivateRoute/AuthenticatedNursePrivateRoute';

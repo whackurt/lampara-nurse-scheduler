@@ -6,6 +6,7 @@ import Icon from '../../assets/skedio-icon.png';
 import Logo from '../../assets/skedio-logo.png';
 import LamparaInputForm from '../../components/Forms/LamparaInputForm';
 import LamparaButton from '../../components/Button/LamparaButton';
+import LamparaAuthForm from '../../components/Forms/LamparaAuthForm';
 
 const AdminLogin = () => {
 	const [username, setUsername] = useState('');
@@ -64,14 +65,14 @@ const AdminLogin = () => {
 					</div>
 
 					<div className="w-full px-4 lg:px-12">
-						<LamparaInputForm
+						<LamparaAuthForm
 							type="text"
 							label="Username"
 							onChange={(e) => setUsername(e.target.value)}
 							placeholder="Enter your username"
 						/>
 
-						<LamparaInputForm
+						<LamparaAuthForm
 							type="password"
 							label="Password"
 							onChange={(e) => setPassword(e.target.value)}
