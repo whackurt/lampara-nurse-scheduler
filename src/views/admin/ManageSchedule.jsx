@@ -22,9 +22,13 @@ import {
 } from '../../helpers/restructure';
 import LamparaTextButtonWithIcon from '../../components/Button/LamparaButtonWithIcon';
 import { MdEditCalendar } from 'react-icons/md';
+import { VscFilePdf } from 'react-icons/vsc';
+import Icon from '../../assets/skedio-icon.png';
 
 const ManageSchedule = () => {
-	const [showModal, setShowModal] = useState(false);
+	const [showCreateModal, setShowCreateModal] = useState(false);
+	const [showExportModal, setShowExportModal] = useState(false);
+
 	const [newSchedule, setNewSchedule] = useState({});
 	const [startDate, setStartDate] = useState(null);
 	const [endDate, setEndDate] = useState(null);
@@ -39,8 +43,12 @@ const ManageSchedule = () => {
 	const [filteredSchedules, setFilteredSchedules] = useState([]);
 	const [keyword, setKeyword] = useState('');
 
-	const toggleModal = () => {
-		setShowModal(!showModal);
+	const toggleCreateModal = () => {
+		setShowCreateModal(!showCreateModal);
+	};
+
+	const toggleExportModal = () => {
+		setShowExportModal(!showExportModal);
 	};
 
 	const filterSchedules = () => {
@@ -183,9 +191,25 @@ const ManageSchedule = () => {
 			<Toaster position="bottom-right" reverseOrder={true} />
 
 			<CustomModal
+				title={'Export as PDF'}
+				toggleModal={toggleExportModal}
+				showModal={showExportModal}
+			>
+				<div className="flex flex-col items-center justify-center border-2 bg-primary px-2 py-6 rounded-md">
+					<div className="border-2 border-white rounded">
+						<img src={Icon} width={40} alt="" />
+					</div>
+					<p className="text-white mt-3">This feature is</p>
+					<p className="text-white text-2xl text-center font-bold">
+						Coming Soon!
+					</p>
+				</div>
+			</CustomModal>
+
+			<CustomModal
 				title={'Create Schedule'}
-				toggleModal={toggleModal}
-				showModal={showModal}
+				toggleModal={toggleCreateModal}
+				showModal={showCreateModal}
 			>
 				<p className="text-xs mb-3">
 					<span className="text-red-500">*</span> Indicates required field
@@ -240,9 +264,15 @@ const ManageSchedule = () => {
 						<div className="flex justify-end gap-x-2">
 							<LamparaTextButtonWithIcon
 								icon={<MdEditCalendar size={25} color="#FFFFFF" />}
-								onClick={toggleModal}
+								onClick={toggleCreateModal}
 								bgColor="bg-green-600"
 								label={'Create Schedule'}
+							/>
+							<LamparaTextButtonWithIcon
+								icon={<VscFilePdf size={20} color="#FFFFFF" />}
+								onClick={toggleExportModal}
+								bgColor="bg-red-500"
+								label={'Export as PDF'}
 							/>
 						</div>
 						<ScheduleCalendar

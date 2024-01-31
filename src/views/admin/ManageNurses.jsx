@@ -13,7 +13,7 @@ import {
 	UpdateNurseById,
 } from '../../services/nurse.services';
 import { GetAllDepartments } from '../../services/department.services';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import { CreateChat } from '../../services/chat.services';
 import Loader from '../../components/Loader/Loader';
 import { AiOutlineDelete } from 'react-icons/ai';
@@ -22,13 +22,16 @@ import LamparaTextButtonWithIcon from '../../components/Button/LamparaButtonWith
 import { IoIosAddCircleOutline } from 'react-icons/io';
 import { IoSaveOutline } from 'react-icons/io5';
 import LamparaIconButton from '../../components/Button/LamparaIconButton';
+import notify from '../../components/Notification/notify';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const ManageNurses = () => {
 	const [showAddModal, setShowAddModal] = useState(false);
 	const [showUpdateModal, setShowUpdateModal] = useState(false);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-	const [newNurse, setNewNurse] = useState({});
 	const [nurseToUpdate, setNurseToUpdate] = useState(null);
 	const [updates, setUpdates] = useState({});
 
@@ -36,7 +39,12 @@ const ManageNurses = () => {
 	const [filteredNurses, setFilteredNurses] = useState([]);
 	const [departmentList, setDepartmentList] = useState([]);
 
+	const [department, setDepartment] = useState('');
+
 	const [loading, setLoading] = useState(false);
+	const [addLoading, setAddLoading] = useState(false);
+	const [updateLoading, setUpdateLoading] = useState(false);
+	const [deleteLoading, setDeleteLoading] = useState(false);
 
 	const [idToUpdate, setIdToUpdate] = useState(null);
 	const [idToDelete, setIdToDelete] = useState(null);
@@ -44,10 +52,6 @@ const ManageNurses = () => {
 	const [keyword, setKeyword] = useState('');
 
 	const userId = localStorage.getItem('userId');
-
-	const notify = (message) => {
-		toast.success(message, { duration: 5000 });
-	};
 
 	const toggleAddModal = () => {
 		setShowAddModal(!showAddModal);
@@ -61,48 +65,106 @@ const ManageNurses = () => {
 		setShowDeleteModal(!showDeleteModal);
 	};
 
-	const addNurse = async () => {
-		setLoading(true);
-		const res = await CreateNurse(newNurse);
+	const addNurseValidationSchema = yup
+		.object({
+			first_name: yup.string().required('First Name is required'),
+			last_name: yup.string().required('Last Name is required'),
+			email: yup
+				.string()
+				.required('Email address is required')
+				.email('Invalid email address'),
+			username: yup.string().required('Username is required'),
+			password: yup
+				.string()
+				.required('Password is required')
+				.min(8, 'Password must be at least 8 characters'),
+		})
+		.required();
 
-		if (res.success) {
-			const createChatRes = await CreateChat(
-				{
-					chatName: 'chat',
-					isGroupChat: false,
-					copyOf: [userId, res.data?.nurseUserId],
-					users: [userId, res.data?.nurseUserId],
-				},
-				'admin'
-			);
+	const {
+		register: addRegister,
+		handleSubmit: handleAddNurse,
+		formState: { errors: addErrors },
+	} = useForm({
+		resolver: yupResolver(addNurseValidationSchema),
+		defaultValues: {
+			first_name: '',
+			last_name: '',
+			email: '',
+			username: '',
+			password: '',
+		},
+	});
 
-			if (createChatRes.status == 201) {
-				notify('Nurse added successfully.');
-				getAllNurses();
-				toggleAddModal();
+	const onAddNurse = async (data) => {
+		if (department !== '') {
+			setAddLoading(true);
+
+			data = {
+				...data,
+				department: department,
+			};
+
+			const res = await CreateNurse(data);
+
+			if (res.success) {
+				const createChatRes = await CreateChat(
+					{
+						chatName: 'chat',
+						isGroupChat: false,
+						copyOf: [userId, res.data?.nurseUserId],
+						users: [userId, res.data?.nurseUserId],
+					},
+					'admin'
+				);
+
+				if (createChatRes.status == 201) {
+					notify('Nurse added successfully.');
+					getAllNurses();
+					toggleAddModal();
+				}
+			} else {
+				notify('Failed to add nurse.', true);
 			}
-		} else {
-			notify('Failed to create chat.', true);
-		}
 
-		setLoading(false);
+			setAddLoading(false);
+		}
 	};
 
-	const updateNurse = async () => {
-		setLoading(true);
+	const {
+		register: updateRegister,
+		handleSubmit: handleUpdateNurse,
+		reset,
+		formState: { errors: updateErrors },
+	} = useForm({
+		defaultValues: {
+			first_name: nurseToUpdate && nurseToUpdate[0]?.first_name,
+			last_name: nurseToUpdate && nurseToUpdate[0]?.last_name,
+			email: nurseToUpdate && nurseToUpdate[0]?.email,
+			username: nurseToUpdate && nurseToUpdate[0]?.username,
+		},
+	});
 
-		if (Object.keys(updates).length !== 0) {
-			const res = await UpdateNurseById(idToUpdate, updates);
-			if (res.success) {
-				notify('Nurse updated successfully.');
-				getAllNurses();
-				toggleUpdateModal();
-			} else {
-				notify('Failed to update nurse.', true);
-			}
+	const onUpdateNurse = async (data) => {
+		setUpdateLoading(true);
+
+		data = {
+			...data,
+			department: updates && updates.department,
+		};
+
+		const res = await UpdateNurseById(idToUpdate, data);
+
+		if (res.success) {
+			notify('Nurse updated successfully.');
+			getAllNurses();
+			toggleUpdateModal();
+			reset();
+		} else {
+			notify('Failed to update nurse.', true);
 		}
 
-		setLoading(false);
+		setUpdateLoading(false);
 	};
 
 	const getAllNurses = async () => {
@@ -129,7 +191,7 @@ const ManageNurses = () => {
 	};
 
 	const deleteNurse = async (id) => {
-		setLoading(true);
+		setDeleteLoading(true);
 
 		const res = await DeleteNurseById(id);
 		if (res.success) {
@@ -140,7 +202,7 @@ const ManageNurses = () => {
 		}
 
 		toggleDeleteModal();
-		setLoading(false);
+		setDeleteLoading(false);
 	};
 
 	const searchNurse = () => {
@@ -175,63 +237,66 @@ const ManageNurses = () => {
 				</Helmet>
 			</HelmetProvider>
 
-			<Toaster position="top-center" reverseOrder={true} />
+			<Toaster position="bottom-right" reverseOrder={true} />
 
 			<CustomModal
 				title={'Add Nurse'}
 				toggleModal={toggleAddModal}
 				showModal={showAddModal}
 			>
-				<p className="text-xs mb-3">
-					<span className="text-red-500">*</span> Indicates required field
-				</p>
+				<form onSubmit={handleAddNurse(onAddNurse)}>
+					<p className="text-xs mb-3">
+						<span className="text-red-500">*</span> Indicates required field
+					</p>
 
-				<LamparaDropdown
-					label={'Department'}
-					placeholder={'Select department'}
-					options={departmentList}
-					onChange={(option) =>
-						setNewNurse({ ...newNurse, department: option.value })
-					}
-				/>
-				<LamparaInputForm
-					label={'First Name'}
-					onChange={(e) =>
-						setNewNurse({ ...newNurse, first_name: e.target.value })
-					}
-				/>
+					<LamparaDropdown
+						label={'Department'}
+						placeholder={'Select department'}
+						options={departmentList}
+						onChange={(option) => setDepartment(option.value)}
+						errorMsg={department === '' && 'Department is required'}
+					/>
+					<LamparaInputForm
+						label={'First Name'}
+						name={'first_name'}
+						register={addRegister}
+						errorMsg={addErrors && addErrors.first_name?.message}
+					/>
 
-				<LamparaInputForm
-					label={'Last Name'}
-					onChange={(e) =>
-						setNewNurse({ ...newNurse, last_name: e.target.value })
-					}
-				/>
-				<LamparaInputForm
-					type="email"
-					label={'Email Address'}
-					onChange={(e) => setNewNurse({ ...newNurse, email: e.target.value })}
-				/>
-				<LamparaInputForm
-					label={'Username'}
-					onChange={(e) =>
-						setNewNurse({ ...newNurse, username: e.target.value })
-					}
-				/>
-				<LamparaInputForm
-					label={'Password'}
-					onChange={(e) =>
-						setNewNurse({ ...newNurse, password: e.target.value })
-					}
-				/>
-				<LamparaTextButtonWithIcon
-					loading={loading}
-					loadingText={'Adding nurse...'}
-					icon={<IoIosAddCircleOutline size={25} />}
-					bgColor="bg-green-600"
-					onClick={() => addNurse()}
-					label={'Add Nurse'}
-				/>
+					<LamparaInputForm
+						label={'Last Name'}
+						name={'last_name'}
+						register={addRegister}
+						errorMsg={addErrors && addErrors.last_name?.message}
+					/>
+					<LamparaInputForm
+						label={'Email Address'}
+						name={'email'}
+						register={addRegister}
+						errorMsg={addErrors && addErrors.email?.message}
+					/>
+					<LamparaInputForm
+						label={'Username'}
+						name={'username'}
+						register={addRegister}
+						errorMsg={addErrors && addErrors.username?.message}
+					/>
+					<LamparaInputForm
+						label={'Password'}
+						name={'password'}
+						register={addRegister}
+						errorMsg={addErrors && addErrors.password?.message}
+					/>
+					<LamparaTextButtonWithIcon
+						loading={addLoading}
+						loadingText={'Adding nurse...'}
+						icon={<IoIosAddCircleOutline size={25} />}
+						bgColor="bg-green-600"
+						width={'w-full'}
+						label={'Add Nurse'}
+						type={'submit'}
+					/>
+				</form>
 			</CustomModal>
 
 			<CustomModal
@@ -239,52 +304,65 @@ const ManageNurses = () => {
 				toggleModal={toggleUpdateModal}
 				showModal={showUpdateModal}
 			>
-				<LamparaDropdown
-					required={false}
-					label={'Department'}
-					placeholder={'Select department'}
-					options={departmentList}
-					onChange={(option) =>
-						setUpdates({ ...updates, department: option.value })
-					}
-				/>
-				<LamparaInputForm
-					required={false}
-					label={'First Name'}
-					placeholder={nurseToUpdate && nurseToUpdate[0]?.first_name}
-					onChange={(e) =>
-						setUpdates({ ...updates, first_name: e.target.value })
-					}
-				/>
-				<LamparaInputForm
-					label={'Last Name'}
-					required={false}
-					placeholder={nurseToUpdate && nurseToUpdate[0]?.last_name}
-					onChange={(e) =>
-						setUpdates({ ...updates, last_name: e.target.value })
-					}
-				/>
-				<LamparaInputForm
-					label={'Email'}
-					required={false}
-					placeholder={nurseToUpdate && nurseToUpdate[0]?.email}
-					onChange={(e) =>
-						setUpdates({ ...updates, last_name: e.target.value })
-					}
-				/>
-				<LamparaInputForm
-					label={'Username'}
-					required={false}
-					placeholder={nurseToUpdate && nurseToUpdate[0]?.username}
-					onChange={(e) => setUpdates({ ...updates, username: e.target.value })}
-				/>
-				<LamparaTextButtonWithIcon
-					loading={loading}
-					loadingText={'Updating nurse...'}
-					icon={<IoSaveOutline size={20} />}
-					onClick={() => updateNurse()}
-					label={'Save Update'}
-				/>
+				<form action="" onSubmit={handleUpdateNurse(onUpdateNurse)}>
+					<LamparaDropdown
+						required={false}
+						label={'Department'}
+						placeholder={'Select department'}
+						options={departmentList}
+						onChange={(option) =>
+							setUpdates({ ...updates, department: option.value })
+						}
+					/>
+					<LamparaInputForm
+						required={false}
+						label={'First Name'}
+						name={'first_name'}
+						register={updateRegister}
+						placeholder={nurseToUpdate && nurseToUpdate[0]?.first_name}
+						// onChange={(e) =>
+						// 	setUpdates({ ...updates, first_name: e.target.value })
+						// }
+					/>
+					<LamparaInputForm
+						label={'Last Name'}
+						required={false}
+						name={'last_name'}
+						register={updateRegister}
+						placeholder={nurseToUpdate && nurseToUpdate[0]?.last_name}
+						// onChange={(e) =>
+						// 	setUpdates({ ...updates, last_name: e.target.value })
+						// }
+					/>
+					<LamparaInputForm
+						label={'Email'}
+						required={false}
+						name={'email'}
+						register={updateRegister}
+						placeholder={nurseToUpdate && nurseToUpdate[0]?.email}
+						// onChange={(e) =>
+						// 	setUpdates({ ...updates, last_name: e.target.value })
+						// }
+					/>
+					<LamparaInputForm
+						label={'Username'}
+						required={false}
+						name={'username'}
+						register={updateRegister}
+						placeholder={nurseToUpdate && nurseToUpdate[0]?.username}
+						// onChange={(e) =>
+						// 	setUpdates({ ...updates, username: e.target.value })
+						// }
+					/>
+					<LamparaTextButtonWithIcon
+						loading={updateLoading}
+						loadingText={'Updating nurse...'}
+						icon={<IoSaveOutline size={20} />}
+						type={'submit'}
+						width={'w-full'}
+						label={'Save Update'}
+					/>
+				</form>
 			</CustomModal>
 
 			<CustomModal
@@ -296,7 +374,7 @@ const ManageNurses = () => {
 				<div className="flex justify-end">
 					<LamparaButton
 						label={'Delete'}
-						loading={loading}
+						loading={deleteLoading}
 						loadingText={'Deleting...'}
 						bgColor="bg-red-500"
 						width={'w-[100px]'}
@@ -312,12 +390,6 @@ const ManageNurses = () => {
 						onChange={(e) => setKeyword(e.target.value)}
 						placeholder="Search nurse"
 					/>
-					<button
-						// onClick={() => searchPersonnel()}
-						className="absolute px-2 py-2 rounded-lg"
-					>
-						<IoMdSearch color="#24234d" />
-					</button>
 				</div>
 				<LamparaTextButtonWithIcon
 					label={'Add Nurse'}

@@ -8,10 +8,12 @@ const LamparaTextButtonWithIcon = ({
 	loadingText,
 	onClick,
 	width,
+	type = null,
 }) => {
 	return (
 		<button
 			onClick={onClick}
+			type={type}
 			className={`text-sm ${width} ${bgColor}  hover:shadow-md mt-6 p-3 rounded-md py-1  text-white`}
 		>
 			<div className="flex justify-center items-center gap-x-1">
