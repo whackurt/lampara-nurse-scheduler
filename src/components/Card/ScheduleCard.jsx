@@ -99,7 +99,7 @@ const ScheduleCard = ({
 				/>
 				<div className="flex justify-end">
 					<LamparaButton
-						loading={loading}
+						loading={editLoading}
 						loadingText={'Saving...'}
 						onClick={() => editScheduleShift()}
 						width={'w-120px'}
@@ -116,7 +116,7 @@ const ScheduleCard = ({
 				<div className="flex justify-end">
 					<LamparaButton
 						label={'Delete'}
-						loading={loading}
+						loading={deleteLoading}
 						loadingText={'Deleting...'}
 						bgColor="bg-red-500"
 						width={'w-[100px]'}

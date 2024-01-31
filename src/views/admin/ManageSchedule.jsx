@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ScheduleCalendar from '../../components/Calendar/ScheduleCalendar';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import LamparaButton from '../../components/Button/LamparaButton';
 import CustomModal from '../../components/Modal/CustomModal';
 import LamparaDropdown from '../../components/Button/LamparaDropdown';
 import DatePicker from 'react-datepicker';
@@ -22,7 +21,6 @@ import {
 	restructureShifts,
 } from '../../helpers/restructure';
 import LamparaTextButtonWithIcon from '../../components/Button/LamparaButtonWithIcon';
-import { IoCreateOutline } from 'react-icons/io5';
 import { MdEditCalendar } from 'react-icons/md';
 
 const ManageSchedule = () => {
@@ -182,7 +180,7 @@ const ManageSchedule = () => {
 				</Helmet>
 			</HelmetProvider>
 
-			<Toaster position="top-center" reverseOrder={true} />
+			<Toaster position="bottom-right" reverseOrder={true} />
 
 			<CustomModal
 				title={'Create Schedule'}
@@ -226,7 +224,7 @@ const ManageSchedule = () => {
 				/>
 
 				<LamparaTextButtonWithIcon
-					loading={loading}
+					loading={createLoading}
 					loadingText={'Saving schedule...'}
 					icon={<MdEditCalendar size={25} color="#FFFFFF" />}
 					bgColor="bg-green-600"
