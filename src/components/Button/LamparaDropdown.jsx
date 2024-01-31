@@ -10,6 +10,7 @@ const LamparaDropdown = ({
 	placeholder,
 	defaultOption,
 	width = null,
+	errorMsg,
 }) => {
 	return (
 		<div className="mb-4">
@@ -27,6 +28,7 @@ const LamparaDropdown = ({
 				value={defaultOption && null}
 				placeholder={placeholder}
 			/>
+			<p className="text-red-500 text-xs">{errorMsg}</p>
 		</div>
 	);
 };
