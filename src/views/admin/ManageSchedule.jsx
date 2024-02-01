@@ -95,7 +95,7 @@ const ManageSchedule = () => {
 				setStartDate(null);
 				setEndDate(null);
 
-				toggleModal();
+				toggleCreateModal();
 				getAllSchedules();
 			} else if (scheduledAlready) {
 				notify('Nurse is scheduled already on the selected date(s).', true);

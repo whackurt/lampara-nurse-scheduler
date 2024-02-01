@@ -366,7 +366,7 @@ const ManageNurses = () => {
 			</CustomModal>
 
 			<CustomModal
-				title={'Delete Schedule'}
+				title={'Delete Nurse'}
 				showModal={showDeleteModal}
 				toggleModal={toggleDeleteModal}
 			>
