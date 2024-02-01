@@ -16,6 +16,7 @@ const ScheduleCalendar = ({
 	events,
 	getSchedules,
 	shifts,
+	keyword,
 	setKeyword,
 	nurses,
 }) => {
@@ -68,6 +69,7 @@ const ScheduleCalendar = ({
 					options={departments}
 					required={false}
 					width={'w-56'}
+					value={keyword}
 					onChange={(option) => setKeyword(option.value)}
 				/>
 				<LamparaDropdown
@@ -76,6 +78,7 @@ const ScheduleCalendar = ({
 					options={nurses}
 					required={false}
 					width={'w-56'}
+					value={keyword}
 					onChange={(option) => setKeyword(option.label)}
 				/>
 			</div>

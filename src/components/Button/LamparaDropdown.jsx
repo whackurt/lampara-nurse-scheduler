@@ -11,6 +11,7 @@ const LamparaDropdown = ({
 	defaultOption,
 	width = null,
 	errorMsg,
+	value,
 }) => {
 	return (
 		<div className="mb-4">
@@ -25,7 +26,7 @@ const LamparaDropdown = ({
 				arrowClassName="flex items-center"
 				options={options}
 				onChange={onChange}
-				value={defaultOption && null}
+				value={value && null}
 				placeholder={placeholder}
 			/>
 			<p className="text-red-500 text-xs">{errorMsg}</p>

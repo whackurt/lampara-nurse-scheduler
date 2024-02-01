@@ -18,6 +18,7 @@ import {
 	restructureNurses,
 	restructureSchedules,
 } from '../../helpers/restructure';
+import { filterSchedules } from '../../helpers/filter';
 
 const AdminDashboard = () => {
 	const [schedules, setSchedules] = useState([]);
@@ -49,12 +50,8 @@ const AdminDashboard = () => {
 		setLoading(false);
 	};
 
-	const filterSchedules = () => {
-		const filteredSchedules = schedules.filter(
-			(sc) =>
-				sc.title.toLowerCase().includes(keyword.toLowerCase()) ||
-				sc.dept.toLowerCase().includes(keyword.toLowerCase())
-		);
+	const execFilter = () => {
+		const filteredSchedules = filterSchedules(schedules, keyword);
 
 		setFilteredSchedules(filteredSchedules);
 	};
@@ -102,7 +99,7 @@ const AdminDashboard = () => {
 	};
 
 	useEffect(() => {
-		filterSchedules();
+		execFilter();
 	}, [keyword]);
 
 	useEffect(() => {
@@ -110,7 +107,6 @@ const AdminDashboard = () => {
 		getAllNurses();
 		getStatistics();
 	}, []);
-
 
 	return (
 		<div className="px-8 py-8">
@@ -151,8 +147,8 @@ const AdminDashboard = () => {
 					<Loader />
 				) : (
 					<ScheduleCalendar
-						// shifts={shifts}
 						nurses={nurses}
+						keyword={keyword}
 						setKeyword={setKeyword}
 						getSchedules={getAllSchedules}
 						events={keyword !== '' ? filteredSchedules : schedules}

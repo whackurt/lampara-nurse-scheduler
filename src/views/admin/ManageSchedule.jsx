@@ -24,6 +24,7 @@ import LamparaTextButtonWithIcon from '../../components/Button/LamparaButtonWith
 import { MdEditCalendar } from 'react-icons/md';
 import { VscFilePdf } from 'react-icons/vsc';
 import ComingSoon from '../../components/Card/ComingSoon';
+import { filterSchedules } from '../../helpers/filter';
 
 const ManageSchedule = () => {
 	const [showCreateModal, setShowCreateModal] = useState(false);
@@ -51,12 +52,8 @@ const ManageSchedule = () => {
 		setShowExportModal(!showExportModal);
 	};
 
-	const filterSchedules = () => {
-		const filteredSchedules = schedules.filter(
-			(sc) =>
-				sc.title.toLowerCase().includes(keyword.toLowerCase()) ||
-				sc.dept.toLowerCase().includes(keyword.toLowerCase())
-		);
+	const execFilter = () => {
+		const filteredSchedules = filterSchedules(schedules, keyword);
 
 		setFilteredSchedules(filteredSchedules);
 	};
@@ -162,6 +159,7 @@ const ManageSchedule = () => {
 			var restructured = restructureSchedules(fetchedSchedules);
 
 			setSchedules(restructured);
+			console.log(schedules);
 		} else {
 			notify('Failed to fetch schedules.', true);
 		}
@@ -170,7 +168,7 @@ const ManageSchedule = () => {
 	};
 
 	useEffect(() => {
-		filterSchedules();
+		execFilter();
 	}, [keyword]);
 
 	useEffect(() => {
@@ -270,6 +268,7 @@ const ManageSchedule = () => {
 						<ScheduleCalendar
 							shifts={shifts}
 							nurses={nurses}
+							keyword={keyword}
 							setKeyword={setKeyword}
 							getSchedules={getAllSchedules}
 							events={keyword !== '' ? filteredSchedules : schedules}
