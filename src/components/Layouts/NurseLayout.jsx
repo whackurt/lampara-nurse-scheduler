@@ -104,7 +104,6 @@ const NurseLayout = ({ children, location, icon }) => {
 					</div>
 				</div>
 				<div className="flex flex-col items-center mt-10 ">
-					{/* <LiaUserNurseSolid size={40} color="#454545" /> */}
 					<img src={NurseIcon} width={60} />
 					<p
 						className={`${
@@ -112,6 +111,14 @@ const NurseLayout = ({ children, location, icon }) => {
 						} text-lg font-bold text-secondary text-center`}
 					>
 						{nurse?.first_name} {nurse?.last_name}
+					</p>
+					<hr />
+					<p
+						className={`${
+							!open && 'hidden'
+						} text-md font-semibold text-primary text-center`}
+					>
+						{nurse?.department.name}
 					</p>
 				</div>
 				<div className="flex flex-col justify-between">

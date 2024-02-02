@@ -37,7 +37,8 @@ const MySchedule = () => {
 		const res = await GetNurseById(nurseId);
 
 		if (res.success) {
-			setNurse(res.data);
+			const nurseDetails = res.data;
+			setNurse(nurseDetails);
 		} else {
 			notify('Failed to fetch nurse details.', true);
 		}
@@ -58,9 +59,12 @@ const MySchedule = () => {
 			</HelmetProvider>
 
 			<div className="flex flex-col">
-				<h1 className="text-primary text-3xl font-bold">
-					Hello, {nurse?.first_name}&#x1F44B;
-				</h1>
+				<div className="flex justify-between">
+					<h1 className="text-primary text-3xl font-bold">
+						Hello, {nurse?.first_name}&#x1F44B;
+					</h1>
+				</div>
+
 				<p className="text-xs">You can view your schedule below.</p>
 				<p className="text-secondary text-xl mt-3">
 					{moment().format('dddd, MMMM D, YYYY')}
