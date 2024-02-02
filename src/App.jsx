@@ -4,7 +4,7 @@ import ForgotPassword from './views/auth/forgot-password/forgot-password';
 import AdminLogin from './views/auth/AdminLogin';
 import AdminMessages from './views/admin/Messages';
 import NurseMessages from './views/nurse/Messages';
-import NotFound from './views/not-found/not-found';
+import NotFound from './views/not-found/NotFound';
 import NurseLogin from './views/auth/NurseLogin';
 import AuthenticatedAdminPrivateRoute from './components/PrivateRoute/AuthenticatedAdminPrivateRoute';
 import AdminPrivateRoute from './components/PrivateRoute/AdminPrivateRoute';
