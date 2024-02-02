@@ -149,7 +149,7 @@ const NurseLayout = ({ children, location, icon }) => {
 						))}
 					</ul>
 
-					<div className="flex flex-col mt-64">
+					<div className="flex flex-col mt-32">
 						<Link
 							to={'/nurse/my-account'}
 							className={`${
