@@ -42,15 +42,12 @@ const Messages = () => {
 	};
 
 	const fetchChats = async () => {
-		setLoading(true);
 		const res = await GetChatsByUserId(userId, user);
 
 		if (res.status === 200) {
 			const chats = res.data.chats;
 			setChats(chats);
 		}
-
-		setLoading(false);
 	};
 
 	const getChatMessages = async () => {

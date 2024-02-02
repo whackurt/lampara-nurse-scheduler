@@ -84,13 +84,17 @@ const ConversationContainer = ({
 							/>
 						</div>
 						<div className="flex flex-col justify-center bg-primary ">
-							<h1 className="font-semibold text-gray-200"> {name} </h1>
+							<h1 className="font-semibold text-gray-200"> {name}</h1>
 						</div>
 					</>
 				)}
 			</div>
 
-			<div className="h-[497px] bg-gray-100 overflow-y-auto">
+			<div
+				className={`h-[${
+					name === 'sked.io user' ? '467px' : '497px'
+				}] bg-gray-100 overflow-y-auto`}
+			>
 				{activeChatMate == null ? (
 					<div className="h-full flex justify-center items-center	">
 						<p className="text-gray-500">No conversation selected</p>
@@ -114,7 +118,13 @@ const ConversationContainer = ({
 				)}
 				<div ref={messageEndRef} />
 			</div>
-
+			<div className="flex bg-red-500 text-white justify-center">
+				{name === 'sked.io user' && (
+					<p className="text-sm">
+						You can't send a message to this conversation.
+					</p>
+				)}
+			</div>
 			<div className="flex p-2 items-center gap-x-2 bg-gray-300">
 				<div className="flex w-full">
 					<input
@@ -122,7 +132,7 @@ const ConversationContainer = ({
 						type="text"
 						placeholder="Type a message"
 						value={newMessage}
-						disabled={activeChatMate == null}
+						disabled={activeChatMate == null || name === 'sked.io user'}
 						onChange={(e) => setNewMessage(e.target.value)}
 						onKeyDown={(e) => {
 							if (e.key === 'Enter') {

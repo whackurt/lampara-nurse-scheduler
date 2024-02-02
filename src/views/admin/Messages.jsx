@@ -45,15 +45,11 @@ const Messages = () => {
 	};
 
 	const fetchChats = async () => {
-		setLoading(true);
-
 		const res = await GetChatsByUserId(userId, user);
 		if (res.status === 200) {
 			const chats = res.data.chats;
 			setChats(chats);
 		}
-
-		setLoading(false);
 	};
 
 	const getChatMessages = async () => {
@@ -75,9 +71,11 @@ const Messages = () => {
 					(user) => user._id !== userId
 				);
 
+				const chatMateName = chatmate[0] ? chatmate[0].name : 'sked.io user';
+				const chatMateId = chatmate[0] ? chatmate[0]._id : 'no id';
 				if (res.status === 200) {
-					setChatmate(chatmate[0].name);
-					setActiveChatMate(chatmate[0]._id);
+					setChatmate(chatMateName);
+					setActiveChatMate(chatMateId);
 				}
 			}
 		}
