@@ -4,7 +4,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { LoginNurse } from '../../services/auth.services';
 import LamparaButton from '../../components/Button/LamparaButton';
 import LamparaInputForm from '../../components/Forms/LamparaInputForm';
-import Icon from '../../assets/skedio-icon.png';
+import Icon from '../../assets/skedle-icon.png';
 import LamparaAuthForm from '../../components/Forms/LamparaAuthForm';
 
 const NurseLogin = (props) => {
@@ -45,8 +45,8 @@ const NurseLogin = (props) => {
 		<div className="bg-nurse-background bg-cover bg-center h-screen w-full font-nunito">
 			<HelmetProvider>
 				<Helmet>
-					<title>Login - sked.io</title>
-					<meta property="og:title" content="sked.io" />
+					<title>Login - skedle</title>
+					<meta property="og:title" content="skedle" />
 				</Helmet>
 			</HelmetProvider>
 

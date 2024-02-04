@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { LoginAdmin } from '../../services/auth.services';
-import Icon from '../../assets/skedio-icon.png';
-import Logo from '../../assets/skedio-logo.png';
+import Icon from '../../assets/skedle-icon.png';
+import Logo from '../../assets/skedle-logo.png';
 import LamparaInputForm from '../../components/Forms/LamparaInputForm';
 import LamparaButton from '../../components/Button/LamparaButton';
 import LamparaAuthForm from '../../components/Forms/LamparaAuthForm';
@@ -48,8 +48,8 @@ const AdminLogin = () => {
 		<div className="bg-nurse-background bg-cover bg-center h-screen w-full font-nunito">
 			<HelmetProvider>
 				<Helmet>
-					<title>Login - sked.io</title>
-					<meta property="og:title" content="sked.io" />
+					<title>Login - skedle</title>
+					<meta property="og:title" content="skedle" />
 				</Helmet>
 			</HelmetProvider>
 

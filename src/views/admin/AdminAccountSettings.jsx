@@ -55,8 +55,8 @@ const AdminAccountSettings = () => {
 		<div className="py-4 ">
 			<HelmetProvider>
 				<Helmet>
-					<title>My Account - sked.io</title>
-					<meta property="og:title" content="My Account - sked.io" />
+					<title>My Account - skedle</title>
+					<meta property="og:title" content="My Account - skedle" />
 				</Helmet>
 			</HelmetProvider>
 			<div className="flex gap-x-4 gap-y-4 px-4">

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import Icon from '../../assets/skedio-icon.png';
-import Logo from '../../assets/skedio-logo.png';
+import Icon from '../../assets/skedle-icon.png';
+import Logo from '../../assets/skedle-logo.png';
 import { TbError404 } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
 import LamparaTextButtonWithIcon from '../../components/Button/LamparaButtonWithIcon';
@@ -13,7 +13,7 @@ const NotFound = () => {
 	return (
 		<div className="flex font-nunito justify-center items-center h-screen w-full">
 			<Helmet>
-				<title>404 Not Found - sked.io</title>
+				<title>404 Not Found - skedle</title>
 			</Helmet>
 			<div className="flex flex-col">
 				<div className="flex justify-center gap-x-3 items-center">

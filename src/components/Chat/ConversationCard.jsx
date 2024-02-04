@@ -69,7 +69,7 @@ const ConversationCard = ({
 				</div>
 				<div className="flex flex-col justify-center w-72 h-12 overflow-clip ">
 					<h1 className="text-sm font-semibold ">
-						{name ? name : 'sked.io user'}
+						{name ? name : 'skedle user'}
 					</h1>
 					<p className="text-xs overflow-y-hidden">{latestMsg}</p>
 				</div>

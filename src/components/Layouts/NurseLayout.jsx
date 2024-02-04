@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Control from '../../../src/assets/control.png';
-import Logo from '../../../src/assets/skedio-logo.png';
-import Icon from '../../../src/assets/skedio-icon.png';
+import Logo from '../../../src/assets/skedle-logo.png';
+import Icon from '../../../src/assets/skedle-icon.png';
 import NurseIcon from '../../assets/nurse-icon.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { BiMessageSquareDetail } from 'react-icons/bi';

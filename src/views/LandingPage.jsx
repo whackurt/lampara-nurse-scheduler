@@ -1,6 +1,6 @@
 import React from 'react';
-import Logo from '../assets/skedio-logo.png';
-import Icon from '../assets/skedio-icon.png';
+import Logo from '../assets/skedle-logo.png';
+import Icon from '../assets/skedle-icon.png';
 import LamparaButton from '../components/Button/LamparaButton';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,10 +12,10 @@ const LandingPage = () => {
 				<h1 className="text-slate-600 text-3xl mb-2">Welcome to</h1>
 				<div className="flex items-center gap-x-2">
 					<div>
-						<img src={Icon} width={40} alt="skedio-icon.png" />
+						<img src={Icon} width={40} alt="skedle-icon.png" />
 					</div>
 					<div>
-						<img src={Logo} width={110} alt="skedio-logo.png" />
+						<img src={Logo} width={110} alt="skedle-logo.png" />
 					</div>
 				</div>
 				<div className="py-2 bg-gray-200 rounded-md px-2 mt-6">

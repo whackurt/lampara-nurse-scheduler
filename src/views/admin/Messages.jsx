@@ -71,7 +71,7 @@ const Messages = () => {
 					(user) => user._id !== userId
 				);
 
-				const chatMateName = chatmate[0] ? chatmate[0].name : 'sked.io user';
+				const chatMateName = chatmate[0] ? chatmate[0].name : 'skedle user';
 				const chatMateId = chatmate[0] ? chatmate[0]._id : 'no id';
 				if (res.status === 200) {
 					setChatmate(chatMateName);
@@ -132,12 +132,12 @@ const Messages = () => {
 		<div className="">
 			<HelmetProvider>
 				<Helmet>
-					<title>Messages - sked.io</title>
-					<meta property="og:title" content="Messages - sked.io" />
+					<title>Messages - skedle</title>
+					<meta property="og:title" content="Messages - skedle" />
 				</Helmet>
 			</HelmetProvider>
 			<div className="flex shadow-sm w-full h-[600px]  rounded-md">
-				<div className="w-[345px] relative h-full bg-gray-50">
+				<div className="w-[350px] relative h-full bg-gray-50">
 					<div className="flex items-center gap-x-2 bg-primary h-[60px] px-2">
 						<HiChatBubbleLeftRight size={30} color="FFFFFF" />
 						<p className="text-white font-bold text-xl">Your Messages</p>

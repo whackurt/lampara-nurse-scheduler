@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Control from '../../../src/assets/control.png';
-import Icon from '../../../src/assets/skedio-icon.png';
-import Logo from '../../../src/assets/skedio-logo.png';
+import Icon from '../../../src/assets/skedle-icon.png';
+import Logo from '../../../src/assets/skedle-logo.png';
 import AdminIcon from '../../assets/admin-icon.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdOutlineDashboard } from 'react-icons/md';

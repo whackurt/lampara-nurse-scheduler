@@ -128,13 +128,13 @@ const Messages = () => {
 		<div>
 			<HelmetProvider>
 				<Helmet>
-					<title>Messages - sked.io</title>
-					<meta property="og:title" content="Messages - sked.io" />
+					<title>Messages - skedle</title>
+					<meta property="og:title" content="Messages - skedle" />
 				</Helmet>
 			</HelmetProvider>
 			<div className="">
 				<div className="flex shadow-sm h-[600px]  rounded-md">
-					<div className="w-[345px] relative h-full bg-gray-50">
+					<div className="w-[350px] relative h-full bg-gray-50">
 						<div className="flex items-center gap-x-2 bg-primary h-[60px] px-2">
 							<HiChatBubbleLeftRight size={30} color="FFFFFF" />
 							<p className="text-white font-bold text-xl">Your Messages</p>
