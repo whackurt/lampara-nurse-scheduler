@@ -35,8 +35,7 @@ const Messages = () => {
 	const [showModal, setShowModal] = useState(false);
 
 	const user = 'admin';
-	const position = 'Nurse';
-	const userId = localStorage.getItem('userId');
+	const userId = localStorage.getItem('adminUserId');
 
 	const toggleModal = () => {
 		setShowModal(!showModal);
@@ -247,7 +246,6 @@ const Messages = () => {
 							user={user}
 							activeChatMate={activeChatMate}
 							name={chatmate}
-							position={position}
 						/>
 					)}
 				</div>

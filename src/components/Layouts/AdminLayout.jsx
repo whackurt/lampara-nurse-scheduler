@@ -56,7 +56,7 @@ const AdminLayout = ({ children, location, icon }) => {
 	const logout = () => {
 		localStorage.removeItem('adminToken');
 		localStorage.removeItem('adminId');
-		localStorage.removeItem('userId');
+		localStorage.removeItem('adminUserId');
 		localStorage.removeItem('adminUsername');
 		navigate('/admin/login');
 	};
@@ -146,7 +146,7 @@ const AdminLayout = ({ children, location, icon }) => {
 						))}
 					</ul>
 
-					<div className="flex flex-col  mt-32">
+					<div className="flex flex-col mt-8">
 						<Link
 							to={'/admin/my-account'}
 							className={`${

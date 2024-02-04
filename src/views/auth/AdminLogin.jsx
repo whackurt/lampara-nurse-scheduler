@@ -29,7 +29,7 @@ const AdminLogin = () => {
 			if (res.status == 200) {
 				localStorage.setItem('adminToken', res.data.token);
 				localStorage.setItem('adminId', res.data.adminId);
-				localStorage.setItem('userId', res.data.adminUserId);
+				localStorage.setItem('adminUserId', res.data.adminUserId);
 				localStorage.setItem('adminUsername', res.data.username);
 				navigate('/admin');
 			} else {

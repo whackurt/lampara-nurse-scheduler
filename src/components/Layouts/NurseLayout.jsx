@@ -40,7 +40,7 @@ const NurseLayout = ({ children, location, icon }) => {
 	const logout = async () => {
 		localStorage.removeItem('nurseToken');
 		localStorage.removeItem('nurseId');
-		localStorage.removeItem('userId');
+		localStorage.removeItem('nurseUserId');
 		navigate('/nurse/login');
 	};
 
@@ -112,11 +112,10 @@ const NurseLayout = ({ children, location, icon }) => {
 					>
 						{nurse?.first_name} {nurse?.last_name}
 					</p>
-					<hr />
 					<p
 						className={`${
 							!open && 'hidden'
-						} text-md font-semibold text-primary text-center`}
+						} text-sm font-regular text-[#de4747] text-center`}
 					>
 						{nurse?.department.name}
 					</p>
@@ -149,7 +148,7 @@ const NurseLayout = ({ children, location, icon }) => {
 						))}
 					</ul>
 
-					<div className="flex flex-col mt-32">
+					<div className="flex flex-col mt-8">
 						<Link
 							to={'/nurse/my-account'}
 							className={`${

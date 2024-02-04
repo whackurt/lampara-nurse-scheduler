@@ -8,7 +8,6 @@ import { io } from 'socket.io-client';
 
 const ConversationContainer = ({
 	name,
-	position,
 	selectedChat,
 	activeChatMate,
 	fetchChats,
@@ -22,7 +21,10 @@ const ConversationContainer = ({
 
 	const messageEndRef = useRef(null);
 
-	const userId = localStorage.getItem('userId');
+	const userId =
+		user === 'admin'
+			? localStorage.getItem('adminUserId')
+			: localStorage.getItem('nurseUserId');
 
 	const sendMessage = async () => {
 		const res = await SendMessage(

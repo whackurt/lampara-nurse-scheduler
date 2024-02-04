@@ -27,7 +27,7 @@ const NurseLogin = (props) => {
 			if (res.status == 200) {
 				localStorage.setItem('nurseToken', res.data.token);
 				localStorage.setItem('nurseId', res.data.nurseId);
-				localStorage.setItem('userId', res.data.nurseUserId);
+				localStorage.setItem('nurseUserId', res.data.nurseUserId);
 				navigate('/nurse');
 			} else {
 				setError(true);
