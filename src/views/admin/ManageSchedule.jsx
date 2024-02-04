@@ -25,6 +25,9 @@ import { MdEditCalendar } from 'react-icons/md';
 import { VscFilePdf } from 'react-icons/vsc';
 import ComingSoon from '../../components/Card/ComingSoon';
 import { filterSchedules } from '../../helpers/filter';
+import { useScheduleStore } from '../../stores/useScheduleStore';
+import { useShiftStore } from '../../stores/useShiftStore';
+import { useNurseStore } from '../../stores/useNurseStore';
 
 const ManageSchedule = () => {
 	const [showCreateModal, setShowCreateModal] = useState(false);
@@ -33,17 +36,30 @@ const ManageSchedule = () => {
 	const [newSchedule, setNewSchedule] = useState({});
 	const [startDate, setStartDate] = useState(null);
 	const [endDate, setEndDate] = useState(null);
-	const [nurses, setNurses] = useState([]);
-	const [shifts, setShifts] = useState([]);
 
-	const [loading, setLoading] = useState(false);
 	const [createLoading, setCreateLoading] = useState(false);
 	const [dates, setDates] = useState([]);
 
-	const [schedules, setSchedules] = useState([]);
-	const [filteredSchedules, setFilteredSchedules] = useState([]);
-	const [keyword, setKeyword] = useState('');
+	// Shift
+	const getAllShifts = useShiftStore((state) => state.getAllShifts);
+	const shifts = useShiftStore((state) => state.allShifts);
+	const [restructuredShifts, setRestructuredShifts] = useState([]);
 
+	const _restructureShifts = () => {
+		var restructured = restructureShifts(shifts);
+		setRestructuredShifts(restructured);
+	};
+
+	// Nurse
+	const getAllNurses = useNurseStore((state) => state.getAllNurses);
+	const nurses = useNurseStore((state) => state.allNurses);
+	const [restructuredNurses, setRestructuredNurses] = useState([]);
+	const _restructureNurses = async () => {
+		var restructured = restructureNurses(nurses);
+		setRestructuredNurses(restructured);
+	};
+
+	// Modal Operations
 	const toggleCreateModal = () => {
 		setShowCreateModal(!showCreateModal);
 	};
@@ -52,10 +68,15 @@ const ManageSchedule = () => {
 		setShowExportModal(!showExportModal);
 	};
 
-	const execFilter = () => {
-		const filteredSchedules = filterSchedules(schedules, keyword);
+	// Schedule
+	const getAllSchedules = useScheduleStore((state) => state.getAllSchedules);
+	const getSchedLoading = useScheduleStore((state) => state.getLoading);
+	const schedules = useScheduleStore((state) => state.allSchedules);
+	const [restructuredSchedules, setRestructureSchedules] = useState([]);
 
-		setFilteredSchedules(filteredSchedules);
+	const _restructureSchedules = async () => {
+		var restructured = restructureSchedules(schedules);
+		setRestructureSchedules(restructured);
 	};
 
 	const createSchedule = async () => {
@@ -134,55 +155,24 @@ const ManageSchedule = () => {
 		}
 	};
 
-	const getAllNurses = async () => {
-		const res = await GetAllNurses();
-		const fetchedNurses = res.data;
-		var restructured = restructureNurses(fetchedNurses);
-
-		setNurses(restructured);
-	};
-
-	const getAllShifts = async () => {
-		const res = await GetAllShifts();
-		const fetchedShifts = res.data;
-		var restructured = restructureShifts(fetchedShifts);
-
-		setShifts(restructured);
-	};
-
-	const getAllSchedules = async () => {
-		setLoading(true);
-
-		const res = await GetAllSchedules();
-		if (res.success) {
-			const fetchedSchedules = res.data;
-			var restructured = restructureSchedules(fetchedSchedules);
-
-			setSchedules(restructured);
-			console.log(schedules);
-		} else {
-			notify('Failed to fetch schedules.', true);
-		}
-
-		setLoading(false);
-	};
-
 	useEffect(() => {
-		execFilter();
-	}, [keyword]);
-
-	useEffect(() => {
-		getAllNurses();
 		getAllShifts();
 		getAllSchedules();
+		getAllNurses();
 	}, []);
+
+	useEffect(() => {
+		_restructureSchedules();
+		_restructureShifts();
+		_restructureNurses();
+	}, [schedules, shifts, nurses]);
 
 	return (
 		<div>
 			<HelmetProvider>
 				<Helmet>
-					<title>Manage Schedules - sked.io</title>
-					<meta property="og:title" content="Manage Schedules - sked.io" />
+					<title>Manage Schedules - skedle</title>
+					<meta property="og:title" content="Manage Schedules - skedle" />
 				</Helmet>
 			</HelmetProvider>
 
@@ -208,7 +198,7 @@ const ManageSchedule = () => {
 				<LamparaDropdown
 					label={'Nurse'}
 					placeholder={'Select nurse'}
-					options={nurses}
+					options={restructuredNurses}
 					onChange={(option) =>
 						setNewSchedule({ ...newSchedule, nurse_id: option.value })
 					}
@@ -216,7 +206,7 @@ const ManageSchedule = () => {
 				<LamparaDropdown
 					label={'Shift'}
 					placeholder={'Select Shift'}
-					options={shifts}
+					options={restructuredShifts}
 					onChange={(option) =>
 						setNewSchedule({ ...newSchedule, shift_id: option.value })
 					}
@@ -247,7 +237,7 @@ const ManageSchedule = () => {
 				/>
 			</CustomModal>
 			<div className="p-8 rounded-md">
-				{loading ? (
+				{getSchedLoading ? (
 					<Loader />
 				) : (
 					<>
@@ -266,12 +256,12 @@ const ManageSchedule = () => {
 							/>
 						</div>
 						<ScheduleCalendar
-							shifts={shifts}
-							nurses={nurses}
-							keyword={keyword}
-							setKeyword={setKeyword}
+							// shifts={restructuredShifts}
+							// nurses={nurses}
+							// keyword={keyword}
+							// setKeyword={setKeyword}
 							getSchedules={getAllSchedules}
-							events={keyword !== '' ? filteredSchedules : schedules}
+							schedules={restructuredSchedules}
 							editable={true}
 						/>
 					</>

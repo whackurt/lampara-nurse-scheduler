@@ -2,118 +2,54 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import ScheduleCalendar from '../../components/Calendar/ScheduleCalendar';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { GetAllSchedules } from '../../services/schedule.services';
 import Loader from '../../components/Loader/Loader';
 import { LiaUserNurseSolid } from 'react-icons/lia';
 import { BiCalendar } from 'react-icons/bi';
 import { AiOutlineSchedule } from 'react-icons/ai';
-import {
-	GetNurseCount,
-	GetSchedulesCount,
-	GetShiftCount,
-} from '../../services/statistics';
 import StatisticsCard from '../../components/Card/StatisticsCard';
-import { GetAllNurses } from '../../services/nurse.services';
-import {
-	restructureNurses,
-	restructureSchedules,
-} from '../../helpers/restructure';
-import { filterSchedules } from '../../helpers/filter';
+import { restructureSchedules } from '../../helpers/restructure';
+import { useStatisticStore } from '../../stores/useStatisticStore';
+import { useScheduleStore } from '../../stores/useScheduleStore';
 
 const AdminDashboard = () => {
-	const [schedules, setSchedules] = useState([]);
-	const [filteredSchedules, setFilteredSchedules] = useState([]);
-	const [nurses, setNurses] = useState([]);
-	const [keyword, setKeyword] = useState('');
-	const [loading, setLoading] = useState(false);
-	const [statisticLoading, setStatisticLoading] = useState(false);
+	const getNurseCount = useStatisticStore((state) => state.getNurseCount);
+	const getSchedCount = useStatisticStore((state) => state.getSchedCount);
+	const getShiftCount = useStatisticStore((state) => state.getShiftCount);
 
-	const [statistics, setStatistics] = useState({
-		nurseCount: 0,
-		shiftCount: 0,
-		scheduleCount: 0,
-	});
+	const nurseCount = useStatisticStore((state) => state.nurseCount);
+	const schedCount = useStatisticStore((state) => state.schedCount);
+	const shiftCount = useStatisticStore((state) => state.shiftCount);
+	const statLoading = useStatisticStore((state) => state.isLoading);
 
-	const getAllSchedules = async () => {
-		setLoading(true);
+	const getAllSchedules = useScheduleStore((state) => state.getAllSchedules);
+	const getSchedLoading = useScheduleStore((state) => state.getLoading);
+	const schedules = useScheduleStore((state) => state.allSchedules);
+	const [restructuredSchedules, setRestructureSchedules] = useState([]);
 
-		const res = await GetAllSchedules();
-		if (res.success) {
-			const fetchedSchedules = res.data;
-			var restructured = restructureSchedules(fetchedSchedules);
-
-			setSchedules(restructured);
-		} else {
-			notify('Failed to fetch schedules.', true);
+	const _restructureSchedules = async () => {
+		if (schedules) {
+			var restructured = restructureSchedules(schedules);
+			setRestructureSchedules(restructured);
 		}
-
-		setLoading(false);
 	};
-
-	const execFilter = () => {
-		const filteredSchedules = filterSchedules(schedules, keyword);
-
-		setFilteredSchedules(filteredSchedules);
-	};
-
-	const getStatistics = async () => {
-		setStatisticLoading(true);
-
-		var nurseCount = 0;
-		var schedCount = 0;
-		var shiftCount = 0;
-
-		const nurse = await GetNurseCount();
-
-		if (nurse.success) {
-			nurseCount = nurse.count;
-		}
-
-		const schedule = await GetSchedulesCount();
-		if (schedule.success) {
-			schedCount = schedule.count;
-		}
-
-		const shift = await GetShiftCount();
-		if (shift.success) {
-			shiftCount = shift.count;
-		}
-
-		setStatistics({
-			...statistics,
-			nurseCount: nurseCount,
-			shiftCount: shiftCount,
-			scheduleCount: schedCount,
-		});
-
-		setStatisticLoading(false);
-	};
-
-	const getAllNurses = async () => {
-		const res = await GetAllNurses();
-
-		const fetchedNurses = res.data;
-		var restructured = restructureNurses(fetchedNurses);
-
-		setNurses(restructured);
-	};
-
-	useEffect(() => {
-		execFilter();
-	}, [keyword]);
 
 	useEffect(() => {
 		getAllSchedules();
-		getAllNurses();
-		getStatistics();
+		getNurseCount();
+		getSchedCount();
+		getShiftCount();
 	}, []);
+
+	useEffect(() => {
+		_restructureSchedules();
+	}, [schedules]);
 
 	return (
 		<div className="px-8 py-8">
 			<HelmetProvider>
 				<Helmet>
-					<title>Dashboard - sked.io</title>
-					<meta property="og:title" content="Dashboard - sked.io" />
+					<title>Dashboard - skedle</title>
+					<meta property="og:title" content="Dashboard - skedle" />
 				</Helmet>
 			</HelmetProvider>
 			<div className="flex flex-col">
@@ -124,34 +60,31 @@ const AdminDashboard = () => {
 			</div>
 			<div className="flex mt-6 gap-x-3 ">
 				<StatisticsCard
-					loading={statisticLoading}
+					loading={statLoading}
 					title={'Nurses'}
-					value={statistics.nurseCount}
+					value={nurseCount}
 					icon={<LiaUserNurseSolid size={25} color="#0077B6" />}
 				/>
 				<StatisticsCard
-					loading={statisticLoading}
+					loading={statLoading}
 					title={'Schedules'}
-					value={statistics.scheduleCount}
+					value={schedCount}
 					icon={<BiCalendar size={25} color="#0077B6" />}
 				/>
 				<StatisticsCard
-					loading={statisticLoading}
+					loading={statLoading}
 					title={'Shifts'}
-					value={statistics.shiftCount}
+					value={shiftCount}
 					icon={<AiOutlineSchedule size={25} color="#0077B6" />}
 				/>
 			</div>
 			<div className="mt-10 border p-8 rounded-md">
-				{loading ? (
+				{getSchedLoading ? (
 					<Loader />
 				) : (
 					<ScheduleCalendar
-						nurses={nurses}
-						keyword={keyword}
-						setKeyword={setKeyword}
 						getSchedules={getAllSchedules}
-						events={keyword !== '' ? filteredSchedules : schedules}
+						schedules={restructuredSchedules}
 						editable={false}
 					/>
 				)}

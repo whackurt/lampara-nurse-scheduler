@@ -21,7 +21,7 @@ const LamparaDropdown = ({
 			<Dropdown
 				className="rounded"
 				controlClassName={`flex items-center rounded-md ${width} h-8 border`}
-				menuClassName="text-sm"
+				menuClassName="text-sm rounded-b rounded-md"
 				placeholderClassName="text-sm"
 				arrowClassName="flex items-center"
 				options={options}

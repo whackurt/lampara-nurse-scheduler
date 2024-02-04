@@ -26,8 +26,20 @@ import notify from '../../components/Notification/notify';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNurseStore } from '../../stores/useNurseStore';
 
 const ManageNurses = () => {
+	const _nurses = useNurseStore((state) => state.allNurses);
+	const _getLoading = useNurseStore((state) => state.getLoading);
+	const _createLoading = useNurseStore((state) => state.createLoading);
+	const _updateLoading = useNurseStore((state) => state.updateLoading);
+	const _deleteLoading = useNurseStore((state) => state.deleteLoading);
+
+	const getAllNurses = useNurseStore((state) => state.getAllNurses);
+	const createNurse = useNurseStore((state) => state.createNurse);
+	const updateNurse = useNurseStore((state) => state.updateNurseById);
+	const deleteNurse = useNurseStore((state) => state.deleteNurseById);
+
 	const [showAddModal, setShowAddModal] = useState(false);
 	const [showUpdateModal, setShowUpdateModal] = useState(false);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -35,16 +47,10 @@ const ManageNurses = () => {
 	const [nurseToUpdate, setNurseToUpdate] = useState(null);
 	const [updates, setUpdates] = useState({});
 
-	const [nurses, setNurses] = useState([]);
 	const [filteredNurses, setFilteredNurses] = useState([]);
 	const [departmentList, setDepartmentList] = useState([]);
 
 	const [department, setDepartment] = useState('');
-
-	const [loading, setLoading] = useState(false);
-	const [addLoading, setAddLoading] = useState(false);
-	const [updateLoading, setUpdateLoading] = useState(false);
-	const [deleteLoading, setDeleteLoading] = useState(false);
 
 	const [idToUpdate, setIdToUpdate] = useState(null);
 	const [idToDelete, setIdToDelete] = useState(null);
@@ -65,6 +71,7 @@ const ManageNurses = () => {
 		setShowDeleteModal(!showDeleteModal);
 	};
 
+	// ADD NURSE
 	const addNurseValidationSchema = yup
 		.object({
 			first_name: yup.string().required('First Name is required'),
@@ -84,6 +91,7 @@ const ManageNurses = () => {
 	const {
 		register: addRegister,
 		handleSubmit: handleAddNurse,
+		reset: addReset,
 		formState: { errors: addErrors },
 	} = useForm({
 		resolver: yupResolver(addNurseValidationSchema),
@@ -98,14 +106,12 @@ const ManageNurses = () => {
 
 	const onAddNurse = async (data) => {
 		if (department !== '') {
-			setAddLoading(true);
-
 			data = {
 				...data,
 				department: department,
 			};
 
-			const res = await CreateNurse(data);
+			const res = await createNurse(data);
 
 			if (res.success) {
 				const createChatRes = await CreateChat(
@@ -120,21 +126,27 @@ const ManageNurses = () => {
 
 				if (createChatRes.status == 201) {
 					notify('Nurse added successfully.');
+					addReset();
 					getAllNurses();
 					toggleAddModal();
 				}
 			} else {
-				notify('Failed to add nurse.', true);
+				if (
+					String(res?.error.response.data.message).substring(0, 6) === 'E11000'
+				) {
+					notify('Email address is already taken', true);
+				} else {
+					notify('An error occurred.', true);
+				}
 			}
-
-			setAddLoading(false);
 		}
 	};
 
+	// UPDATE NURSE
 	const {
 		register: updateRegister,
 		handleSubmit: handleUpdateNurse,
-		reset,
+		reset: updateReset,
 		formState: { errors: updateErrors },
 	} = useForm({
 		defaultValues: {
@@ -146,39 +158,21 @@ const ManageNurses = () => {
 	});
 
 	const onUpdateNurse = async (data) => {
-		setUpdateLoading(true);
-
 		data = {
 			...data,
 			department: updates && updates.department,
 		};
 
-		const res = await UpdateNurseById(idToUpdate, data);
+		const res = await updateNurse(idToUpdate, data);
 
 		if (res.success) {
 			notify('Nurse updated successfully.');
 			getAllNurses();
 			toggleUpdateModal();
-			reset();
+			updateReset();
 		} else {
 			notify('Failed to update nurse.', true);
 		}
-
-		setUpdateLoading(false);
-	};
-
-	const getAllNurses = async () => {
-		setLoading(true);
-
-		const res = await GetAllNurses();
-		if (res.success) {
-			const fetchedNurses = res.data;
-			setNurses(fetchedNurses);
-		} else {
-			notify('Failed to fetch nurses.', true);
-		}
-
-		setLoading(false);
 	};
 
 	const getAllDepartments = async () => {
@@ -190,10 +184,9 @@ const ManageNurses = () => {
 		setDepartmentList(restructured);
 	};
 
-	const deleteNurse = async (id) => {
-		setDeleteLoading(true);
+	const _deleteNurse = async (id) => {
+		const res = await deleteNurse(id);
 
-		const res = await DeleteNurseById(id);
 		if (res.success) {
 			notify('Nurse deleted successfully.');
 			getAllNurses();
@@ -202,11 +195,10 @@ const ManageNurses = () => {
 		}
 
 		toggleDeleteModal();
-		setDeleteLoading(false);
 	};
 
 	const searchNurse = () => {
-		const filteredNurses = nurses.filter(
+		const filteredNurses = _nurses.filter(
 			(nurse) =>
 				nurse.first_name.toLowerCase().includes(keyword.toLowerCase()) ||
 				nurse.last_name.toLowerCase().includes(keyword.toLowerCase())
@@ -215,13 +207,16 @@ const ManageNurses = () => {
 	};
 
 	useEffect(() => {
-		var toUpdate = nurses.filter((nurse) => nurse._id === idToUpdate);
+		var toUpdate = _nurses.filter((nurse) => nurse._id === idToUpdate);
 		setNurseToUpdate(toUpdate);
 	}, [idToUpdate]);
 
 	useEffect(() => {
-		getAllNurses();
 		getAllDepartments();
+	}, []);
+
+	useEffect(() => {
+		getAllNurses();
 	}, []);
 
 	useEffect(() => {
@@ -232,8 +227,8 @@ const ManageNurses = () => {
 		<div className="p-4">
 			<HelmetProvider>
 				<Helmet>
-					<title>Manage Nurses - sked.io</title>
-					<meta property="og:title" content="Manage Nurses - sked.io" />
+					<title>Manage Nurses - skedle</title>
+					<meta property="og:title" content="Manage Nurses - skedle" />
 				</Helmet>
 			</HelmetProvider>
 
@@ -288,7 +283,7 @@ const ManageNurses = () => {
 						errorMsg={addErrors && addErrors.password?.message}
 					/>
 					<LamparaTextButtonWithIcon
-						loading={addLoading}
+						loading={_createLoading}
 						loadingText={'Adding nurse...'}
 						icon={<IoIosAddCircleOutline size={25} />}
 						bgColor="bg-green-600"
@@ -320,9 +315,6 @@ const ManageNurses = () => {
 						name={'first_name'}
 						register={updateRegister}
 						placeholder={nurseToUpdate && nurseToUpdate[0]?.first_name}
-						// onChange={(e) =>
-						// 	setUpdates({ ...updates, first_name: e.target.value })
-						// }
 					/>
 					<LamparaInputForm
 						label={'Last Name'}
@@ -330,9 +322,6 @@ const ManageNurses = () => {
 						name={'last_name'}
 						register={updateRegister}
 						placeholder={nurseToUpdate && nurseToUpdate[0]?.last_name}
-						// onChange={(e) =>
-						// 	setUpdates({ ...updates, last_name: e.target.value })
-						// }
 					/>
 					<LamparaInputForm
 						label={'Email'}
@@ -340,9 +329,6 @@ const ManageNurses = () => {
 						name={'email'}
 						register={updateRegister}
 						placeholder={nurseToUpdate && nurseToUpdate[0]?.email}
-						// onChange={(e) =>
-						// 	setUpdates({ ...updates, last_name: e.target.value })
-						// }
 					/>
 					<LamparaInputForm
 						label={'Username'}
@@ -350,12 +336,9 @@ const ManageNurses = () => {
 						name={'username'}
 						register={updateRegister}
 						placeholder={nurseToUpdate && nurseToUpdate[0]?.username}
-						// onChange={(e) =>
-						// 	setUpdates({ ...updates, username: e.target.value })
-						// }
 					/>
 					<LamparaTextButtonWithIcon
-						loading={updateLoading}
+						loading={_updateLoading}
 						loadingText={'Updating nurse...'}
 						icon={<IoSaveOutline size={20} />}
 						type={'submit'}
@@ -374,11 +357,11 @@ const ManageNurses = () => {
 				<div className="flex justify-end">
 					<LamparaButton
 						label={'Delete'}
-						loading={deleteLoading}
+						loading={_deleteLoading}
 						loadingText={'Deleting...'}
 						bgColor="bg-red-500"
 						width={'w-[100px]'}
-						onClick={() => deleteNurse(idToDelete)}
+						onClick={() => _deleteNurse(idToDelete)}
 					/>
 				</div>
 			</CustomModal>
@@ -400,7 +383,7 @@ const ManageNurses = () => {
 			</div>
 			<div className="overflow-x-auto">
 				<table className=" w-full my-4 text-sm border  rounded-md text-left rtl:text-right text-gray-600">
-					{loading ? (
+					{_getLoading ? (
 						<Loader />
 					) : (
 						<>
@@ -473,7 +456,7 @@ const ManageNurses = () => {
 												</td>
 											</tr>
 									  ))
-									: nurses?.map((nurse) => (
+									: _nurses?.map((nurse) => (
 											<tr key={nurse._id} className="border-b">
 												<td className={`px-6 py-3`}>
 													<div>
