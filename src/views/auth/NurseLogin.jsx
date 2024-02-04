@@ -51,7 +51,7 @@ const NurseLogin = (props) => {
 			</HelmetProvider>
 
 			<div className="flex justify-center pt-16 px-4">
-				<div className="flex flex-col items-center justify-center shadow-xl rounded-md py-16 bg-white w-full lg:w-1/3">
+				<div className="flex flex-col items-center justify-center shadow-xl rounded-md py-16 bg-white w-full max-w-[450px]">
 					<img src={Icon} width={80} alt="Lampara" />
 					<p className="text-primary uppercase text-sm font-bold">Nurse</p>
 					<div className="my-6 text-center text-secondary">
