@@ -11,11 +11,9 @@ import {
 } from '../../services/chat.services';
 import moment from 'moment';
 import { GetMessages, SendMessage } from '../../services/message.services';
-
 import SearchResult from '../../components/Chat/SearchResult';
 import CustomModal from '../../components/Modal/CustomModal';
 import LamparaButton from '../../components/Button/LamparaButton';
-import { ClipLoader } from 'react-spinners';
 import Loader from '../../components/Loader/Loader';
 
 const Messages = () => {
@@ -45,6 +43,18 @@ const Messages = () => {
 	};
 
 	const fetchChats = async () => {
+		setLoading(true);
+
+		const res = await GetChatsByUserId(userId, user);
+		if (res.status === 200) {
+			const chats = res.data.chats;
+			setChats(chats);
+		}
+
+		setLoading(false);
+	};
+
+	const refreshChats = async () => {
 		const res = await GetChatsByUserId(userId, user);
 		if (res.status === 200) {
 			const chats = res.data.chats;
@@ -115,7 +125,7 @@ const Messages = () => {
 	};
 
 	useEffect(() => {
-		fetchChats();
+		refreshChats();
 	}, [activeChatMate]);
 
 	useEffect(() => {
@@ -185,7 +195,10 @@ const Messages = () => {
 					</div>
 
 					{loading ? (
-						<Loader />
+						// <Loader />
+						<div className="flex justify-center pt-6">
+							<p className="text-xs">Loading chats...</p>
+						</div>
 					) : (
 						<div className="z-40  h-[495px] bg-gray-50 overflow-y-auto">
 							{chats.length == 0 ? (
@@ -226,6 +239,7 @@ const Messages = () => {
 					{messages && (
 						<ConversationContainer
 							fetchChats={fetchChats}
+							refreshChats={refreshChats}
 							selectedChat={selectedChat}
 							messages={messages}
 							setMessages={setMessages}

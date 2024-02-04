@@ -42,6 +42,19 @@ const Messages = () => {
 	};
 
 	const fetchChats = async () => {
+		setLoading(true);
+
+		const res = await GetChatsByUserId(userId, user);
+
+		if (res.status === 200) {
+			const chats = res.data.chats;
+			setChats(chats);
+		}
+
+		setLoading(false);
+	};
+
+	const refreshChats = async () => {
 		const res = await GetChatsByUserId(userId, user);
 
 		if (res.status === 200) {
@@ -226,6 +239,7 @@ const Messages = () => {
 					<div className="w-full h-full bg-gray-100">
 						{messages && (
 							<ConversationContainer
+								refreshChats={refreshChats}
 								fetchChats={fetchChats}
 								selectedChat={selectedChat}
 								messages={messages}

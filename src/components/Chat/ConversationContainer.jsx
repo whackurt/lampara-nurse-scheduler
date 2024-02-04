@@ -15,6 +15,7 @@ const ConversationContainer = ({
 	user,
 	messages,
 	setMessages,
+	refreshChats,
 }) => {
 	const [newMessage, setNewMessage] = useState('');
 	const socket = useRef();
@@ -41,7 +42,7 @@ const ConversationContainer = ({
 			setNewMessage('');
 			setMessages((prev) => [...prev, newMessage]);
 
-			fetchChats();
+			refreshChats();
 
 			// socket.current.emit('sendMessage', newMessage);
 		}

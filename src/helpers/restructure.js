@@ -38,6 +38,7 @@ export const restructureNurseSchedule = (data) => {
 			).format('hh:mmA')}`,
 			date: `${moment(sc.date).format('yyyy-MM-DD')}`,
 			dept: data?.department.name,
+			backgroundColor: sc.nurse_id?.department.color,
 		};
 	});
 
