@@ -3,7 +3,7 @@ import {
 	GetNurseCount,
 	GetSchedulesCount,
 	GetShiftCount,
-} from '../services/statistics';
+} from '../services/statistics.services';
 
 export const useStatisticStore = create((set) => ({
 	nurseCount: 0,

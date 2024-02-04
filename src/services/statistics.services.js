@@ -1,9 +1,5 @@
 import { api } from './axios';
 
-const adminHeaders = {
-	Authorization: localStorage.getItem('adminToken'),
-};
-
 export const GetNurseCount = async () => {
 	try {
 		const res = await api.get(`/statistics/nurse`, {
@@ -13,7 +9,7 @@ export const GetNurseCount = async () => {
 		});
 		return res.data;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
