@@ -20,7 +20,7 @@ export const GetMessages = async (chatId, userId, user) => {
 
 		return res;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -43,6 +43,6 @@ export const SendMessage = async (messageData, user) => {
 
 		return res;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };

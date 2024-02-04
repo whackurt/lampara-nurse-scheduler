@@ -9,7 +9,7 @@ export const CreateShift = async (shiftData) => {
 		});
 		return res.data;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -22,7 +22,7 @@ export const GetAllShifts = async () => {
 		});
 		return res.data;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -35,7 +35,7 @@ export const GetShiftById = async (shiftId) => {
 		});
 		return res.data;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -48,11 +48,11 @@ export const UpdateShiftById = async (shiftId, updates) => {
 		});
 		return res.data;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
-export const DeleteShiftById = async () => {
+export const DeleteShiftById = async (shiftId) => {
 	try {
 		const res = await api.delete(`/shift/${shiftId}`, {
 			headers: {
@@ -61,6 +61,6 @@ export const DeleteShiftById = async () => {
 		});
 		return res.data;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };

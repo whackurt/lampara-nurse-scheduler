@@ -9,7 +9,7 @@ export const CreateNurse = async (nurseData) => {
 		});
 		return res.data;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -22,7 +22,7 @@ export const GetAllNurses = async () => {
 		});
 		return res.data;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -35,7 +35,7 @@ export const GetNurseById = async (nurseId) => {
 		});
 		return res.data;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -48,7 +48,7 @@ export const UpdateNurseById = async (nurseId, updates) => {
 		});
 		return res.data;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -61,6 +61,6 @@ export const DeleteNurseById = async (nurseId) => {
 		});
 		return res.data;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };

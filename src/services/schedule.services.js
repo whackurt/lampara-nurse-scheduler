@@ -9,7 +9,7 @@ export const CreateSchedule = async (scheduleData) => {
 		});
 		return res.data;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -26,7 +26,7 @@ export const CheckIfScheduled = async (nurseId, date) => {
 
 		return res.data;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -39,7 +39,7 @@ export const GetAllSchedules = async () => {
 		});
 		return res.data;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -52,7 +52,7 @@ export const GetScheduleById = async (scheduleId) => {
 		});
 		return res.data;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -65,7 +65,7 @@ export const GetScheduleByNurseId = async (nurseId) => {
 		});
 		return res.data;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -78,7 +78,7 @@ export const UpdateScheduleById = async (scheduleId, updates) => {
 		});
 		return res.data;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -91,6 +91,6 @@ export const DeleteScheduleById = async (scheduleId) => {
 		});
 		return res.data;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };

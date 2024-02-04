@@ -15,7 +15,7 @@ export const CreateChat = async (chatData, user) => {
 
 		return res;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -34,7 +34,7 @@ export const GetChatsByUserId = async (userId, user) => {
 
 		return res;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -53,7 +53,7 @@ export const GetChatById = async (chatId, user) => {
 
 		return res;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -75,7 +75,7 @@ export const SearchUsers = async (keyword, searchingUserId, user) => {
 
 		return res;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -97,6 +97,6 @@ export const DeleteChat = async (chatId, userId, user) => {
 
 		return res;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };

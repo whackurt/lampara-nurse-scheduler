@@ -5,7 +5,7 @@ export const LoginAdmin = async (creds) => {
 		const res = await api.post('/auth/admin/login', creds);
 		return res;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -14,7 +14,7 @@ export const LoginNurse = async (creds) => {
 		const res = await api.post('/auth/nurse/login', creds);
 		return res;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -27,7 +27,7 @@ export const UpdateAdminPassword = async (creds) => {
 		});
 		return res;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
 
@@ -40,6 +40,6 @@ export const UpdateNursePassword = async (creds) => {
 		});
 		return res;
 	} catch (error) {
-		return { error: error.message };
+		return { error };
 	}
 };
