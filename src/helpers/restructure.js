@@ -27,7 +27,7 @@ export const restructureSchedules = (data) => {
 };
 
 export const restructureNurseSchedule = (data) => {
-	const restructured = data?.schedule.map((sc) => {
+	const restructured = data.schedule?.map((sc) => {
 		return {
 			title: `${moment(
 				sc.shift_id?.start_time,

@@ -1,6 +1,6 @@
 import React from 'react';
 import Loader from '../Loader/Loader';
-import { ClipLoader } from 'react-spinners';
+import { BounceLoader } from 'react-spinners';
 
 const StatisticsCard = ({ title, value, icon, loading }) => {
 	return (
@@ -12,7 +12,9 @@ const StatisticsCard = ({ title, value, icon, loading }) => {
 			<hr />
 			<div className="flex justify-end pt-3">
 				{loading ? (
-					<ClipLoader color="#0077B6" />
+					<div className="flex items-center">
+						<BounceLoader size={20} color="#0077B6" />
+					</div>
 				) : (
 					<p className="font-bold text-3xl text-secondary">{value}</p>
 				)}
