@@ -4,12 +4,14 @@ import {
 	DeleteScheduleById,
 	GetAllSchedules,
 	GetScheduleById,
+	GetScheduleByNurseId,
 	UpdateScheduleById,
 } from '../services/schedule.services';
 
 export const useScheduleStore = create((set) => ({
 	allSchedules: [],
 	scheduleData: {},
+	scheduleByNurse: [],
 
 	getLoading: false,
 	createLoading: false,
@@ -26,6 +28,12 @@ export const useScheduleStore = create((set) => ({
 		set({ getLoading: true });
 		const sched = await GetScheduleById(id);
 		set({ scheduleData: sched, getLoading: false });
+	},
+
+	getScheduleByNurse: async (id) => {
+		set({ getLoading: true });
+		const scheds = await GetScheduleByNurseId(id);
+		set({ scheduleByNurse: scheds.data, getLoading: false });
 	},
 
 	createSchedule: async (data) => {
