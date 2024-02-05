@@ -25,7 +25,7 @@ export const useShiftStore = create((set) => ({
 	getShiftById: async (id) => {
 		set({ getLoading: true });
 		const shift = await GetShiftById(id);
-		set({ shiftData: shift, getLoading: false });
+		set({ shiftData: shift.data, getLoading: false });
 	},
 
 	createShift: async (data) => {
