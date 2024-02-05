@@ -102,6 +102,7 @@ const ScheduleCard = ({
 						loading={editLoading}
 						loadingText={'Saving...'}
 						onClick={() => editScheduleShift()}
+						bgColor="bg-yellow-600"
 						width={'w-120px'}
 						label={'Save'}
 					/>
@@ -135,7 +136,7 @@ const ScheduleCard = ({
 								setIdToUpdate(id);
 								toggleEditModal();
 							}}
-							color={'bg-blue-500'}
+							color={'bg-yellow-600'}
 							icon={<AiOutlineEdit size={20} color="#FFFFFF" />}
 						/>
 						<LamparaIconButton

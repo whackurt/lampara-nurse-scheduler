@@ -1,22 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { AiOutlineEdit } from 'react-icons/ai';
-import { IoMdSearch } from 'react-icons/io';
+import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import LamparaButton from '../../components/Button/LamparaButton';
 import CustomModal from '../../components/Modal/CustomModal';
 import LamparaInputForm from '../../components/Forms/LamparaInputForm';
 import LamparaDropdown from '../../components/Button/LamparaDropdown';
-import {
-	CreateNurse,
-	DeleteNurseById,
-	GetAllNurses,
-	UpdateNurseById,
-} from '../../services/nurse.services';
 import { GetAllDepartments } from '../../services/department.services';
 import { Toaster } from 'react-hot-toast';
 import { CreateChat } from '../../services/chat.services';
 import Loader from '../../components/Loader/Loader';
-import { AiOutlineDelete } from 'react-icons/ai';
 import { restructureDepartments } from '../../helpers/restructure';
 import LamparaTextButtonWithIcon from '../../components/Button/LamparaButtonWithIcon';
 import { IoIosAddCircleOutline } from 'react-icons/io';
@@ -371,10 +363,10 @@ const ManageNurses = () => {
 					/>
 				</div>
 			</CustomModal>
-			<div className="flex justify-between">
+			<div className="flex justify-between items-center">
 				<div className="flex justify-end gap-x-2 items-center">
 					<input
-						className="px-2 relative h-8 rounded-lg w-64 border-2 text-sm"
+						className="px-2 relative mt-4 h-8 rounded-lg w-64 border-2 text-sm"
 						type="text"
 						onChange={(e) => setKeyword(e.target.value)}
 						placeholder="Search nurse"
@@ -445,7 +437,7 @@ const ManageNurses = () => {
 																setIdToUpdate(nurse._id);
 																toggleUpdateModal();
 															}}
-															color={'bg-blue-500'}
+															color={'bg-yellow-600'}
 															icon={<AiOutlineEdit size={20} color="#FFFFFF" />}
 														/>
 														<LamparaIconButton
@@ -488,7 +480,7 @@ const ManageNurses = () => {
 																setIdToUpdate(nurse._id);
 																toggleUpdateModal();
 															}}
-															color={'bg-blue-500'}
+															color={'bg-yellow-600'}
 															icon={<AiOutlineEdit size={20} color="#FFFFFF" />}
 														/>
 														<LamparaIconButton

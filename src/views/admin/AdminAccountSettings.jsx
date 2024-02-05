@@ -59,9 +59,11 @@ const AdminAccountSettings = () => {
 					<meta property="og:title" content="My Account - skedle" />
 				</Helmet>
 			</HelmetProvider>
-			<div className="flex gap-x-4 gap-y-4 px-4">
+			<div className="flex justify-center px-4 py-24">
 				<div className="flex flex-col lg:w-1/2 border border-grey-600 p-6 rounded-md">
-					<p className="font-semibold text-xl mb-6">Account Information</p>
+					<p className="font-semibold text-xl mb-6 text-center">
+						Account Information
+					</p>
 					<LamparaDisplayText
 						label={'Username'}
 						value={localStorage.getItem('adminUsername')}

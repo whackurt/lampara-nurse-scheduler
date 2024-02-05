@@ -5,14 +5,11 @@ import CustomModal from '../../components/Modal/CustomModal';
 import LamparaDropdown from '../../components/Button/LamparaDropdown';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { GetAllNurses } from '../../services/nurse.services';
-import { GetAllShifts } from '../../services/shift.services';
 import notify from '../../components/Notification/notify';
 import { Toaster } from 'react-hot-toast';
 import Loader from '../../components/Loader/Loader';
 import {
 	CreateSchedule,
-	GetAllSchedules,
 	CheckIfScheduled,
 } from '../../services/schedule.services';
 import {
@@ -24,7 +21,6 @@ import LamparaTextButtonWithIcon from '../../components/Button/LamparaButtonWith
 import { MdEditCalendar } from 'react-icons/md';
 import { VscFilePdf } from 'react-icons/vsc';
 import ComingSoon from '../../components/Card/ComingSoon';
-import { filterSchedules } from '../../helpers/filter';
 import { useScheduleStore } from '../../stores/useScheduleStore';
 import { useShiftStore } from '../../stores/useShiftStore';
 import { useNurseStore } from '../../stores/useNurseStore';
@@ -159,6 +155,7 @@ const ManageSchedule = () => {
 		getAllShifts();
 		getAllSchedules();
 		getAllNurses();
+		console.log(shifts);
 	}, []);
 
 	useEffect(() => {

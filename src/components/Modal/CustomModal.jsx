@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const CustomModal = ({ children, showModal, toggleModal, title }) => {
 	return (
 		showModal && (
-			<div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50">
+			<div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-50 ">
 				<div className="absolute bg-white w-full max-w-[450px] p-8 rounded shadow-lg">
 					<span
 						onClick={toggleModal}
