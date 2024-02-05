@@ -10,6 +10,8 @@ import {
 export const useNurseStore = create((set) => ({
 	allNurses: [], // all nurses
 	nurseData: {}, // single nurse details
+	nurseToUpdate: [],
+	nurseUpdateData: {},
 
 	getLoading: false,
 	createLoading: false,
@@ -20,6 +22,19 @@ export const useNurseStore = create((set) => ({
 	createError: null,
 	updateError: null,
 	deleteError: null,
+
+	setNurseToUpdate: (nurse) => {
+		set({ nurseToUpdate: nurse });
+	},
+
+	setNurseUpdates: (field, data) => {
+		set({
+			nurseUpdateData: {
+				...nurseUpdateData,
+				data,
+			},
+		});
+	},
 
 	getAllNurses: async () => {
 		set({ getLoading: true });

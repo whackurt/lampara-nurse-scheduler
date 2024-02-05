@@ -34,11 +34,15 @@ const ManageNurses = () => {
 	const _createLoading = useNurseStore((state) => state.createLoading);
 	const _updateLoading = useNurseStore((state) => state.updateLoading);
 	const _deleteLoading = useNurseStore((state) => state.deleteLoading);
+	// const nurseToUpdate = useNurseStore((state) => state.nurseToUpdate);
+	// const nurseUpdateData = useNurseStore((state) => state.nurseUpdateData);
 
 	const getAllNurses = useNurseStore((state) => state.getAllNurses);
 	const createNurse = useNurseStore((state) => state.createNurse);
 	const updateNurse = useNurseStore((state) => state.updateNurseById);
 	const deleteNurse = useNurseStore((state) => state.deleteNurseById);
+	// const setNurseToUpdate = useNurseStore((state) => state.setNurseToUpdate);
+	// const setNurseUpdates = useNurseStore((state) => state.setNurseToUpdate);
 
 	const [showAddModal, setShowAddModal] = useState(false);
 	const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -57,7 +61,7 @@ const ManageNurses = () => {
 
 	const [keyword, setKeyword] = useState('');
 
-	const userId = localStorage.getItem('userId');
+	const userId = localStorage.getItem('adminUserId');
 
 	const toggleAddModal = () => {
 		setShowAddModal(!showAddModal);
@@ -300,11 +304,13 @@ const ManageNurses = () => {
 				showModal={showUpdateModal}
 			>
 				<form action="" onSubmit={handleUpdateNurse(onUpdateNurse)}>
+					{JSON.stringify(updates)}
 					<LamparaDropdown
 						required={false}
 						label={'Department'}
-						placeholder={'Select department'}
+						placeholder={nurseToUpdate && nurseToUpdate[0]?.department.name}
 						options={departmentList}
+						// value={nurseToUpdate && nurseToUpdate[0]?.department.name}
 						onChange={(option) =>
 							setUpdates({ ...updates, department: option.value })
 						}
@@ -382,7 +388,7 @@ const ManageNurses = () => {
 				/>
 			</div>
 			<div className="overflow-x-auto">
-				<table className=" w-full my-4 text-sm border  rounded-md text-left rtl:text-right text-gray-600">
+				<table className="w-full my-4 text-sm border text-left rtl:text-right text-gray-600">
 					{_getLoading ? (
 						<Loader />
 					) : (
