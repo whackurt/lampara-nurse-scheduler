@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { HelmetProvider } from 'react-helmet-async';
-import { Helmet } from 'react-helmet';
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 import LamparaTextButtonWithIcon from '../../components/Button/LamparaButtonWithIcon';
 import LamparaIconButton from '../../components/Button/LamparaIconButton';
 import { AiOutlineEdit, AiOutlineDelete } from 'react-icons/ai';
@@ -18,6 +17,7 @@ import { useShiftStore } from '../../stores/useShiftStore';
 
 import Loader from '../../components/Loader/Loader';
 import notify from '../../components/Notification/notify';
+import { Toaster } from 'react-hot-toast';
 
 const ManageShifts = () => {
 	const getAllShifts = useShiftStore((state) => state.getAllShifts);
@@ -147,9 +147,10 @@ const ManageShifts = () => {
 			<HelmetProvider>
 				<Helmet>
 					<title>Manage Shifts - skedle</title>
-					<meta property="og:title" content="Manage Nurses - skedle" />
+					<meta property="og:title" content="Manage Shifts - skedle" />
 				</Helmet>
 			</HelmetProvider>
+			<Toaster position="bottom-right" reverseOrder={true} />
 			<CustomModal
 				title={'Create Shift'}
 				toggleModal={toggleCreateModal}
@@ -344,7 +345,7 @@ const ManageShifts = () => {
 					</thead>
 					<tbody>
 						{shifts?.map((shift) => (
-							<tr className="border-b">
+							<tr key={shift._id} className="border-b">
 								<td
 									className={`px-6 py-3 font-bold ${
 										shift.shift_name === 'Day'
@@ -398,7 +399,7 @@ const ManageShifts = () => {
 						))}
 					</tbody>
 				</table>
-				{shifts.length === 0 && (
+				{shifts.length === 0 && !getLoading && (
 					<div className="flex justify-center">
 						<p className="text-sm">No shifts found. Please create.</p>
 					</div>

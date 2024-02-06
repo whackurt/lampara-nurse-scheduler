@@ -155,7 +155,6 @@ const ManageSchedule = () => {
 		getAllShifts();
 		getAllSchedules();
 		getAllNurses();
-		console.log(shifts);
 	}, []);
 
 	useEffect(() => {

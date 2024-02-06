@@ -296,11 +296,10 @@ const ManageNurses = () => {
 				showModal={showUpdateModal}
 			>
 				<form action="" onSubmit={handleUpdateNurse(onUpdateNurse)}>
-					{JSON.stringify(updates)}
 					<LamparaDropdown
 						required={false}
 						label={'Department'}
-						placeholder={nurseToUpdate && nurseToUpdate[0]?.department.name}
+						placeholder={nurseToUpdate && nurseToUpdate[0]?.department?.name}
 						options={departmentList}
 						// value={nurseToUpdate && nurseToUpdate[0]?.department.name}
 						onChange={(option) =>
@@ -380,10 +379,10 @@ const ManageNurses = () => {
 				/>
 			</div>
 			<div className="overflow-x-auto">
-				<table className="w-full my-4 text-sm border text-left rtl:text-right text-gray-600">
-					{_getLoading ? (
-						<Loader />
-					) : (
+				{_getLoading ? (
+					<Loader />
+				) : (
+					<table className="w-full my-4 text-sm border text-left rtl:text-right text-gray-600">
 						<>
 							<thead className="text-xs bg-primary text-white uppercase ">
 								<tr>
@@ -419,9 +418,15 @@ const ManageNurses = () => {
 															style={{
 																backgroundColor: `${nurse.department?.color}`,
 															}}
-															className="flex w-28 text-white justify-center px-2 rounded-sm"
+															className="flex w-28 text-white justify-center px-2 rounded-full"
 														>
-															{nurse.department?.name}
+															{nurse.department?.name ? (
+																<p>{nurse.department?.name}</p>
+															) : (
+																<p className="text-red-600 font-semibold">
+																	Unassigned
+																</p>
+															)}
 														</div>
 													</div>
 												</td>
@@ -462,9 +467,13 @@ const ManageNurses = () => {
 															style={{
 																backgroundColor: `${nurse.department?.color}`,
 															}}
-															className="flex w-28 text-white justify-center px-2 rounded-sm"
+															className="flex w-28 text-white justify-center px-2 rounded-full"
 														>
-															{nurse.department?.name}
+															{nurse.department?.name ? (
+																<p>{nurse.department?.name}</p>
+															) : (
+																<p className="text-red-600">Unassigned</p>
+															)}
 														</div>
 													</div>
 												</td>
@@ -499,8 +508,8 @@ const ManageNurses = () => {
 									  ))}
 							</tbody>
 						</>
-					)}
-				</table>
+					</table>
+				)}
 			</div>
 		</div>
 	);

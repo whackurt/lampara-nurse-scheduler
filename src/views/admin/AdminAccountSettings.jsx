@@ -8,6 +8,7 @@ import LamparaTextButtonWithIcon from '../../components/Button/LamparaButtonWith
 import { AiOutlineEdit } from 'react-icons/ai';
 import { MdOutlineCancel } from 'react-icons/md';
 import { AiOutlineSave } from 'react-icons/ai';
+import { Toaster } from 'react-hot-toast';
 
 const AdminAccountSettings = () => {
 	const [password, setPassword] = useState('');
@@ -59,6 +60,7 @@ const AdminAccountSettings = () => {
 					<meta property="og:title" content="My Account - skedle" />
 				</Helmet>
 			</HelmetProvider>
+			<Toaster position="bottom-right" reverseOrder={true} />
 			<div className="flex justify-center px-4 py-24">
 				<div className="flex flex-col lg:w-1/2 border border-grey-600 p-6 rounded-md">
 					<p className="font-semibold text-xl mb-6 text-center">
@@ -94,14 +96,6 @@ const AdminAccountSettings = () => {
 					) : (
 						''
 					)}
-
-					{success ? (
-						<div className="flex justify-center">
-							<p className="text-green-600 text-xs">
-								Password updated successfully.
-							</p>
-						</div>
-					) : null}
 
 					{editMode ? (
 						<div className="flex gap-x-2 justify-center">
