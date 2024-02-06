@@ -81,7 +81,11 @@ const ManageShifts = () => {
 
 	// CRUD methods
 	const createNewShift = async () => {
-		if (Object.keys(newShift).length >= 3) {
+		if (
+			newShift.shift_name != '' &&
+			newShift.start_time !== null &&
+			newShift.end_time !== null
+		) {
 			const res = await createShift(newShift);
 
 			if (res.success) {
