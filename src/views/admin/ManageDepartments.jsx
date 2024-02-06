@@ -284,7 +284,7 @@ const ManageDepartments = () => {
 					<LamparaButton
 						label={'Delete'}
 						loading={deleteLoading}
-						loadingText={'Deleting department...'}
+						loadingText={'Deleting...'}
 						bgColor="bg-red-500"
 						width={'w-24'}
 						onClick={confirmDelete}
