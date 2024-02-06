@@ -54,7 +54,7 @@ export const UpdateDepartmentById = async (deptId, updates) => {
 
 export const DeleteDepartmentById = async (deptId) => {
 	try {
-		const res = await api.delete(`/department/${scheduleId}`, {
+		const res = await api.delete(`/department/${deptId}`, {
 			headers: {
 				Authorization: localStorage.getItem('adminToken'),
 			},

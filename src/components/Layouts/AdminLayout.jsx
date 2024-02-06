@@ -14,6 +14,7 @@ import CustomModal from '../Modal/CustomModal';
 import LamparaButton from '../Button/LamparaButton';
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import { LuCalendarClock } from 'react-icons/lu';
+import { GoOrganization } from 'react-icons/go';
 
 const AdminLayout = ({ children, location, icon }) => {
 	const [open, setOpen] = useState(true);
@@ -32,20 +33,26 @@ const AdminLayout = ({ children, location, icon }) => {
 			icon: <BiMessageSquareDetail size={25} color="#0077B6" />,
 			route: '/admin/messages',
 		},
-		{
-			title: 'Manage Nurses',
-			icon: <TbNurse size={25} color="#0077B6" />,
-			route: '/admin/manage-nurses',
-		},
+
 		{
 			title: 'Manage Schedules',
 			icon: <HiOutlineCalendarDays size={25} color="#0077B6" />,
 			route: '/admin/manage-schedules',
 		},
 		{
+			title: 'Manage Nurses',
+			icon: <TbNurse size={25} color="#0077B6" />,
+			route: '/admin/manage-nurses',
+		},
+		{
 			title: 'Manage Shifts',
 			icon: <LuCalendarClock size={25} color="#0077B6" />,
 			route: '/admin/manage-shifts',
+		},
+		{
+			title: 'Manage Departments',
+			icon: <GoOrganization size={25} color="#0077B6" />,
+			route: '/admin/manage-departments',
 		},
 	];
 

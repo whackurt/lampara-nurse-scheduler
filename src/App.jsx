@@ -24,8 +24,10 @@ import { BiMessageSquareDetail } from 'react-icons/bi';
 import { TbNurse } from 'react-icons/tb';
 import { HiOutlineCalendarDays } from 'react-icons/hi2';
 import { TbSettings } from 'react-icons/tb';
+import { GoOrganization } from 'react-icons/go';
 import ManageShifts from './views/admin/ManageShifts';
 import LandingPage from './views/LandingPage';
+import ManageDepartments from './views/admin/ManageDepartments';
 
 const App = () => {
 	return (
@@ -121,6 +123,20 @@ const App = () => {
 								location={'Manage Shifts'}
 							>
 								<ManageShifts />
+							</AdminLayout>
+						</AdminPrivateRoute>
+					}
+				/>
+				<Route
+					exact
+					path="/admin/manage-departments"
+					element={
+						<AdminPrivateRoute user={'admin'} redirect={'/admin/login'}>
+							<AdminLayout
+								icon={<GoOrganization size={25} />}
+								location={'Manage Departments'}
+							>
+								<ManageDepartments />
 							</AdminLayout>
 						</AdminPrivateRoute>
 					}
