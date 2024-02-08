@@ -90,7 +90,7 @@ const AdminLayout = ({ children, location, icon }) => {
 			<div
 				className={` ${
 					open ? 'w-56' : 'w-20 '
-				} bg-white h-screen p-5 shadow-md pt-8 fixed top-0 left duration-300 `}
+				} bg-slate-900 h-screen p-5 shadow-md pt-8 fixed top-0 left duration-300 `}
 			>
 				<img
 					src={Control}
@@ -133,9 +133,9 @@ const AdminLayout = ({ children, location, icon }) => {
 									key={index}
 									className={`flex ${
 										location === Menu.title
-											? 'text-primary bg-slate-100'
-											: 'text-slate-700'
-									} rounded-md p-2 cursor-pointer hover:bg-slate-100 text-primary text-sm items-center gap-x-4 
+											? 'text-primary bg-slate-800'
+											: 'text-slate-300'
+									} rounded-md p-2 cursor-pointer hover:bg-slate-700 text-primary text-sm items-center gap-x-4 
               ${Menu.gap ? 'mt-9' : 'mt-2'} ${
 										index === 0 && 'bg-light-white'
 									} `}
@@ -158,9 +158,9 @@ const AdminLayout = ({ children, location, icon }) => {
 							to={'/admin/my-account'}
 							className={`${
 								location === 'Account Settings'
-									? 'text-primary bg-slate-100'
-									: 'text-slate-700'
-							} flex items-center hover:bg-slate-100 h-12 rounded-md gap-x-4 px-2`}
+									? 'text-primary bg-slate-800'
+									: 'text-slate-300'
+							} flex items-center hover:bg-slate-700 h-12 rounded-md gap-x-4 px-2`}
 						>
 							<TbSettings size={25} color="#0077B6" />
 							<p
@@ -174,7 +174,7 @@ const AdminLayout = ({ children, location, icon }) => {
 
 						<div
 							onClick={() => toggleLogoutModal()}
-							className="flex items-center hover:bg-slate-100 h-12 rounded-md cursor-pointer gap-x-4 px-2"
+							className="flex items-center hover:bg-slate-800 h-12 rounded-md cursor-pointer gap-x-4 px-2"
 						>
 							<TbLogout2 size={25} color="#b50d1e" />
 							<a
